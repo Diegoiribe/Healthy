@@ -1,27 +1,46 @@
 import { InputText, InputSelect, InputBottom } from './TypeInputs';
+import { useState } from 'react';
 
 export const GeneratePlan = () => {
+  const [formData, setFormData] = useState({
+    gender: '',
+    age: '',
+    weight: '',
+    height: '',
+    objective: '',
+    diet: ''
+  });
+
+  const handleChange = (name: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = () => {
+    console.log('Form data:', formData);
+    // Aquí puedes hacer un fetch o pasar el formData al siguiente paso
+  };
+
   return (
     <div className="max-w-4xl">
       <div className="flex w-full gap-3">
-        {/* sex */}
+        {/* gender */}
         <InputSelect
-          label="Sex"
-          name="Sex"
-          value=""
+          label="Gender"
+          name="gender"
+          value={formData.gender}
           className="w-1/2 mb-5"
-          onChange={() => {}}
+          onChange={(e) => handleChange('gender', e.target.value)}
           options={[
-            { label: 'Vegetarian', value: 'vegetarian' },
-            { label: 'Keto', value: 'keto' },
-            { label: 'Mediterranean', value: 'mediterranean' }
+            { label: 'Male', value: 'male' },
+            { label: 'Female', value: 'female' }
           ]}
         />
         {/* age */}
         <InputText
           label="Age"
-          value=""
-          onChange={() => {}}
+          type="number"
+          value={formData.age}
+          onChange={(e) => handleChange('age', e.target.value)}
           placeholder="20"
           name="Age"
           required={true}
@@ -30,8 +49,9 @@ export const GeneratePlan = () => {
         {/* weight */}
         <InputText
           label="Weight"
-          value=""
-          onChange={() => {}}
+          type="number"
+          value={formData.weight}
+          onChange={(e) => handleChange('weight', e.target.value)}
           placeholder="70 kg"
           name="Weight"
           required={true}
@@ -39,8 +59,9 @@ export const GeneratePlan = () => {
         {/* height */}
         <InputText
           label="Height"
-          value=""
-          onChange={() => {}}
+          type="number"
+          value={formData.height}
+          onChange={(e) => handleChange('height', e.target.value)}
           placeholder="180 cm"
           name="Height"
           required={true}
@@ -49,23 +70,23 @@ export const GeneratePlan = () => {
       <div className="flex w-full gap-3">
         <InputSelect
           label="Objective"
-          name="diet"
-          value=""
+          name="objective"
+          value={formData.objective}
           className="w-1/2 mb-5"
-          onChange={() => {}}
+          onChange={(e) => handleChange('objective', e.target.value)}
           options={[
-            { label: 'Vegetarian', value: 'vegetarian' },
-            { label: 'Keto', value: 'keto' },
-            { label: 'Mediterranean', value: 'mediterranean' }
+            { label: 'Lose weight', value: 'lose' },
+            { label: 'Maintain weight', value: 'maintain' },
+            { label: 'Gain weight', value: 'gain' }
           ]}
         />
 
         <InputSelect
-          label="Objective"
+          label="Type of Diet"
           name="diet"
-          value=""
+          value={formData.diet}
           className="w-1/2 mb-5"
-          onChange={() => {}}
+          onChange={(e) => handleChange('diet', e.target.value)}
           options={[
             { label: 'Vegetarian', value: 'vegetarian' },
             { label: 'Keto', value: 'keto' },
@@ -76,7 +97,8 @@ export const GeneratePlan = () => {
       <div className="flex items-end justify-end w-full">
         <InputBottom
           name="Generate Plan"
-          className="px-8 py-3 text-orange-400 bg-orange-100 "
+          className="px-5 py-2 mb-8 text-lg text-black bg-orange-200 border"
+          onClick={handleSubmit}
         />
       </div>
     </div>

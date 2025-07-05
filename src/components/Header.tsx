@@ -16,7 +16,7 @@ export const Header = (props: { isAdmin: boolean }) => {
   return (
     <div
       className={`fixed z-10 w-full flex items-center justify-between py-3 px-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/80 backdrop-blur-sm shadow-sm' : 'bg-transparent'
+        scrolled ? 'bg-white shadow ' : 'bg-transparent'
       }`}
     >
       <div className="flex items-center justify-center">
@@ -37,7 +37,11 @@ export const Header = (props: { isAdmin: boolean }) => {
       </div>
 
       <div className="flex items-center gap-5">
-        <InputBottom name="Sign in" className="px-4 py-2 text-sm border" />
+        <InputBottom
+          name="Sign in"
+          className="px-4 py-2 text-sm border"
+          to="/login"
+        />
         <InputBottom
           name="Get Plan4Me"
           className="px-4 py-2 text-sm text-orange-300 bg-black border"

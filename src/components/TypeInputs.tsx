@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface InputTextProps {
   label?: string;
@@ -31,21 +32,41 @@ export const InputText: React.FC<InputTextProps> = ({
         placeholder={placeholder}
         name={name}
         required={required}
-        className={`border-2 w-full  p-4 rounded-2xl border-neutral-100  focus:outline-2 outline-blue-500/50 `}
+        className={`border-2 w-full  p-4 rounded-2xl border-neutral-100  focus:outline-2 outline-orange-500/50 `}
       />
     </div>
   );
 };
 
-export const InputBottom = (props: { name: string; className: string }) => {
-  const { name, className } = props;
+interface InputBottomProps {
+  name: string;
+  className: string;
+  onClick?: () => void;
+  to?: string;
+  type?: 'button' | 'submit';
+}
+
+export const InputBottom = ({
+  name,
+  className,
+  onClick,
+  to,
+  type = 'button'
+}: InputBottomProps) => {
+  const baseClasses = `font-semibold text-center rounded-full cursor-pointer ${className}`;
+
+  if (to) {
+    return (
+      <Link to={to} className={baseClasses} onClick={onClick}>
+        {name}
+      </Link>
+    );
+  }
 
   return (
-    <div
-      className={`  font-semibold text-center  rounded-full cursor-pointer ${className}`}
-    >
+    <button type={type} className={baseClasses} onClick={onClick}>
       {name}
-    </div>
+    </button>
   );
 };
 
@@ -76,7 +97,7 @@ export const InputSelect: React.FC<InputSelectProps> = ({
         onChange={onChange}
         name={name}
         required={required}
-        className="w-full p-4 text-black bg-white border-2 appearance-none rounded-2xl border-neutral-100 focus:outline-2 outline-blue-500/50"
+        className="w-full p-4 text-black bg-white border-2 appearance-none rounded-2xl border-neutral-100 focus:outline-2 outline-orange-500/50"
       >
         <option value="" disabled className="">
           Select an option

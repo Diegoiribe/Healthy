@@ -10,7 +10,7 @@ export const ConfigUser = (props: {
 
   return (
     <div className="w-full h-screen ">
-      <div className="flex items-center justify-between max-w-3xl mx-auto ">
+      <div className="flex items-center justify-between max-w-3xl mx-auto min-w-3xl ">
         <div className="flex items-center justify-between gap-10 py-5 ">
           <p
             className={` text-lg cursor-pointer  ${

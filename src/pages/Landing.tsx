@@ -55,7 +55,40 @@ export const Landing = () => {
         </div>
 
         {/* Section two */}
-        <div className="flex flex-col justify-center h-screen gap-5 "></div>
+        <div className="flex flex-col justify-center h-screen max-w-3xl gap-5 mx-auto min-w-3xl">
+          <p className="mt-12 mb-12 font-black text-center text-7xl">
+            97% of visitors aren't{' '}
+            <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[0.4em] before:bg-orange-200 before:-z-10">
+              ready to buy
+            </span>
+          </p>
+          <p className="mb-12 text-3xl text-center px-15 text-neutral-600">
+            All the time and money spent on ads, SEO, and content marketing goes
+            to waste. Potential customers leave and never come back.
+          </p>
+          <div className="flex justify-between gap-10">
+            <div>
+              <p className="pb-2 text-4xl text-center">🫣</p>
+              <p className="text-lg font-bold text-center">
+                Potential customer is interested
+              </p>
+            </div>
+            <p className="font-thin text-orange-300 text-7xl"> ⃕</p>
+            <div>
+              <p className="pb-2 text-4xl text-center">🫤</p>
+              <p className="text-lg font-bold text-center">
+                Doesn't find a reason to buy right now
+              </p>
+            </div>
+            <p className="font-thin text-orange-300 rotate-180 text-7xl"> ⃔</p>
+            <div>
+              <p className="pb-2 text-4xl text-center">😬</p>
+              <p className="text-lg font-bold text-center">
+                Leaves and never come back
+              </p>
+            </div>
+          </div>
+        </div>
         <div className="max-w-5xl mx-auto min-w-4xl">
           <Plans />
         </div>
