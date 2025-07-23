@@ -10,6 +10,8 @@ interface InputTextProps {
   name?: string;
   required?: boolean;
   className?: string;
+  classNameInput?: string;
+  classNameLabel?: string;
 }
 
 export const InputText: React.FC<InputTextProps> = ({
@@ -20,11 +22,13 @@ export const InputText: React.FC<InputTextProps> = ({
   type = 'text',
   name,
   required = false,
-  className = ''
+  className = '',
+  classNameInput = 'p-4 border-2 border-neutral-100 rounded-2xl   focus:outline-2  bg-white outline-orange-300/5',
+  classNameLabel = ' text-lg font-semibold'
 }) => {
   return (
     <div className={`flex flex-col ${className}  gap-1 p-1 overflow-hidden`}>
-      {label && <label className="text-lg font-semibold">{label}</label>}
+      {label && <label className={classNameLabel}>{label}</label>}
       <input
         type={type}
         value={value}
@@ -32,7 +36,7 @@ export const InputText: React.FC<InputTextProps> = ({
         placeholder={placeholder}
         name={name}
         required={required}
-        className={`border-2 w-full  p-4 rounded-2xl border-neutral-100  focus:outline-2 outline-orange-500/50 `}
+        className={` w-full ${classNameInput}   0`}
       />
     </div>
   );
@@ -78,6 +82,8 @@ interface InputSelectProps {
   name?: string;
   required?: boolean;
   className?: string;
+  classNameInput?: string;
+  classNameLabel?: string;
 }
 
 export const InputSelect: React.FC<InputSelectProps> = ({
@@ -87,17 +93,19 @@ export const InputSelect: React.FC<InputSelectProps> = ({
   options,
   name,
   required = false,
-  className = ''
+  className = '',
+  classNameInput = 'p-4 bg-white text-black border-neutral-100 border-2 ',
+  classNameLabel = 'text-lg font-semibold'
 }) => {
   return (
     <div className={`flex flex-col gap-1 p-1 overflow-hidden ${className}`}>
-      {label && <label className="text-lg font-semibold">{label}</label>}
+      {label && <label className={classNameLabel}>{label}</label>}
       <select
         value={value}
         onChange={onChange}
         name={name}
         required={required}
-        className="w-full p-4 text-black bg-white border-2 appearance-none rounded-2xl border-neutral-100 focus:outline-2 outline-orange-500/50"
+        className={`w-full   ${classNameInput}   appearance-none rounded-2xl  focus:outline-2 outline-orange-300/50 `}
       >
         <option value="" disabled className="">
           Select an option

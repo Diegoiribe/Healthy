@@ -1,0 +1,32 @@
+import React from 'react';
+
+export const InvitationLink = () => {
+  return (
+    <div className="w-[325px]">
+      <div className="flex flex-col w-full gap-3 py-5 bg-white px-7 rounded-3xl">
+        <p className="text-xl font-black text-black">Invitation link</p>
+        <div className="flex items-center justify-between px-4 py-2 rounded-lg bg-neutral-100">
+          <p className="text-sm text-neutral-400">plan4me.com/invite/diego</p>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            className=" text-neutral-400 lucide lucide-copy-icon lucide-copy"
+          >
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+          </svg>
+        </div>
+        <div className="w-full px-4 py-2 bg-blue-400 cursor-pointer rounded-xl">
+          <p className="text-sm text-center text-white">Share link</p>
+        </div>
+      </div>
+    </div>
+  );
+};

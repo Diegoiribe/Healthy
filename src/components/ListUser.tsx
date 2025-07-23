@@ -1,13 +1,18 @@
 import { List } from './List';
 import { useState } from 'react';
+import type { WeekMeals } from '../pages/Dashboard';
 
-export const ListUser = (props: { setIsList: (value: boolean) => void }) => {
-  const { setIsList } = props;
+interface ListProps {
+  weekMeals?: WeekMeals | null;
+  setIsList: (value: boolean) => void;
+}
+
+export const ListUser = ({ setIsList, weekMeals }: ListProps) => {
   const [IsSelected, setIsSelected] = useState<string>('list');
 
   return (
-    <div className="w-full h-screen ">
-      <div className="flex items-center justify-between max-w-4xl mx-auto min-w-3xl">
+    <div className="w-full h-screen mt-25">
+      <div className="flex items-center justify-between max-w-3xl mx-auto min-w-3xl">
         <div className="flex items-center justify-between gap-10 py-5 ">
           <p
             className={` text-lg cursor-pointer  ${
@@ -29,7 +34,7 @@ export const ListUser = (props: { setIsList: (value: boolean) => void }) => {
         </p>
       </div>
 
-      {IsSelected === 'list' && <List />}
+      {IsSelected === 'list' && <List weekMeals={weekMeals} />}
     </div>
   );
 };

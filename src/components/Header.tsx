@@ -13,10 +13,18 @@ export const Header = (props: { isAdmin: boolean }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   const { isAdmin } = props;
+
+  const logOut = () => {
+    localStorage.removeItem('token'); // o sessionStorage
+    window.location.replace('/login'); // reemplaza historial
+  };
+
   return (
     <div
-      className={`fixed z-10 w-full flex items-center justify-between py-3 px-50 transition-all duration-300 ${
-        scrolled ? 'bg-white shadow ' : 'bg-transparent'
+      className={` z-10 w-full mx-auto max-w-6xl flex items-center justify-between py-3 transition-all duration-300 ${
+        scrolled ? 'bg-white  ' : 'bg-transparent'
+      } ${scrolled && !isAdmin ? 'shadow ' : ''} ${
+        isAdmin ? 'flex ' : 'fixed '
       }`}
     >
       <div className="flex items-center justify-center">
@@ -30,23 +38,34 @@ export const Header = (props: { isAdmin: boolean }) => {
         ></div>
         <p className="text-2xl font-bold">Plan4Me</p>
       </div>
-      <div className="flex items-center gap-20">
-        <p className="">Reviews</p>
-        <p>Princing</p>
-        <p>FAQ</p>
-      </div>
 
-      <div className="flex items-center gap-5">
+      {isAdmin ? (
         <InputBottom
-          name="Sign in"
-          className="px-4 py-2 text-sm border"
+          name="Log out"
+          className="px-5 py-2 text-xs font-semibold transition-all duration-300 border border-neutral-300 hover:text-black hover:bg-red-200 bg-neutral-50 text-neutral-400 hover:border-black rounded-xl"
           to="/login"
+          onClick={logOut}
         />
-        <InputBottom
-          name="Get Plan4Me"
-          className="px-4 py-2 text-sm text-orange-300 bg-black border"
-        />
-      </div>
+      ) : (
+        <>
+          <div className="flex items-center gap-20">
+            <p className="">Reviews</p>
+            <p>Princing</p>
+            <p>FAQ</p>
+          </div>
+          <div className="flex items-center gap-5">
+            <InputBottom
+              name="Sign in"
+              className="px-4 py-2 text-sm border"
+              to="/login"
+            />
+            <InputBottom
+              name="Get Plan4Me"
+              className="px-4 py-2 text-sm text-orange-300 bg-black border"
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

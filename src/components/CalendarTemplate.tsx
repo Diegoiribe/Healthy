@@ -1,150 +1,121 @@
-import React, { useState } from 'react';
+import type { WeekMeals, WeekDay } from '../pages/Dashboard';
+import { useEffect, useState } from 'react';
 
 interface CalendarTemplateProps {
-  weekMeals?: string[][];
+  weekMeals?: WeekMeals | null;
 }
 
 export const CalendarTemplate = ({ weekMeals }: CalendarTemplateProps) => {
-  const [activeIndex, setActiveIndex] = useState<string | null>(null);
-  const today = new Date();
-  const currentDay = (today.getDay() + 6) % 7;
-
-  const days = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday'
+  const meals = [
+    { label: 'Desayuno', key: 'desayuno' },
+    { label: 'Merienda', key: 'snackManana' },
+    { label: 'Comida', key: 'almuerzo' },
+    { label: 'Merienda', key: 'snackTarde' },
+    { label: 'Cena', key: 'cena' }
   ];
 
-  const meals = ['Desayuno', 'Merienda', 'Comida', 'Merienda', 'Cena'];
+  const orderedDays: WeekDay[] = [
+    'lunes',
+    'martes',
+    'miercoles',
+    'jueves',
+    'viernes',
+    'sabado',
+    'domingo'
+  ];
 
-  const hourToMealIndex: Record<number, number> = {
-    0: 0, // Desayuno
-    11: 1, // Merienda
-    13: 2, // Comida
-    17: 3, // Merienda
-    19: 4 // Cena
-  };
+  const [transposed, setTransposed] = useState<string[][]>([]);
 
-  const currentHour = new Date().getHours();
-  const closestHour = Object.keys(hourToMealIndex)
-    .map(Number)
-    .reverse()
-    .find((h) => currentHour >= h);
+  useEffect(() => {
+    console.log('🐞 weekMeals received in CalendarTemplate:', weekMeals);
+    if (!weekMeals?.plan) return;
 
-  const currentMealIndex =
-    closestHour !== undefined ? hourToMealIndex[closestHour] : null;
+    const normalizeDay = (day: string): string =>
+      day
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
 
-  const handleClick = (i: number, j: number) => {
-    const index = `${i}-${j}`;
-    setActiveIndex((prev) => (prev === index ? null : index));
-  };
+    const normalizedPlan = Object.entries(weekMeals.plan).reduce(
+      (acc, [day, value]) => {
+        acc[normalizeDay(day)] = value;
+        return acc;
+      },
+      {} as Record<string, any>
+    );
+
+    const result = meals.map((meal) =>
+      orderedDays.map((day) => {
+        const entry = normalizedPlan[day];
+        return entry?.[meal.key] ?? '';
+      })
+    );
+
+    console.log('✅ Transposed generated:', result);
+    setTransposed(result);
+  }, [weekMeals]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto mb-20">
-      <table className="w-full border-separate table-auto border-spacing-x-2 border-spacing-y-3">
-        <thead>
-          <tr>
-            <th className="flex items-center justify-around text-sm font-semibold text-left text-gray-700 ">
-              <p className="flex items-center justify-center w-8 h-8 transition bg-white border rounded-full cursor-pointer border-neutral-300 hover:bg-black/5">
-                ←
-              </p>
-              <p className="flex items-center justify-center w-8 h-8 transition bg-white border rounded-full cursor-pointer border-neutral-300 hover:bg-black/5">
-                →
-              </p>
-            </th>
-            <th
-              className={`py-2 text-sm text-center  rounded-lg  ${
-                currentDay === 2
-                  ? 'bg-black/5  font-bold'
-                  : 'bg-black/5 font-medium'
+    <div className="w-full max-w-5xl pt-5 pb-10 mx-auto px-13 ">
+      {/* tabla */}
+
+      <div className="w-full border shadow-xl min-5-xl border-neutral-300 rounded-xl">
+        <div className="flex justify-between w-full bg-neutral-100 rounded-t-xl">
+          <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
+            <p>Meals</p>
+          </div>
+          <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
+            <p>Monday</p>
+          </div>
+          <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
+            <p>Tuesday</p>
+          </div>
+          <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
+            <p>Wednesday</p>
+          </div>
+          <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
+            <p>Thursday</p>
+          </div>
+          <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
+            <p>Friday</p>
+          </div>
+          <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
+            <p>Saturday</p>
+          </div>
+          <div className="p-2 text-xs font-semibold border-neutral-200 text-neutral-500 w-1/8">
+            <p>Sunday</p>
+          </div>
+        </div>
+        {/* Filas por comida */}
+        {transposed.map((mealRow, i) => (
+          <div
+            key={i}
+            className="flex text-xs border-t last:rounded-b-xl border-neutral-200 "
+          >
+            <div
+              className={` p-2   border-r border-neutral-200  w-1/8   ${
+                i % 2 === 0 ? 'bg-white rounded-bl-xl' : 'bg-neutral-100 '
               }`}
             >
-              {days[2]}
-            </th>
-          </tr>
-        </thead>
-        <tbody className="w-full">
-          {weekMeals?.map((week, i) => (
-            <React.Fragment key={i}>
-              <tr className="w-full">
-                <td className="p-4 text-sm font-bold text-center bg-black/5 rounded-2xl ">
-                  {meals[i]}
-                </td>
-                {week.map((meal, j) => {
-                  const index = `${i}-${j}`;
-                  const isActive = activeIndex === index;
-
-                  return (
-                    j === currentDay && (
-                      <td
-                        key={j}
-                        className={`px-3 pt-2 pb-3 rounded-2xl cursor-pointer  w-full ${
-                          currentMealIndex === i
-                            ? 'bg-orange-100'
-                            : 'bg-[#56cbf952]'
-                        }`}
-                        onClick={() => handleClick(i, j)}
-                      >
-                        <div className="flex flex-col justify-between min-h-18">
-                          <div
-                            className={` text-lg font-semibold text-center  ${
-                              j === currentDay ? 'text-black' : 'text-blue-400'
-                            }`}
-                          >
-                            {meal}
-                          </div>
-                          <div className="flex justify-end">
-                            <div className="flex items-center justify-center w-3 h-3 transition bg-white rounded-full">
-                              <div
-                                className={`w-2 h-2 rounded-full transition ${
-                                  isActive ? 'bg-green-500' : 'bg-white'
-                                }`}
-                              ></div>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                    )
-                  );
-                })}
-              </tr>
-            </React.Fragment>
-          ))}
-          {activeIndex && (
-            <tr className="w-full">
-              <td /> {/* celda vacía para alinear */}
-              <td className="w-full">
-                <div className="flex flex-col bg-white">
-                  <div className="flex items-center justify-end gap-3">
-                    <p
-                      className="p-2 rounded-full cursor-pointer bg-black/5 hover:bg-black/15"
-                      title="Cambiar Comida"
-                    >
-                      🔄
-                    </p>
-                    <p
-                      className="p-2 rounded-full cursor-pointer bg-black/5 hover:bg-black/15"
-                      title="Agregar a no Favoritos"
-                    >
-                      👎🏼
-                    </p>
-                    <p
-                      className="p-2 rounded-full cursor-pointer bg-black/5 hover:bg-black/15"
-                      title="Añadir a Favoritos"
-                    >
-                      ⭐️
-                    </p>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+              <p className="inline-block px-2 py-1 text-xs font-bold text-center text-blue-400 bg-blue-100 border rounded-lg ">
+                {meals[i].label}
+              </p>
+            </div>
+            {mealRow.map((meal, j) => (
+              <div
+                key={j}
+                className={` p-2 pb-4 text-xs font-semibold  border-r last:border-0 border-neutral-200   text-neutral-500 w-1/8 min-h-20 ${
+                  i % 2 === 0
+                    ? 'bg-white last:rounded-br-xl'
+                    : 'bg-neutral-100 '
+                } ${i === transposed.length - 1 ? 'pb-10' : ''}`}
+              >
+                {meal}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

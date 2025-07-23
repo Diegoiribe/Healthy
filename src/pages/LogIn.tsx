@@ -1,9 +1,10 @@
 import { InputBottom, InputText } from '../components/TypeInputs';
 import { useState } from 'react';
 import { login } from '../api/auth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const LogIn = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -18,7 +19,9 @@ export const LogIn = () => {
     e.preventDefault();
     try {
       const response = await login(formData);
-      console.log('Plan generado:', response);
+      if (response) {
+        navigate('/dashboard');
+      }
     } catch (error) {
       console.error('Error al generar plan:', error);
     }
@@ -30,10 +33,10 @@ export const LogIn = () => {
       <div className="h-full ">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col items-center justify-center w-[475px] h-full "
+          className="flex flex-col items-center justify-center w-[400px] h-full "
         >
           <div className="w-full">
-            <h1 className="font-black text-center text-7xl mb-15">
+            <h1 className="text-5xl font-black text-center mb-15">
               Sing in to{' '}
               <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-orange-200 before:-z-10">
                 Plan4Me
@@ -49,7 +52,7 @@ export const LogIn = () => {
             type="email"
             name="email"
             required={true}
-            className="w-full mb-10"
+            className="w-full mb-5"
           />
           <InputText
             value={formData.password}
@@ -59,32 +62,18 @@ export const LogIn = () => {
             type="password"
             name="password"
             required={true}
-            className="w-full mb-5"
+            className="w-full mb-10"
           />
-          <div className="flex gap-3 p-1 mb-10">
-            <div>
-              <div className="w-6 h-6 border border-neutral-200"></div>
-            </div>
 
-            <p className="font-light text-normal">
-              I agree with Dribble's{' '}
-              <span className="text-blue-400 underline">Terms of Service</span>,{' '}
-              <span className="text-blue-400 underline">Privacy Policy</span>,
-              and{' '}
-              <span className="text-blue-400 underline">
-                default Notification Settings
-              </span>
-            </p>
-          </div>
-          <div className="w-full px-1">
+          <div className="flex justify-end w-full px-1">
             <InputBottom
               type="submit"
               name="Log In"
-              className="w-full p-4 text-lg text-black bg-orange-200 border"
+              className="px-10 py-2 text-black bg-orange-200 border rounded-2xl "
             />
           </div>
 
-          <Link to={'/register'} className="mt-5 font-light text-normal">
+          <Link to={'/register'} className="mt-10 font-light text-normal">
             Don't have an account?{' '}
             <span className="text-blue-400 underline">Sign Up</span>
           </Link>
