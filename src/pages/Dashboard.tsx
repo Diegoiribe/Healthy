@@ -10,6 +10,7 @@ import { CreateFirstPlan } from '../components/CreateFirstPlan';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { GeneratePlan } from '../components/GeneratePlan';
+import { DashboardMobile } from '../mobile/template/DashboardMobile';
 
 // Días de la semana
 export type WeekDay =
@@ -104,6 +105,14 @@ export const Dashboard = () => {
     );
   };
 
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1000);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1000);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     get('/user/me')
       .then((res) => {
@@ -128,6 +137,7 @@ export const Dashboard = () => {
   const createPlan = () => {
     if (isUserDataIncomplete(userData)) {
       setIsGenerate(true);
+      console.error('Please complete your profile before generating a plan.');
       return;
     }
     if (!userData?.dietType) {
@@ -263,101 +273,122 @@ export const Dashboard = () => {
     doc.save('PlanSemanal.pdf');
   };
 
-  return (
-    <div className="flex flex-col ">
-      <Header isAdmin={true} />
-      {isConfig && <ConfigUser setIsConfig={setIsConfig} />}
-      {isList && <ListUser setIsList={setIsList} weekMeals={weekMeals} />}
-      <div className="flex flex-col items-center justify-center gap-10 mx-auto mt-40">
+  return isMobile ? (
+    <>
+      {isLoading && <Loading />}{' '}
+      <DashboardMobile
+        exportPDF={exportPDF}
+        weekMeals={weekMeals}
+        userData={userData}
+        setUserData={setUserData}
+        createPlan={createPlan}
+        isGenerate={isGenerate}
+        setIsGenerate={setIsGenerate}
+        isGeneratePlan={isGeneratePlan}
+        setIsGeneratePlan={setIsGeneratePlan}
+        isMobile={isMobile}
+      />
+    </>
+  ) : (
+    <>
+      <div className="flex flex-col ">
+        <Header isAdmin={true} />
+        {isConfig && <ConfigUser setIsConfig={setIsConfig} />}
+        {isList && <ListUser setIsList={setIsList} weekMeals={weekMeals} />}
+        <div className="flex flex-col items-center justify-center gap-10 mx-auto mt-40">
+          {!isConfig && !isList && (
+            <>
+              <div className="flex items-center justify-between max-w-5xl mx-auto min-w-4xl">
+                <p className="font-black text-7xl">
+                  <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[.4em] before:bg-orange-200 before:-z-10">
+                    Welcome,
+                  </span>{' '}
+                  {userData ? userData.firstName : 'User'}
+                </p>
+                <div className="flex items-center justify-center gap-4 pr-2">
+                  <p
+                    className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-400 rounded-full cursor-pointer hover:bg-black/5"
+                    onClick={() => exportPDF(weekMeals)}
+                  >
+                    ↓
+                  </p>
+                  <p
+                    className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer hover:bg-black/5"
+                    onClick={() => setIsConfig(true)}
+                  >
+                    ⚙️
+                  </p>
+                  <p
+                    className="flex items-center justify-center w-12 h-12 text-2xl rounded-full cursor-pointer hover:bg-black/5"
+                    onClick={() => setIsList(true)}
+                  >
+                    📋
+                  </p>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+        {isLoading && <Loading />}
+        {!weekMeals && (
+          <CreateFirstPlan
+            userData={userData}
+            setUserData={setUserData}
+            setIsGenerate={setIsGenerate}
+            setIsGeneratePlan={setIsGeneratePlan}
+            createPlan={createPlan}
+            weekMeals={weekMeals}
+            isMobile={isMobile}
+          />
+        )}
+
+        {isGenerate && (
+          <GeneratePlan
+            userData={userData}
+            setIsGenerate={setIsGenerate}
+            setUserData={setUserData}
+            createPlan={createPlan}
+            weekMeals={weekMeals}
+            isMobile={isMobile}
+          />
+        )}
+
+        {isGeneratePlan && (
+          <CreateFirstPlan
+            userData={userData}
+            setUserData={setUserData}
+            setIsGenerate={setIsGenerate}
+            setIsGeneratePlan={setIsGeneratePlan}
+            createPlan={createPlan}
+            weekMeals={weekMeals}
+            isMobile={isMobile}
+          />
+        )}
+
         {!isConfig && !isList && (
           <>
-            <div className="flex items-center justify-between max-w-5xl mx-auto min-w-4xl">
-              <p className="font-black text-7xl">
-                <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[.4em] before:bg-orange-200 before:-z-10">
-                  Welcome,
-                </span>{' '}
-                {userData ? userData.firstName : 'User'}
+            <div className="flex items-center justify-between w-full max-w-5xl gap-3 mx-auto mt-20 px-13">
+              <p className="text-lg font-medium text-neutral-400">
+                {matchText(userData?.dietType ?? '')}
               </p>
-              <div className="flex items-center justify-center gap-4 pr-2">
-                <p
-                  className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-400 rounded-full cursor-pointer hover:bg-black/5"
-                  onClick={() => exportPDF(weekMeals)}
-                >
-                  ↓
-                </p>
-                <p
-                  className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer hover:bg-black/5"
-                  onClick={() => setIsConfig(true)}
-                >
-                  ⚙️
-                </p>
-                <p
-                  className="flex items-center justify-center w-12 h-12 text-2xl rounded-full cursor-pointer hover:bg-black/5"
-                  onClick={() => setIsList(true)}
-                >
-                  📋
-                </p>
+              <div className="flex items-center gap-2">
+                <InputBottom
+                  name="Create"
+                  onClick={() => setIsGeneratePlan(true)}
+                  className="px-5 py-2 text-xs font-semibold transition-all duration-300 border text-green-600 bg-[#D0EACD]  border-green-600 rounded-xl"
+                />
+                <InputBottom
+                  name="✏️"
+                  onClick={() => setIsGenerate(true)}
+                  className="px-2 py-2 text-xs font-semibold transition-all duration-300 border border-neutral-300 hover:text-black hover:bg-orange-200 bg-neutral-50 text-neutral-400 hover:border-orange-300 rounded-xl"
+                />
               </div>
             </div>
+
+            <CalendarTemplate weekMeals={weekMeals} />
           </>
         )}
       </div>
-      {isLoading && <Loading />}
-      {!weekMeals && (
-        <CreateFirstPlan
-          userData={userData}
-          setUserData={setUserData}
-          setIsGenerate={setIsGenerate}
-          setIsGeneratePlan={setIsGeneratePlan}
-          createPlan={createPlan}
-          weekMeals={weekMeals}
-        />
-      )}
-
-      {isGenerate && (
-        <GeneratePlan
-          userData={userData}
-          setIsGenerate={setIsGenerate}
-          setUserData={setUserData}
-          createPlan={createPlan}
-          weekMeals={weekMeals}
-        />
-      )}
-
-      {isGeneratePlan && (
-        <CreateFirstPlan
-          userData={userData}
-          setUserData={setUserData}
-          setIsGenerate={setIsGenerate}
-          setIsGeneratePlan={setIsGeneratePlan}
-          createPlan={createPlan}
-          weekMeals={weekMeals}
-        />
-      )}
-
-      {!isConfig && !isList && (
-        <>
-          <div className="flex items-center justify-between w-full max-w-5xl gap-3 mx-auto mt-20 px-13">
-            <p className="text-lg font-medium text-neutral-400">
-              {matchText(userData?.dietType ?? '')}
-            </p>
-            <div className="flex items-center gap-2">
-              <InputBottom
-                name="Create"
-                onClick={() => setIsGeneratePlan(true)}
-                className="px-5 py-2 text-xs font-semibold transition-all duration-300 border text-green-600 bg-[#D0EACD]  border-green-600 rounded-xl"
-              />
-              <InputBottom
-                name="✏️"
-                onClick={() => setIsGenerate(true)}
-                className="px-2 py-2 text-xs font-semibold transition-all duration-300 border border-neutral-300 hover:text-black hover:bg-orange-200 bg-neutral-50 text-neutral-400 hover:border-orange-300 rounded-xl"
-              />
-            </div>
-          </div>
-
-          <CalendarTemplate weekMeals={weekMeals} />
-        </>
-      )}
-    </div>
+    </>
   );
 };

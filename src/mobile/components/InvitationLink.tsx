@@ -23,7 +23,7 @@ export const InvitationLink = () => {
             <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
           </svg>
         </div>
-        <div className="w-full px-4 py-2 bg-blue-400 cursor-pointer rounded-xl">
+        <div className="w-full px-4 py-2 bg-blue-400 cursor-pointer rounded-xl hover:bg-blue-300">
           <p className="text-sm text-center text-white">Share link</p>
         </div>
       </div>

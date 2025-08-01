@@ -8,9 +8,9 @@ interface CalendarTemplateProps {
 export const CalendarTemplate = ({ weekMeals }: CalendarTemplateProps) => {
   const meals = [
     { label: 'Desayuno', key: 'desayuno' },
-    { label: 'Merienda', key: 'snackManana' },
+    { label: 'Snack', key: 'snackManana' },
     { label: 'Comida', key: 'almuerzo' },
-    { label: 'Merienda', key: 'snackTarde' },
+    { label: 'Snack', key: 'snackTarde' },
     { label: 'Cena', key: 'cena' }
   ];
 

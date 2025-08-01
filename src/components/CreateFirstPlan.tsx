@@ -16,6 +16,7 @@ interface CreatePlanProps {
   createPlan: () => void;
   weekMeals?: any;
   setIsGeneratePlan: (value: boolean) => void;
+  isMobile: boolean;
 }
 
 export const CreateFirstPlan = ({
@@ -24,7 +25,8 @@ export const CreateFirstPlan = ({
   setIsGenerate,
   weekMeals,
   setIsGeneratePlan,
-  createPlan
+  createPlan,
+  isMobile
 }: CreatePlanProps) => {
   const [step, setStep] = useState<number>(1);
   const [dietPage, setDietPage] = useState<number>(0);
@@ -119,42 +121,107 @@ export const CreateFirstPlan = ({
   return (
     <>
       {step === 1 && (
-        <div className="fixed bottom-0 left-0 z-50 flex items-center justify-center w-full h-[100vh] backdrop-blur-sm bg-black/30">
-          <div className="max-w-4xl px-10 pt-10 bg-white shadow-2xl pb-15 rounded-2xl">
-            <div className="flex justify-end w-full mb-5">
-              <p
-                className="text-xl cursor-pointer text-neutral-300 hover:text-black"
-                onClick={() => {
-                  setIsGenerate(false);
-                  setIsGeneratePlan(false);
-                }}
-              >
-                🅇
-              </p>
-            </div>
-            <div className="flex flex-col items-center justify-center mb-10 text-center">
-              <p className="mb-1 text-4xl">Create a new Plan</p>
-              <p className="text-lg text-neutral-400">
-                Start crating your contract by selecting the most relevant type
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center justify-center w-full gap-5">
-              {visibleDiets.map((item, index) => (
+        <div
+          className={`fixed bottom-0 top-0 right-0 left-0 z-50 flex ${
+            isMobile
+              ? 'bg-white w-full'
+              : ' items-center justify-center w-full h-[100vh] backdrop-blur-sm bg-black/30'
+          } `}
+        >
+          <div
+            className={`${
+              isMobile
+                ? 'flex flex-col items-center max-w-2xl p-10 mx-auto'
+                : 'shadow-2xl pb-15 max-w-4xl px-10 pt-10 bg-white  rounded-2xl'
+            }`}
+          >
+            {isMobile ? (
+              <div className="flex justify-end w-full">
                 <div
-                  key={index}
-                  className={`w-1/4 p-4 border rounded-2xl min-h-32 cursor-pointer transition-all
+                  className="flex items-center justify-center w-10 h-10 text-xl font-bold text-white rounded-full cursor-pointer bg-black/10 hover:bg-red-400"
+                  onClick={() => {
+                    setIsGenerate(false);
+                    setIsGeneratePlan(false);
+                  }}
+                >
+                  Ｘ
+                </div>
+              </div>
+            ) : (
+              <div className="flex justify-end w-full mb-5">
+                <p
+                  className="text-xl cursor-pointer text-neutral-300 hover:text-black"
+                  onClick={() => {
+                    setIsGenerate(false);
+                    setIsGeneratePlan(false);
+                  }}
+                >
+                  🅇
+                </p>
+              </div>
+            )}
+
+            <div
+              className={`
+                isMoflex flex-col items-center justify-center mb-10 text-center`}
+            >
+              <p
+                className={`${
+                  isMobile ? ' text-3xl font-black mt-5' : 'mb-1 text-4xl'
+                }`}
+              >
+                Create a new Plan
+              </p>
+              {!isMobile && (
+                <p className="text-lg text-neutral-400">
+                  Start crating your contract by selecting the most relevant
+                  type
+                </p>
+              )}
+            </div>
+
+            {isMobile ? (
+              <div className="flex flex-wrap items-center justify-center w-full gap-5 mt-5">
+                {visibleDiets.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`w-[45%] p-4 border rounded-2xl min-h-32 cursor-pointer transition-all
                 ${
                   dietSelect === item.value
                     ? 'border-green-600 bg-green-50 shadow-sm'
                     : 'border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50'
                 }`}
-                  onClick={() => handleSelect(item.value)}
-                >
-                  <p className="text-sm font-semibold">{item.label}</p>
-                  <p className="text-xs text-neutral-400">{item.description}</p>
-                </div>
-              ))}
-            </div>
+                    onClick={() => handleSelect(item.value)}
+                  >
+                    <p className="text-sm font-semibold">{item.label}</p>
+                    <p className="text-xs text-neutral-400">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-wrap items-center justify-center w-full gap-5">
+                {visibleDiets.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`w-1/4 p-4 border rounded-2xl min-h-32 cursor-pointer transition-all
+                ${
+                  dietSelect === item.value
+                    ? 'border-green-600 bg-green-50 shadow-sm'
+                    : 'border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50'
+                }`}
+                    onClick={() => handleSelect(item.value)}
+                  >
+                    <p className="text-sm font-semibold">{item.label}</p>
+                    <p className="text-xs text-neutral-400">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+
             <div className="flex justify-center w-full gap-3 mt-5">
               {[0, 1].map((page) => (
                 <div
@@ -170,9 +237,18 @@ export const CreateFirstPlan = ({
               ))}
             </div>
             <div className="flex items-center justify-center gap-5 mt-5">
-              <div></div>
-              <div></div>
-              <div className="flex justify-end w-3/4">
+              {!isMobile && (
+                <>
+                  <div></div>
+                  <div></div>
+                </>
+              )}
+
+              <div
+                className={`flex justify-end ${
+                  isMobile ? 'w-full mt-5' : 'w-3/4'
+                } `}
+              >
                 {weekMeals ? (
                   <InputBottom
                     name="Crear Plan"
@@ -205,6 +281,7 @@ export const CreateFirstPlan = ({
           dietSelect={dietSelect}
           createPlan={createPlan}
           weekMeals={weekMeals}
+          isMobile={isMobile}
         />
       )}
       ,

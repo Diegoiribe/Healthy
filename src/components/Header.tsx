@@ -21,9 +21,9 @@ export const Header = (props: { isAdmin: boolean }) => {
 
   return (
     <div
-      className={` z-10 w-full mx-auto max-w-6xl flex items-center justify-between py-3 transition-all duration-300 ${
+      className={` z-10 w-full mx-auto max-w-6xl flex items-center justify-between border-neutral-100  py-3 px-5 transition-all duration-300 ${
         scrolled ? 'bg-white  ' : 'bg-transparent'
-      } ${scrolled && !isAdmin ? 'shadow ' : ''} ${
+      } ${scrolled && !isAdmin ? 'border-b ' : ''} ${
         isAdmin ? 'flex ' : 'fixed '
       }`}
     >

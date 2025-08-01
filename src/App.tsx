@@ -1,5 +1,4 @@
 import './App.css';
-import { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,17 +9,8 @@ import { Dashboard } from './pages/Dashboard';
 import { Landing } from './pages/Landing';
 import { LogIn } from './pages/LogIn';
 import { Register } from './pages/Register';
-import { DashboardMobile } from './mobile/pages/DashboardMobile';
 
 function App() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1000);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 1000);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -37,7 +27,7 @@ function App() {
           path="/dashboard"
           element={
             <ProtectedRoute>
-              {isMobile ? <DashboardMobile /> : <Dashboard />}
+              <Dashboard />
             </ProtectedRoute>
           }
         />

@@ -12,6 +12,7 @@ interface GeneratePlanProps {
   createPlan: () => void;
   dietSelect?: string;
   weekMeals?: any;
+  isMobile: boolean;
 }
 
 export const GeneratePlan = ({
@@ -22,7 +23,8 @@ export const GeneratePlan = ({
   step,
   createPlan,
   dietSelect,
-  weekMeals
+  weekMeals,
+  isMobile
 }: GeneratePlanProps) => {
   const [formData, setFormData] = useState({
     weight: '',
@@ -81,11 +83,23 @@ export const GeneratePlan = ({
   };
 
   return (
-    <div className="fixed bottom-0 left-0 z-50 flex items-center justify-center w-full h-[100vh] backdrop-blur-sm bg-black/30">
-      <div className="max-w-4xl px-10 pt-10 bg-white shadow-2xl pb-15 rounded-2xl">
+    <div
+      className={`fixed bottom-0 top-0 right-0 left-0 z-50 flex ${
+        isMobile
+          ? 'bg-white w-full '
+          : ' items-center justify-center w-full h-[100vh] backdrop-blur-sm bg-black/30'
+      } `}
+    >
+      <div
+        className={`${
+          isMobile
+            ? 'flex flex-col items-center max-w-2xl p-10 mx-auto '
+            : 'shadow-2xl pb-15 max-w-4xl px-10 pt-10 bg-white  rounded-2xl'
+        }`}
+      >
         <div
           className={`flex ${
-            step ? 'justify-between' : 'justify-end'
+            step ? 'justify-between ' : 'justify-end'
           } w-full mb-5`}
         >
           {step && (
@@ -96,21 +110,43 @@ export const GeneratePlan = ({
               ←
             </p>
           )}
-          <p
-            onClick={() => setIsGenerate(false)}
-            className="text-xl cursor-pointer text-neutral-300 hover:text-black"
-          >
-            🅇
-          </p>
+          {isMobile ? (
+            <div
+              className="flex items-center justify-center w-10 h-10 text-xl font-bold text-white rounded-full cursor-pointer bg-black/10 hover:bg-red-400"
+              onClick={() => {
+                setIsGenerate(false);
+              }}
+            >
+              Ｘ
+            </div>
+          ) : (
+            <p
+              onClick={() => setIsGenerate(false)}
+              className="text-xl cursor-pointer text-neutral-300 hover:text-black"
+            >
+              🅇
+            </p>
+          )}
         </div>
         <div className="flex flex-col items-center justify-center mb-10 text-center">
-          <p className="mb-1 text-4xl">Completa tu perfil</p>
-          <p className="text-lg text-neutral-400">
-            Start crating your contract by selecting the most relevant type
+          <p
+            className={`${
+              isMobile ? ' text-3xl font-black mt-5' : 'mb-1 text-4xl'
+            }`}
+          >
+            Completa tu perfil
           </p>
+          {!isMobile && (
+            <p className="text-lg text-neutral-400">
+              Start crating your contract by selecting the most relevant type
+            </p>
+          )}
         </div>
+
         <div className="flex flex-wrap items-center justify-center gap-5">
-          <div className="flex w-3/4 gap-5">
+          <div
+            className={`flex  ${isMobile ? 'w-full flex-col' : 'w-3/4 '} gap-5`}
+          >
             <InputText
               label="Weight"
               type="number"
@@ -119,7 +155,9 @@ export const GeneratePlan = ({
               placeholder="70 kg"
               name="Weight"
               required={true}
-              classNameInput="p-2 w-1/3 border border-neutral-200 rounded-lg focus:outline  focus:outline-green-600/60"
+              classNameInput={`p-2 ${
+                isMobile ? 'w-full' : 'w-1/3'
+              } border border-neutral-200 rounded-lg focus:outline  focus:outline-green-600/60`}
               classNameLabel=" text-sm font-semibold "
             />
             {/* height */}
@@ -131,15 +169,19 @@ export const GeneratePlan = ({
               placeholder="180 cm"
               name="Height"
               required={true}
-              classNameInput="p-2 w-1/3 border border-neutral-200 rounded-lg focus:outline  focus:outline-green-600/60"
+              classNameInput={`p-2 ${
+                isMobile ? 'w-full' : 'w-1/3'
+              } border border-neutral-200 rounded-lg focus:outline  focus:outline-green-600/60`}
               classNameLabel=" text-sm font-semibold"
             />
             <InputSelect
               label="Goal"
               name="Goal"
               value={formData.goal}
-              className="w-1/3 "
-              classNameInput="p-2 w-1/3 border border-neutral-200 rounded-lg focus:outline  focus:outline-green-600/60"
+              className={isMobile ? 'w-full' : 'w-1/3'}
+              classNameInput={`p-2 ${
+                isMobile ? 'w-full' : 'w-1/3'
+              } border border-neutral-200 rounded-lg focus:outline  focus:outline-green-600/60`}
               classNameLabel=" text-sm font-semibold"
               onChange={(e) => handleChange('goal', e.target.value)}
               options={[
@@ -149,7 +191,11 @@ export const GeneratePlan = ({
               ]}
             />
           </div>
-          <div className="flex w-3/4 gap-5">
+          <div
+            className={`flex ${
+              isMobile ? 'flex-col w-full gap-3' : 'w-3/4 gap-5'
+            }  `}
+          >
             <InputText
               label="Liked Foods"
               type="text"
@@ -158,11 +204,14 @@ export const GeneratePlan = ({
               placeholder="Chicken, Rice, Broccoli"
               name="likedFoods"
               required={true}
-              className="w-1/2"
-              classNameInput="p-2 w-1/3 border border-neutral-200 rounded-lg focus:outline  focus:outline-green-600/60  "
+              className={isMobile ? 'w-full' : 'w-1/2'}
+              classNameInput={`p-2 ${
+                isMobile ? 'w-full' : 'w-1/3'
+              } border border-neutral-200 rounded-lg focus:outline  focus:outline-green-600/60`}
               classNameLabel="text-sm font-semibold "
             />
-            <div></div>
+            {isMobile && <div></div>}
+
             <InputText
               label="Disliked Foods"
               type="text"
@@ -171,12 +220,18 @@ export const GeneratePlan = ({
               placeholder="Almonds, Eggs"
               name="dislikedFoods"
               required={true}
-              className="w-1/2"
-              classNameInput="p-2 w-1/3 border border-neutral-200 rounded-lg focus:outline  focus:outline-green-600/60"
+              className={isMobile ? 'w-full' : 'w-1/2'}
+              classNameInput={`p-2 ${
+                isMobile ? 'w-full' : 'w-1/3'
+              } border border-neutral-200 rounded-lg focus:outline  focus:outline-green-600/60`}
               classNameLabel="text-sm font-semibold"
             />
           </div>
-          <div className="flex items-center justify-end w-3/4 gap-2 mt-5">
+          <div
+            className={` ${
+              isMobile ? 'w-full justify-center' : 'w-3/4 justify-end'
+            } flex items-center   gap-2 mt-5`}
+          >
             {!weekMeals ? (
               <InputBottom
                 name="Crear"

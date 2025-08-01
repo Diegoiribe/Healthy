@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://192.168.68.108:1000', // ← Cámbialo por tu endpoint real
+  baseURL: 'http://192.168.1.3:1000', // ← Cámbialo por tu endpoint real
   headers: {
     'Content-Type': 'application/json'
   }

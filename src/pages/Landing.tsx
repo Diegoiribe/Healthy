@@ -16,7 +16,7 @@ export const Landing = () => {
   ];
 
   return (
-    <div className="flex flex-col mx-auto">
+    <div className="flex flex-col items-center">
       <Header isAdmin={false} />
       <div className="flex flex-col ">
         <div className="flex flex-col items-center justify-center w-full h-screen max-w-3xl mx-auto">
