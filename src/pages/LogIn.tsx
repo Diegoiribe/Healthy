@@ -29,16 +29,16 @@ export const LogIn = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-screen h-screen p-5">
+    <div className="flex items-center justify-center w-screen h-screen p-10">
       <div className="h-full ">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col items-center justify-center w-[400px] h-full "
+          className="flex flex-col items-center justify-center max-w-[400px] h-full "
         >
           <div className="w-full">
             <h1 className="text-5xl font-black text-center mb-15">
               Sing in to{' '}
-              <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-orange-200 before:-z-10">
+              <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10">
                 Plan4Me
               </span>
             </h1>
@@ -69,7 +69,7 @@ export const LogIn = () => {
             <InputBottom
               type="submit"
               name="Log In"
-              className="px-10 py-2 text-black bg-orange-200 border rounded-2xl "
+              className="px-10 py-2 text-black bg-red-200 border rounded-2xl "
             />
           </div>
 

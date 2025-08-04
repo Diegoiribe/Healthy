@@ -4,14 +4,14 @@
 
 /* Modificar la barra de desplazamiento en navegadores basados en WebKit */
 *::-webkit-scrollbar {
-  width: 2px; /* Ancho reducido */
+  width: 0px; /* Ancho reducido */
   transition: opacity 0.3s ease-in-out; /* Transición suave */
 }
 
 /* Cambiar el fondo de la barra de desplazamiento */
 *::-webkit-scrollbar-track {
   background: transparent; /* Color de fondo */
-  border-radius: 10px; /* Bordes redondeados */
+  border-radius: 0px; /* Bordes redondeados */
   opacity: 0; /* Ocultar inicialmente */
 }
 

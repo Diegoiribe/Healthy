@@ -1,26 +1,43 @@
 import { InputBottom } from './TypeInputs';
 
-export const Plans = () => {
+export const Plans = (props: { isMobile: boolean }) => {
+  const { isMobile } = props;
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
-      <p className="mb-5 text-6xl font-semibold text-center">
-        Simple Plans, <span className="text-orange-300">Free</span> To Try
+      <p
+        className={`mb-5  font-semibold text-center ${
+          isMobile ? 'text-3xl' : 'text-6xl'
+        }`}
+      >
+        Simple Plans, <span className="text-red-300">Free</span> To Try
       </p>
-      <p className="mb-20 text-2xl text-center text-neutral-600">
+      <p
+        className={`mb-20 text-2xl text-center text-neutral-600 ${
+          isMobile ? 'text-lg' : 'text-2xl'
+        }`}
+      >
         No Hidden Fees, No Games, No Surprises.
         <br />
         Free To Get Started
       </p>
-      <div className="w-full">
+      <div className={`${isMobile && 'mt-20'} w-full`}>
         <div className="flex w-full px-4 py-2">
           <div className="w-[30%]"></div>
           <div className="w-[29%] flex flex-col items-center">
-            <p className="text-4xl font-semibold text-center text-neutral-400">
+            <p
+              className={` font-semibold text-center text-neutral-400 ${
+                isMobile ? 'text-2xl' : 'text-4xl'
+              }`}
+            >
               FREE
             </p>
           </div>
           <div className="w-[29%] flex flex-col items-center">
-            <p className="text-4xl font-semibold text-center text-orange-300 uppercase">
+            <p
+              className={`font-semibold text-center text-red-300 uppercase ${
+                isMobile ? 'text-2xl' : 'text-4xl'
+              }`}
+            >
               Basic
             </p>
           </div>
@@ -32,10 +49,18 @@ export const Plans = () => {
           <p className="w-[30%] text-sm text-neutral-500 font-semibold">
             Monthly Fees
           </p>
-          <p className="w-[29%] text-4xl text-center  ">
+          <p
+            className={`w-[29%]  text-center  ${
+              isMobile ? 'text-2xl' : 'text-4xl'
+            }`}
+          >
             <span className="mr-1 text-lg">$</span>0
           </p>
-          <p className="w-[29%] text-4xl text-center  ">
+          <p
+            className={`w-[29%]  text-center  ${
+              isMobile ? 'text-2xl' : 'text-4xl'
+            }`}
+          >
             <span className="mr-1 text-lg">$</span>9.99
           </p>
           <p className="w-[11%] text-4xl text-center font-light">
@@ -43,25 +68,33 @@ export const Plans = () => {
           </p>
         </div>
         <div className="flex w-full px-4 py-2 rounded-lg bg-neutral-50">
-          <p className="w-[30%] ">No. of Uploads per Month</p>
+          <p className={`w-[30%] ${isMobile ? 'text-xs' : ''}`}>
+            No. of Uploads per Month
+          </p>
           <p className="w-[29%] text-center font-semibold">1</p>
           <p className="w-[29%] text-center font-semibold">20</p>
           <p className="w-[11%] text-center font-semibold"></p>
         </div>
         <div className="flex w-full px-4 py-4 ">
-          <p className="w-[30%] ">Per upload event price</p>
+          <p className={`w-[30%] ${isMobile ? 'text-xs' : ''}`}>
+            Per upload event price
+          </p>
           <p className="w-[29%]  text-center font-semibold">1</p>
           <p className="w-[29%] text-center font-semibold">1</p>
           <p className="w-[11%] text-center font-semibold"></p>
         </div>
         <div className="flex w-full px-4 py-2 rounded-lg bg-neutral-100">
-          <p className="w-[30%] ">No. of Uploads per Month</p>
+          <p className={`w-[30%] ${isMobile ? 'text-xs' : ''}`}>
+            No. of Uploads per Month
+          </p>
           <p className="w-[29%] text-center font-semibold">1</p>
           <p className="w-[29%] text-center font-semibold">20</p>
           <p className="w-[11%] text-center font-semibold"></p>
         </div>
         <div className="flex w-full px-4 pt-4 pb-4 border-b border-neutral-300">
-          <p className="w-[30%] ">Per upload event price</p>
+          <p className={`w-[30%] ${isMobile ? 'text-xs' : ''}`}>
+            Per upload event price
+          </p>
           <p className="w-[29%] text-center font-semibold">1</p>
           <p className="w-[29%] text-center font-semibold">1</p>
           <p className="w-[11%] text-center font-semibold"></p>
@@ -71,14 +104,18 @@ export const Plans = () => {
           <div className="flex items-center justify-center w-[29%]">
             <InputBottom
               name="Get Plan4Me"
-              className="px-4 py-2 text-sm text-white bg-black border"
+              className={`px-4 py-2  text-white bg-black border ${
+                isMobile ? 'hidden' : 'text-sm'
+              }`}
             />
           </div>
 
           <div className="flex items-center justify-center w-[29%]">
             <InputBottom
               name="Get Plan4Me"
-              className="px-4 py-2 text-sm text-white bg-black border"
+              className={`px-4 py-2  text-white bg-black border ${
+                isMobile ? 'hidden' : 'text-sm'
+              }`}
             />
           </div>
           <div className="flex items-center justify-center w-[11%]">

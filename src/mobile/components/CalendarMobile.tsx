@@ -47,15 +47,15 @@ export const CalendarMobile = ({
 
       <div className="flex flex-col items-center justify-center pt-15">
         <div className="flex items-center gap-4 ">
-          <p className="text-xs font-light text-black cursor-pointer hover:font-semibold">
+          <p className="text-xs font-light text-white cursor-pointer hover:font-semibold">
             Cookie Preferences
           </p>
-          <p className="text-xs font-black text-black">·</p>
-          <p className="text-xs font-light text-black cursor-pointer hover:font-semibold">
+          <p className="text-xs font-black text-white">·</p>
+          <p className="text-xs font-light text-white cursor-pointer hover:font-semibold">
             Report
           </p>
-          <p className="text-xs font-black text-black">·</p>
-          <p className="text-xs font-light text-black cursor-pointer hover:font-semibold">
+          <p className="text-xs font-black text-white">·</p>
+          <p className="text-xs font-light text-white cursor-pointer hover:font-semibold">
             Privacy
           </p>
         </div>

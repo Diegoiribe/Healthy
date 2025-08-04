@@ -145,20 +145,20 @@ export const Calendar = ({
 
   return (
     <div className="w-[325px]">
-      <div className="flex flex-col w-full gap-3 p-3 bg-white rounded-3xl">
+      <div className="flex flex-col w-full gap-3 p-3 bg-red-400 rounded-3xl">
         <div className="flex items-center justify-between px-4 pt-2 ">
-          <p className="text-lg font-light">
-            {dia} <span className="font-bold">{numero}</span>
+          <p className="text-lg font-black text-white">
+            {dia} <span className="">{numero}</span>
           </p>
-          <div className="flex items-center justify-center gap-2 ">
+          <div className="flex items-center justify-center gap-2 text-white">
             <div
-              className="text-lg font-light cursor-pointer"
+              className="text-lg font-bold cursor-pointer"
               onClick={() => setOffset((prev) => (prev - 1 + 7) % 7)}
             >
               ←
             </div>
             <div
-              className="text-lg font-light cursor-pointer"
+              className="text-lg font-bold cursor-pointer"
               onClick={() => setOffset((prev) => (prev + 1) % 7)}
             >
               →
@@ -166,7 +166,7 @@ export const Calendar = ({
           </div>
         </div>
         <div
-          className="w-full px-4 py-2 cursor-pointer rounded-xl hover:bg-black/5"
+          className="w-full px-4 py-2 bg-white cursor-pointer rounded-xl hover:bg-white/90"
           onClick={() => setOpenCalendar(!openCalendar)}
         >
           {openCalendar ? (
@@ -177,16 +177,16 @@ export const Calendar = ({
                   className="py-5 last-of-type:border-0 border-neutral-300"
                 >
                   <div className="flex gap-1">
-                    <p className="px-2 py-1 text-[10px] font-bold text-purple-400 bg-purple-100 rounded-lg">
+                    <p className="px-2 py-1 text-[10px] font-bold text-purple-500 bg-purple-200 rounded-lg">
                       {time[i].label}
                     </p>
-                    <p className="p-1 px-2 text-[10px] font-bold text-blue-400 bg-blue-100 rounded-lg">
+                    <p className="p-1 px-2 text-[10px] font-bold text-blue-500 bg-blue-200 rounded-lg">
                       {meals[i].label}
                     </p>
                   </div>
                   <div className="flex flex-col gap-20 mt-3 ">
                     <div className="flex items-center w-full gap-2 pl-2">
-                      <p className="w-auto text-sm font-medium text-neutral-500">
+                      <p className="w-auto text-sm font-bold text-neutral-600">
                         {mealRow[offset]}
                       </p>
                     </div>
@@ -199,16 +199,16 @@ export const Calendar = ({
               {transposed.slice(index, index + 1).map((mealRow, i) => (
                 <div key={i} className="py-2 border-b last-of-type:border-0 ">
                   <div className="flex gap-1">
-                    <p className="px-2 py-1 text-[10px] font-bold text-purple-400 bg-purple-100 rounded-lg">
+                    <p className="px-2 py-1 text-[10px] font-bold text-purple-500 bg-purple-200 rounded-lg">
                       Now
                     </p>
-                    <p className="p-1 px-2 text-[10px] font-bold text-blue-400 bg-blue-100 rounded-lg">
+                    <p className="p-1 px-2 text-[10px] font-bold text-blue-500 bg-blue-200 rounded-lg">
                       {meals[index].label}
                     </p>
                   </div>
                   <div className="flex flex-col gap-20 mt-3 ">
                     <div className="flex items-center w-full gap-2 pl-2">
-                      <p className="w-auto text-sm font-medium text-neutral-500">
+                      <p className="w-auto text-sm font-bold text-neutral-600">
                         {transposed[index][offset]}
                       </p>
                     </div>
@@ -219,15 +219,15 @@ export const Calendar = ({
           )}
         </div>
       </div>
-      <div className="flex w-full gap-1 py-5 mt-10 bg-white px-7 rounded-3xl">
+      <div className="flex items-center justify-center w-full gap-1 mt-10 rounded-3xl">
         <div
-          className="w-full py-2 text-sm font-semibold text-center text-white transition-all duration-300 bg-blue-400 cursor-pointer rounded-xl hover:bg-blue-300"
+          className="px-8 py-3 text-white bg-red-400 rounded-full shadow-xl cursor-pointer hover:bg-black hover:text-white "
           onClick={() => setIsGeneratePlan(true)}
         >
-          Create Plan
+          <p className="font-bold text-center ">Create Plan</p>
         </div>
         <div
-          className="px-2 py-2 text-sm font-semibold transition-all duration-300 cursor-pointer hover:text-black hover:bg-orange-500/50 bg-black/5 text-neutral-400 rounded-xl"
+          className="flex items-center justify-center w-12 h-12 bg-red-400 rounded-full shadow-xl cursor-pointer hover:bg-black "
           onClick={() => setIsGenerate(true)}
         >
           <p>✏️</p>

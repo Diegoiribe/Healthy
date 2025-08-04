@@ -11,7 +11,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { GeneratePlan } from '../components/GeneratePlan';
 import { DashboardMobile } from '../mobile/template/DashboardMobile';
-
+import Heart from '../assets/HeartPNG.png';
 // Días de la semana
 export type WeekDay =
   | 'lunes'
@@ -220,7 +220,6 @@ export const Dashboard = () => {
       {} as Record<string, any>
     );
 
-    // Generar cuerpo de la tabla: cada fila es una comida (desayuno, comida, etc.)
     const body = meals.map((meal) => {
       const row: string[] = [meal.label];
       orderedDays.forEach((day) => {
@@ -230,7 +229,6 @@ export const Dashboard = () => {
       return row;
     });
 
-    // Encabezados
     const head = [
       [
         'Meals',
@@ -244,33 +242,55 @@ export const Dashboard = () => {
       ]
     ];
 
-    // Crear PDF
     const doc = new jsPDF({
       orientation: 'landscape',
       unit: 'pt',
       format: 'a4'
     });
 
-    autoTable(doc, {
-      head,
-      body,
-      styles: {
-        fontSize: 8,
-        cellPadding: 9,
-        overflow: 'linebreak',
-        valign: 'top'
-      },
-      headStyles: {
-        fillColor: [100, 149, 237],
-        textColor: 255,
-        halign: 'center'
-      },
-      columnStyles: {
-        0: { fontStyle: 'bold', textColor: [33, 150, 243] }
-      }
-    });
+    // 👇 Cargar imagen
+    const image = new Image();
+    image.src = Heart;
 
-    doc.save('PlanSemanal.pdf');
+    image.onload = () => {
+      // Agrega logo en esquina izquierda
+      doc.addImage(image, 'PNG', 40, 30, 50, 50); // x, y, width, height
+
+      // Texto "Plan4Me"
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(18);
+      doc.text('Plan4Me', 100, 60);
+
+      // Texto alineado a la derecha
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(12);
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const textWidth = doc.getTextWidth('www.plan4me.com');
+      doc.text('www.plan4me.com', pageWidth - textWidth - 40, 60);
+
+      // Tabla
+      autoTable(doc, {
+        startY: 100,
+        head,
+        body,
+        styles: {
+          fontSize: 8,
+          cellPadding: 9,
+          overflow: 'linebreak',
+          valign: 'top'
+        },
+        headStyles: {
+          fillColor: [100, 149, 237],
+          textColor: 255,
+          halign: 'center'
+        },
+        columnStyles: {
+          0: { fontStyle: 'bold', textColor: [33, 150, 243] }
+        }
+      });
+
+      doc.save('PlanSemanal.pdf');
+    };
   };
 
   return isMobile ? (
@@ -300,7 +320,7 @@ export const Dashboard = () => {
             <>
               <div className="flex items-center justify-between max-w-5xl mx-auto min-w-4xl">
                 <p className="font-black text-7xl">
-                  <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[.4em] before:bg-orange-200 before:-z-10">
+                  <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[.4em] before:bg-red-200 before:-z-10">
                     Welcome,
                   </span>{' '}
                   {userData ? userData.firstName : 'User'}
@@ -380,7 +400,7 @@ export const Dashboard = () => {
                 <InputBottom
                   name="✏️"
                   onClick={() => setIsGenerate(true)}
-                  className="px-2 py-2 text-xs font-semibold transition-all duration-300 border border-neutral-300 hover:text-black hover:bg-orange-200 bg-neutral-50 text-neutral-400 hover:border-orange-300 rounded-xl"
+                  className="px-2 py-2 text-xs font-semibold transition-all duration-300 border border-neutral-300 hover:text-black hover:bg-red-200 bg-neutral-50 text-neutral-400 hover:border-red-300 rounded-xl"
                 />
               </div>
             </div>

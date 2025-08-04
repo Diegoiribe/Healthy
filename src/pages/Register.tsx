@@ -54,14 +54,14 @@ export const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-screen h-screen p-5">
+    <div className="flex items-center justify-center w-screen min-h-screen p-10">
       {step === 1 && (
-        <div className="h-full ">
-          <div className="flex flex-col items-center justify-center w-[400px] h-full">
+        <div className="flex items-center ">
+          <div className="flex flex-col items-center justify-center max-w-[400px] ">
             <div className="w-full ">
               <h1 className="text-5xl font-black text-center mb-15">
                 Register to{' '}
-                <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-orange-200 before:-z-10">
+                <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10">
                   Plan4Me
                 </span>
               </h1>
@@ -124,13 +124,11 @@ export const Register = () => {
               className="w-full mb-10"
             />
 
-            <div
-              className="flex justify-end w-full px-1"
-              onClick={() => setStep(2)}
-            >
+            <div className="flex justify-end w-full px-1">
               <InputBottom
                 name="Next Step"
-                className="px-10 py-2 text-black bg-orange-200 border rounded-2xl "
+                onClick={() => setStep(2)}
+                className="px-10 py-2 text-black bg-red-200 border rounded-2xl "
               />
             </div>
 
@@ -144,12 +142,12 @@ export const Register = () => {
         </div>
       )}
       {step === 2 && (
-        <form onSubmit={handleSubmit} className="h-full ">
-          <div className="flex flex-col items-center justify-center w-[400px] h-full ">
+        <form onSubmit={handleSubmit} className="flex items-center ">
+          <div className="flex flex-col items-center justify-center max-w-[400px]   ">
             <div className="w-full">
               <h1 className="text-5xl font-black text-center mb-15">
                 Register to{' '}
-                <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-orange-200 before:-z-10">
+                <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10">
                   Plan4Me
                 </span>
               </h1>
@@ -223,7 +221,7 @@ export const Register = () => {
               <InputBottom
                 type="submit"
                 name="Register"
-                className="px-10 py-2 text-black bg-orange-200 border rounded-2xl"
+                className="px-10 py-2 text-black bg-red-200 border rounded-2xl"
               />
             </div>
           </div>
@@ -235,13 +233,13 @@ export const Register = () => {
             <div className="w-full ">
               <h1 className="text-5xl font-black text-center mb-25">
                 Register to{' '}
-                <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-orange-200 before:-z-10">
+                <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10">
                   Plan4Me
                 </span>
               </h1>
             </div>
             <div className="flex flex-col items-center justify-center gap-10 text-center">
-              <p className="flex items-center justify-center w-10 h-10 text-2xl font-black text-white bg-orange-300 rounded-full">
+              <p className="flex items-center justify-center w-10 h-10 text-2xl font-black text-white bg-red-300 rounded-full">
                 ✓
               </p>
               <p className="text-2xl font-light">

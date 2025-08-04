@@ -2,7 +2,9 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://77ecf04705cb.ngrok-free.app', // ← Cámbialo por tu endpoint real
+  baseURL: 'http://192.168.1.3:1000',
+
+  withCredentials: true, // Permite enviar cookies y credenciales
   headers: {
     'Content-Type': 'application/json'
   }
