@@ -40,12 +40,7 @@ export const DashboardMobile = ({
 
   useEffect(() => {
     const shouldBeWhite =
-      isList ||
-      isConfig ||
-      openCalendar ||
-      isReferrals ||
-      isGenerate ||
-      isGeneratePlan;
+      isList || isConfig || isReferrals || isGenerate || isGeneratePlan;
 
     if (shouldBeWhite) {
       document.documentElement.style.setProperty('--page-bg-body', '#ffffff');
@@ -58,7 +53,7 @@ export const DashboardMobile = ({
       const meta = document.querySelector('meta[name="theme-color"]');
       if (meta) meta.setAttribute('content', '#dc2626');
     }
-  }, [isList, isConfig, openCalendar, isReferrals, isGenerate, isGeneratePlan]);
+  }, [isList, isConfig, isReferrals, isGenerate, isGeneratePlan]);
 
   return (
     <>
@@ -92,7 +87,7 @@ export const DashboardMobile = ({
                 className="flex items-center justify-center w-10 h-10 text-xl font-bold text-white bg-red-400 rounded-full cursor-pointer hover:bg-red-700"
                 onClick={logOut}
               >
-                Ｘ
+                ↲
               </div>
             </div>
             <div
