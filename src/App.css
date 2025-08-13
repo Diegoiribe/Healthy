@@ -2,6 +2,14 @@
 * {
   box-sizing: border-box;
 }
+@layer base {
+  html {
+    background: var(--page-bg-html, #1e1e1e);
+  }
+  body {
+    background: var(--page-bg-body, #ffffff);
+  }
+}
 
 /* Modificar la barra de desplazamiento en navegadores basados en WebKit */
 *::-webkit-scrollbar {

@@ -45,9 +45,11 @@ export const DashboardMobile = ({
   };
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--page-bg', '#dc2626'); // rojo
+    document.documentElement.style.setProperty('--page-bg-html', '#1e1e1e');
+    document.documentElement.style.setProperty('--page-bg-body', '#dc2626'); // rojo
     return () => {
-      document.documentElement.style.removeProperty('--page-bg'); // vuelve al default
+      document.documentElement.style.removeProperty('--page-bg-html');
+      document.documentElement.style.removeProperty('--page-bg-body');
     };
   }, []);
 
