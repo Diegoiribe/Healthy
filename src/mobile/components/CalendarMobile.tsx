@@ -31,8 +31,10 @@ export const CalendarMobile = ({
   useEffect(() => {
     if (!weekMeals) {
       setIsGeneratePlan(true);
+    } else {
+      setIsGeneratePlan(false);
     }
-  }, []);
+  }, [weekMeals]);
   return (
     <div className="flex flex-col items-center ">
       <Calendar

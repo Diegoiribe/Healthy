@@ -361,7 +361,9 @@ export const Dashboard = () => {
 
   return isMobile ? (
     <>
-      {userData?.plan == 'FREE' && <ChoosePlan setIsPayment={setIsPayment} />}
+      {userData?.plan == 'FREE' && (
+        <ChoosePlan isMobile={isMobile} setIsPayment={setIsPayment} />
+      )}
       {isLoading && <Loading isMobile={isMobile} />}{' '}
       <DashboardMobile
         exportPDF={exportPDF}
@@ -374,7 +376,9 @@ export const Dashboard = () => {
     </>
   ) : (
     <>
-      {userData?.plan == 'FREE' && <ChoosePlan setIsPayment={setIsPayment} />}
+      {userData?.plan == 'FREE' && (
+        <ChoosePlan isMobile={isMobile} setIsPayment={setIsPayment} />
+      )}
       <div className="flex flex-col ">
         <Header isAdmin={true} />
         {isReferrals && (

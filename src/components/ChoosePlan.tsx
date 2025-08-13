@@ -2,9 +2,10 @@ import { post } from '../api/http';
 
 interface ChoosePlanProps {
   setIsPayment: (value: boolean) => void;
+  isMobile: boolean;
 }
 
-export const ChoosePlan = ({ setIsPayment }: ChoosePlanProps) => {
+export const ChoosePlan = ({ setIsPayment, isMobile }: ChoosePlanProps) => {
   const handleSubscription = async (endpoint: string) => {
     try {
       const { url } = await post(endpoint); // 👈 tu post ya devuelve data
@@ -20,8 +21,16 @@ export const ChoosePlan = ({ setIsPayment }: ChoosePlanProps) => {
   };
 
   return (
-    <div className=" fixed bottom-0 top-30 left-0 z-100 flex items-center justify-center w-full h-[100vh] bg-white px-10">
-      <div className="flex flex-col items-center justify-center   max-w-[400px] h-full -mt-50">
+    <div
+      className={` fixed bottom-0 ${
+        isMobile ? 'top-0 ' : 'top-30 '
+      } left-0 z-100 flex items-center justify-center w-full h-[100vh] bg-white `}
+    >
+      <div
+        className={`flex flex-col items-center justify-center   max-w-[400px] h-full  ${
+          isMobile ? 'mt-40 ' : '-mt-50'
+        }`}
+      >
         <div className="w-full ">
           <h1 className="text-5xl font-black text-center mb-15">
             Suscribete a{' '}
@@ -30,7 +39,7 @@ export const ChoosePlan = ({ setIsPayment }: ChoosePlanProps) => {
             </span>
           </h1>
         </div>
-        <div className="flex flex-col items-center justify-center gap-5">
+        <div className="flex flex-col items-center justify-center gap-5 px-10">
           <div
             onClick={() => handleSubscription('/api/payments/checkout-trial')}
             className="items-center p-3 bg-white border cursor-pointer border-neutral-200 rounded-xl hover:bg-neutral-100"
