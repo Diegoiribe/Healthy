@@ -165,8 +165,6 @@ export const Dashboard = () => {
 
     console.log('Creating plan with diet type:', user.dietType);
     setIsLoading(true);
-    setIsGeneratePlan(false);
-    setIsGenerate(false);
 
     try {
       const data = { dietType: user.dietType };
@@ -176,7 +174,8 @@ export const Dashboard = () => {
         plan: res.plan ?? res.Plan ?? {},
         shoppingList: res.shoppingList ?? res.listaDeCompras ?? {}
       };
-
+      setIsGeneratePlan(false);
+      setIsGenerate(false);
       setWeekMeal(fixedRes);
     } catch (error) {
       console.error('Error generating plan:', error);
