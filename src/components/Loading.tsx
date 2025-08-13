@@ -57,8 +57,8 @@ const phrases = [
   'Desayunando bits...'
 ];
 
-export const Loading = (props: { isMobile: boolean; isLoading: boolean }) => {
-  const { isMobile, isLoading } = props;
+export const Loading = (props: { isMobile: boolean }) => {
+  const { isMobile } = props;
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -67,22 +67,6 @@ export const Loading = (props: { isMobile: boolean; isLoading: boolean }) => {
     }, 2500); // ⏱ más lento que el transition
     return () => clearInterval(interval);
   }, []);
-
-  useEffect(() => {
-    const shouldBeWhite = isLoading;
-
-    if (shouldBeWhite) {
-      document.documentElement.style.setProperty('--page-bg-body', '#ffffff');
-      document.documentElement.style.setProperty('--page-bg-html', '#ffffff');
-      const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', '#ffffff');
-    } else {
-      document.documentElement.style.setProperty('--page-bg-body', '#dc2626'); // rojo
-      document.documentElement.style.setProperty('--page-bg-html', '#1e1e1e'); // o el que uses
-      const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', '#dc2626');
-    }
-  }, [isLoading]);
 
   return isMobile ? (
     <div className="fixed bottom-0 left-0 z-100 flex items-center justify-center w-full h-[100svh] backdrop-blur bg-white">
