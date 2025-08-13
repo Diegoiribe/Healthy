@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* Base: sin márgenes y con fondo manejado por variable */
+/* Base limpia: que el fondo lo ponga tu wrapper/pseudo-fondo */
 @layer base {
   html,
   body {
@@ -12,17 +12,7 @@
   }
 }
 
-/* Fondo “full-bleed” pegado a los bordes físicos pero SIN bloquear el scroll */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0; /* top/right/bottom/left: 0 */
-  background: var(--page-bg, #ffffff);
-  pointer-events: none; /* no interfiere con clics/scroll */
-  z-index: -1; /* detrás de todo el contenido */
-}
-
-/* Utilidad de altura dinámica compatible (vh → svh → dvh) */
+/* Utilidad robusta de altura (fallback → svh → dvh) */
 @layer utilities {
   .min-h-viewport {
     min-height: 100vh;
@@ -30,11 +20,21 @@ body::before {
   @supports (height: 100svh) {
     .min-h-viewport {
       min-height: 100svh;
-    }
+    } /* tamaño visible con barras */
   }
   @supports (height: 100dvh) {
     .min-h-viewport {
       min-height: 100dvh;
-    }
+    } /* dinámico iOS 16.4+ */
   }
+}
+
+/* Fondo “full-bleed” que cubre notch/Isla sin romper el scroll */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--page-bg, #ffffff); /* valor por defecto blanco */
+  pointer-events: none;
+  z-index: -1;
 }

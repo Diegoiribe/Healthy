@@ -71,9 +71,9 @@ export const DashboardMobile = ({
       {!isList && !isConfig && !isReferrals && (
         <div
           className=" bg-red-600 w-full min-h-viewport
-      pt-[env(safe-area-inset-top)]
+      pt-[env(safe-area-inset-top)] 
       pb-[env(safe-area-inset-bottom)]
-      pl-[env(safe-area-inset-left)]
+      pl-[env(safe-area-inset-left)] 
       pr-[env(safe-area-inset-right)]
       text-white"
         >
