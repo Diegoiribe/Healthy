@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { div } from 'framer-motion/client';
 
 const phrases = [
   'Cargando productos...',
@@ -57,7 +58,8 @@ const phrases = [
   'Desayunando bits...'
 ];
 
-export const Loading = () => {
+export const Loading = (props: { isMobile: boolean }) => {
+  const { isMobile } = props;
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -67,7 +69,26 @@ export const Loading = () => {
     return () => clearInterval(interval);
   }, []);
 
-  return (
+  return isMobile ? (
+    <div className="bg-white">
+      <div className="fixed bottom-0 left-0 z-100 flex items-center justify-center w-full h-[100vh] backdrop-blur bg-white/30">
+        <div className="max-w-4xl text-center rounded-2xl">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={phrases[index]} // ✅ clave única
+              className="text-xl font-semibold text-neutral-600"
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -100 }}
+              transition={{ duration: 0.8 }}
+            >
+              {phrases[index]}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
+  ) : (
     <div className="fixed bottom-0 left-0 z-100 flex items-center justify-center w-full h-[100vh] backdrop-blur bg-white/30">
       <div className="max-w-4xl text-center rounded-2xl">
         <AnimatePresence mode="wait">

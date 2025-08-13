@@ -165,6 +165,8 @@ export const Dashboard = () => {
 
     console.log('Creating plan with diet type:', user.dietType);
     setIsLoading(true);
+    setIsGeneratePlan(false);
+    setIsGenerate(false);
 
     try {
       const data = { dietType: user.dietType };
@@ -174,8 +176,7 @@ export const Dashboard = () => {
         plan: res.plan ?? res.Plan ?? {},
         shoppingList: res.shoppingList ?? res.listaDeCompras ?? {}
       };
-      setIsGeneratePlan(false);
-      setIsGenerate(false);
+
       setWeekMeal(fixedRes);
     } catch (error) {
       console.error('Error generating plan:', error);
@@ -361,7 +362,7 @@ export const Dashboard = () => {
   return isMobile ? (
     <>
       {userData?.plan == 'FREE' && <ChoosePlan setIsPayment={setIsPayment} />}
-      {isLoading && <Loading />}{' '}
+      {isLoading && <Loading isMobile={isMobile} />}{' '}
       <DashboardMobile
         exportPDF={exportPDF}
         weekMeals={weekMeals}
@@ -427,7 +428,7 @@ export const Dashboard = () => {
             </>
           )}
         </div>
-        {isLoading && <Loading />}
+        {isLoading && <Loading isMobile={isMobile} />}
 
         {!weekMeals && !isPayment && (
           <CreateFirstPlan
