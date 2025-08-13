@@ -193,6 +193,7 @@ export const GeneratePlan = ({
           <div
             className="flex items-center gap-2 "
             onClick={() => {
+              if (!weekMeals) return;
               setIsGeneratePlan(false);
               setIsGenerate(false);
             }}
