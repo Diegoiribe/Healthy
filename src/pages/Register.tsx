@@ -133,17 +133,20 @@ export const Register = () => {
                   { label: 'Mujer', value: 'mujer' }
                 ]}
               />
-              <InputText
-                value={formData.birthday}
-                onChange={handleChange}
-                placeholder="Eje. 12-04-2003 "
-                label="Nacimiento"
-                type="date"
-                name="birthday"
-                required={true}
-                className="w-1/2 mb-5"
-                classNameInput="p-4 border-2 border-neutral-100 rounded-2xl bg-white w-full"
-              />
+              <div
+                className={`flex flex-col mb-5 w-1/2  gap-1 p-1 overflow-hidden`}
+              >
+                <label className="text-lg font-semibold">Nacimiento</label>
+                <input
+                  value={formData.birthday}
+                  onChange={handleChange}
+                  placeholder="Eje. 12-04-2003 "
+                  type="date"
+                  name="birthday"
+                  required={true}
+                  className="w-full p-4 bg-white border-2 border-neutral-100 rounded-2xl"
+                />
+              </div>
             </div>
 
             <InputText
