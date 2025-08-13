@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { HomeMobile } from '../components/HomeMobile';
 import { CalendarMobile } from '../components/CalendarMobile';
 import type { WeekMeals, UserDataProps } from '../../pages/Dashboard';
@@ -44,6 +44,13 @@ export const DashboardMobile = ({
     window.location.replace('/login'); // reemplaza historial
   };
 
+  useEffect(() => {
+    document.documentElement.style.setProperty('--page-bg', '#dc2626'); // rojo
+    return () => {
+      document.documentElement.style.removeProperty('--page-bg'); // vuelve al default
+    };
+  }, []);
+
   return (
     <>
       {isConfig && !isList && !isReferrals && (
@@ -62,7 +69,14 @@ export const DashboardMobile = ({
       )}
 
       {!isList && !isConfig && !isReferrals && (
-        <div className="w-full min-h-[100svh] bg-red-600 vh-fit safe">
+        <div
+          className=" bg-red-600 w-full min-h-viewport
+      pt-[env(safe-area-inset-top)]
+      pb-[env(safe-area-inset-bottom)]
+      pl-[env(safe-area-inset-left)]
+      pr-[env(safe-area-inset-right)]
+      text-white"
+        >
           <div className="flex flex-col items-center max-w-2xl p-10 mx-auto ">
             <div className="flex justify-end w-full">
               <div

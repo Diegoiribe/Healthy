@@ -1,1 +1,40 @@
 @import 'tailwindcss';
+
+/* Base: sin márgenes y con fondo manejado por variable */
+@layer base {
+  html,
+  body {
+    min-height: 100%;
+    margin: 0;
+  }
+  body {
+    background: transparent;
+  }
+}
+
+/* Fondo “full-bleed” pegado a los bordes físicos pero SIN bloquear el scroll */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0; /* top/right/bottom/left: 0 */
+  background: var(--page-bg, #ffffff);
+  pointer-events: none; /* no interfiere con clics/scroll */
+  z-index: -1; /* detrás de todo el contenido */
+}
+
+/* Utilidad de altura dinámica compatible (vh → svh → dvh) */
+@layer utilities {
+  .min-h-viewport {
+    min-height: 100vh;
+  }
+  @supports (height: 100svh) {
+    .min-h-viewport {
+      min-height: 100svh;
+    }
+  }
+  @supports (height: 100dvh) {
+    .min-h-viewport {
+      min-height: 100dvh;
+    }
+  }
+}

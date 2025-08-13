@@ -3,45 +3,6 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  background: transparent; /* para que se vea el bg del wrapper */
-}
-
-/* Utilidad para safe areas: top/bottom/left/right */
-.safe {
-  padding-top: env(safe-area-inset-top, 0);
-  padding-bottom: env(safe-area-inset-bottom, 0);
-  padding-left: env(safe-area-inset-left, 0);
-  padding-right: env(safe-area-inset-right, 0);
-  /* Fallback muy viejo (iOS 11–12) */
-  padding-top: constant(safe-area-inset-top, 0);
-  padding-bottom: constant(safe-area-inset-bottom, 0);
-  padding-left: constant(safe-area-inset-left, 0);
-  padding-right: constant(safe-area-inset-right, 0);
-}
-
-/* Altura dinámica robusta:
-   - 100svh = viewport MÁS chico (cuando barras visibles)
-   - 100dvh = viewport dinámico (se ajusta al cambiar barras)
-   - 100lvh = viewport MÁS grande (cuando barras ocultas)
-*/
-.vh-fit {
-  min-height: 100vh;
-} /* fallback universal */
-@supports (height: 100svh) {
-  .vh-fit {
-    min-height: 100svh;
-  } /* mejor en iOS con UI visible */
-}
-@supports (height: 100dvh) {
-  .vh-fit {
-    min-height: 100dvh;
-  } /* iOS 16.4+ y modernos */
-}
-
 /* Modificar la barra de desplazamiento en navegadores basados en WebKit */
 *::-webkit-scrollbar {
   width: 0px; /* Ancho reducido */
