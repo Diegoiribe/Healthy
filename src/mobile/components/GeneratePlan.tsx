@@ -12,7 +12,7 @@ type Option = {
 interface CreatePlanProps {
   userData?: UserDataProps;
   setUserData: (data: UserDataProps) => void;
-  createPlan: () => Promise<void>;
+  createPlan: (u?: UserDataProps) => Promise<void> | void;
   setIsGeneratePlan: (value: boolean) => void;
   isMobile: boolean;
   weekMeals?: WeekMeals | null;
@@ -140,36 +140,39 @@ export const GeneratePlan = ({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async () => {
-    console.log(dietSelect);
-    const payload = {
-      goal: formData.goal,
-      weightKg: parseFloat(formData.weight),
-      heightCm: parseFloat(formData.height),
-      likedFoods: formData.likedFoods
-        .split(',')
-        .map((f) => f.trim())
-        .filter((f) => f.length > 0),
-      dislikedFoods: formData.dislikedFoods
-        .split(',')
-        .map((f) => f.trim())
-        .filter((f) => f.length > 0),
-      activityLevel: 'Moderado',
-      dietType: dietSelect
-    };
+  const handleSubmit = async (): Promise<UserDataProps | null> => {
+    try {
+      const payload = {
+        goal: formData.goal.trim(),
+        weightKg: Number(formData.weight),
+        heightCm: Number(formData.height),
+        likedFoods: formData.likedFoods
+          .split(/[,;]/)
+          .map((f) => f.trim())
+          .filter((f) => f.length > 0),
+        dislikedFoods: formData.dislikedFoods
+          .split(/[,;]/)
+          .map((f) => f.trim())
+          .filter((f) => f.length > 0),
+        activityLevel: 'Moderado',
+        dietType: dietSelect
+      };
 
-    // Aquí puedes hacer la petición PATCH a tu API
-    await patch('/user/profile', payload)
-      .then(() => {
-        return get('/user/me'); // vuelve a pedir los datos actualizados
-      })
-      .then((updatedData) => {
-        setUserData(updatedData); // actualiza el estado global
-        setIsGeneratePlan(false); // cierra el modal
-      })
-      .catch((error) => {
-        console.error('Error updating plan:', error);
-      });
+      if (Number.isNaN(payload.weightKg) || Number.isNaN(payload.heightCm)) {
+        console.error('Weight/height inválidos');
+        return null;
+      }
+
+      await patch('/user/profile', payload);
+      console.log('🐞 User data updated successfully:', payload);
+      const updatedData = await get('/user/me');
+      console.log('🐞 Updated user data:', updatedData);
+      setUserData(updatedData);
+      return updatedData; // ← devuélvelo
+    } catch (err) {
+      console.error('Error updating plan:', err);
+      return null;
+    }
   };
 
   return (
@@ -365,8 +368,10 @@ export const GeneratePlan = ({
               <p
                 className="px-8 py-3 mt-5 font-semibold text-black rounded-full cursor-pointer bg-black/5 hover:bg-black hover:text-white "
                 onClick={async () => {
-                  await handleSubmit();
-                  await createPlan();
+                  const updated = await handleSubmit(); // devuelve UserDataProps | null
+                  if (updated) {
+                    await createPlan(updated);
+                  }
                 }}
               >
                 Enviar

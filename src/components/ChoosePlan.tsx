@@ -28,7 +28,7 @@ export const ChoosePlan = ({ setIsPayment, isMobile }: ChoosePlanProps) => {
     >
       <div
         className={`flex flex-col items-center justify-center   max-w-[400px] h-full  ${
-          isMobile ? 'mt-40 ' : '-mt-50'
+          isMobile ? 'mt-20 ' : '-mt-50'
         }`}
       >
         <div className="w-full ">
