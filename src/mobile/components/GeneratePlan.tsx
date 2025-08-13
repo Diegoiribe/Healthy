@@ -187,14 +187,17 @@ export const GeneratePlan = ({
         }`}
       >
         <div className="flex flex-col justify-center w-full gap-2">
-          <div className="flex items-center gap-2">
+          <div
+            className="flex items-center gap-2 "
+            onClick={() => {
+              setIsGeneratePlan(false);
+              setIsGenerate(false);
+            }}
+          >
             <div
               className={`${
                 step === 1 ? '' : 'hidden'
               } text-2xl font-black cursor-pointer text-black hover:text-red-300`}
-              onClick={() => {
-                setIsGenerate(false);
-              }}
             >
               ←
             </div>
