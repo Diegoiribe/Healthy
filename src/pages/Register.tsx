@@ -324,7 +324,7 @@ export const Register = () => {
                 </span>
               </h1>
             </div>
-            <div className="flex flex-col items-center justify-center gap-5">
+            <div className="flex flex-col items-center justify-center gap-5 px-10">
               <div
                 onClick={() =>
                   handleSubscription('/api/payments/checkout-trial')
