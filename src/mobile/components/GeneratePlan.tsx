@@ -191,14 +191,14 @@ export const GeneratePlan = ({
             <div
               className={`${
                 step === 1 ? '' : 'hidden'
-              } text-2xl font-black cursor-pointer hover:text-red-300`}
+              } text-2xl font-black cursor-pointer text-black hover:text-red-300`}
               onClick={() => {
                 setIsGenerate(false);
               }}
             >
               ←
             </div>
-            <p className="text-2xl font-black ">
+            <p className="text-2xl font-black text-black">
               {step === 1
                 ? 'Elige un tipo de dieta'
                 : 'Mantén tus datos actualizados'}

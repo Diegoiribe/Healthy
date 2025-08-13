@@ -5,8 +5,6 @@
   body {
     margin: 0;
     min-height: 100%;
-    overscroll-behavior: none; /* evita rebote molesto */
-    overscroll-behavior-y: none;
   }
   /* Pon un color base oscuro y otro para body; puedes usar CSS vars por ruta */
   html {
