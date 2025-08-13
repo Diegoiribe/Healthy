@@ -137,7 +137,7 @@ export const Register = () => {
                 className={`flex flex-col mb-5 w-1/2  gap-1 p-1 overflow-hidden`}
               >
                 <label className="text-lg font-semibold">Nacimiento</label>
-                <div className="p-4 bg-white border-2 border-neutral-100 rounded-2xl">
+                <div className="p-3 bg-white border-2 border-neutral-100 rounded-2xl">
                   <input
                     value={formData.birthday}
                     onChange={handleChange}

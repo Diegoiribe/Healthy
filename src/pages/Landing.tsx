@@ -111,7 +111,7 @@ export const Landing = () => {
         >
           <p
             className={` mb-12 font-black text-center  ${
-              isMobile ? 'text-3xl px-1' : 'text-7xl mt-12'
+              isMobile ? 'text-3xl px-3' : 'text-7xl mt-12'
             } `}
           >
             El 97% quiere comer mejor…,{' '}
