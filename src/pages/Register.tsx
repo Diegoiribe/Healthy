@@ -136,12 +136,13 @@ export const Register = () => {
               <InputText
                 value={formData.birthday}
                 onChange={handleChange}
-                placeholder="Eje. Culican "
+                placeholder="Eje. 12-04-2003 "
                 label="Nacimiento"
                 type="date"
                 name="birthday"
                 required={true}
                 className="w-1/2 mb-5"
+                classNameInput="p-4 border-2 border-neutral-100 rounded-2xl bg-white w-full"
               />
             </div>
 

@@ -23,7 +23,7 @@ export const InputText: React.FC<InputTextProps> = ({
   name,
   required = false,
   className = '',
-  classNameInput = 'p-4 border-2 border-neutral-100 rounded-2xl   focus:outline-2  bg-white outline-orange-300/5',
+  classNameInput = 'p-4 border-2 border-neutral-100 rounded-2xl   focus:outline-2  bg-white outline-red-300/5',
   classNameLabel = ' text-lg font-semibold'
 }) => {
   return (
@@ -36,7 +36,7 @@ export const InputText: React.FC<InputTextProps> = ({
         placeholder={placeholder}
         name={name}
         required={required}
-        className={` w-full ${classNameInput}   0`}
+        className={` w-full ${classNameInput}   `}
       />
     </div>
   );

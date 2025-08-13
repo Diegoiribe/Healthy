@@ -5,7 +5,7 @@ import type { WeekMeals, UserDataProps } from '../../pages/Dashboard';
 import { List } from '../components/List';
 import { Config } from '../components/Config';
 import { Referrals } from '../components/Referrals';
-import imgProfile from '../../assets/icon.jpeg'; // Asegúrate de que la ruta sea correcta
+import icon from '../../assets/appleBlue.png'; // Asegúrate de que la ruta sea correcta
 
 type DashboardMobileProps = {
   exportPDF: (weekMeals: WeekMeals | null) => void;
@@ -98,7 +98,7 @@ export const DashboardMobile = ({
             <div
               className="w-24 h-24 mb-5 bg-white rounded-full"
               style={{
-                backgroundImage: `url(${imgProfile})`,
+                backgroundImage: `url(${icon})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat'
