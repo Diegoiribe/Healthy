@@ -84,7 +84,7 @@ export const DashboardMobile = ({
           <div className="flex flex-col items-center max-w-2xl p-10 mx-auto ">
             <div className="flex justify-end w-full">
               <div
-                className="flex items-center justify-center w-10 h-10 text-xl font-bold text-white bg-red-400 rounded-full cursor-pointer hover:bg-red-700"
+                className="flex items-center justify-center w-10 h-10 text-lg font-bold text-white bg-red-400 rounded-full cursor-pointer hover:bg-red-700"
                 onClick={logOut}
               >
                 <svg
