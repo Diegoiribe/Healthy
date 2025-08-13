@@ -18,7 +18,7 @@ export const Plans = (props: { isMobile: boolean }) => {
       >
         Sin comisiones ocultas, sin juegos, sin sorpresas.
         <br />
-        Cambiar tu vida gratis
+        {isMobile ? '' : 'Cambiar tu vida '}
       </p>
       <div className={`${isMobile && 'mt-20'} w-full`}>
         <div className="flex w-full px-4 py-2">

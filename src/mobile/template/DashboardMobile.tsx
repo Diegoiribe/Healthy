@@ -45,13 +45,21 @@ export const DashboardMobile = ({
   };
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--page-bg-html', '#1e1e1e');
-    document.documentElement.style.setProperty('--page-bg-body', '#dc2626'); // rojo
-    return () => {
-      document.documentElement.style.removeProperty('--page-bg-html');
-      document.documentElement.style.removeProperty('--page-bg-body');
-    };
-  }, []);
+    const shouldBeWhite =
+      isList || isConfig || openCalendar || isReferrals || isGenerate;
+
+    if (shouldBeWhite) {
+      document.documentElement.style.setProperty('--page-bg-body', '#ffffff');
+      document.documentElement.style.setProperty('--page-bg-html', '#ffffff');
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', '#ffffff');
+    } else {
+      document.documentElement.style.setProperty('--page-bg-body', '#dc2626'); // rojo
+      document.documentElement.style.setProperty('--page-bg-html', '#1e1e1e'); // o el que uses
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', '#dc2626');
+    }
+  }, [isList, isConfig, openCalendar, isReferrals, isGenerate]);
 
   return (
     <>

@@ -174,7 +174,7 @@ export const GeneratePlan = ({
   return (
     <div
       className={`
-      fixed inset-0 z-[9999] 
+      fixed inset-0 z-[9999] text-black
       ${isMobile ? 'bg-white' : 'bg-black/30 backdrop-blur-sm'}
       overflow-y-auto overscroll-contain
     `}
@@ -359,7 +359,7 @@ export const GeneratePlan = ({
                 ←
               </p>
               <p
-                className="px-8 py-3 mt-5 font-semibold rounded-full cursor-pointer bg-black/5 hover:bg-black hover:text-white "
+                className="px-8 py-3 mt-5 font-semibold text-black rounded-full cursor-pointer bg-black/5 hover:bg-black hover:text-white "
                 onClick={async () => {
                   await handleSubmit();
                   createPlan();

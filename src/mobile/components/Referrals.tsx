@@ -33,15 +33,6 @@ export const Referrals = ({ setIsReferrals }: ReferralProps) => {
     maximumFractionDigits: 2
   });
 
-  useEffect(() => {
-    document.documentElement.style.setProperty('--page-bg-html', '#fffff');
-    document.documentElement.style.setProperty('--page-bg-body', '#fffff'); // rojo
-    return () => {
-      document.documentElement.style.removeProperty('--page-bg-html');
-      document.documentElement.style.removeProperty('--page-bg-body');
-    };
-  }, []);
-
   return (
     <div>
       <div className="flex flex-col max-w-2xl min-h-[100dvh] gap-5 p-10 mx-auto bg-white">
