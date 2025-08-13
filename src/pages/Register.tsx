@@ -86,9 +86,15 @@ export const Register = () => {
                 Registrate en{' '}
                 <Link
                   to={'/'}
-                  className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10"
+                  className="
+    relative inline-block isolate
+    before:content-[''] before:absolute
+    before:-inset-x-2 before:-bottom-[0.01em]
+    before:h-[1em] before:bg-red-200
+    before:z-0
+  "
                 >
-                  Plan4Me
+                  <span className="relative z-10">Plan4Me</span>
                 </Link>
               </h1>
             </div>
@@ -173,8 +179,16 @@ export const Register = () => {
             <div className="w-full">
               <h1 className="text-5xl font-black text-center mb-15">
                 Registrate en{' '}
-                <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10">
-                  Plan4Me
+                <span
+                  className="
+    relative inline-block isolate
+    before:content-[''] before:absolute
+    before:-inset-x-2 before:-bottom-[0.01em]
+    before:h-[1em] before:bg-red-200
+    before:z-0
+  "
+                >
+                  <span className="relative z-10">Plan4Me</span>
                 </span>
               </h1>
               <InputText
@@ -291,8 +305,16 @@ export const Register = () => {
             <div className="w-full ">
               <h1 className="text-5xl font-black text-center mb-15">
                 Suscribete a{' '}
-                <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10">
-                  Plan4Me
+                <span
+                  className="
+    relative inline-block isolate
+    before:content-[''] before:absolute
+    before:-inset-x-2 before:-bottom-[0.01em]
+    before:h-[1em] before:bg-red-200
+    before:z-0
+  "
+                >
+                  <span className="relative z-10">Plan4Me</span>
                 </span>
               </h1>
             </div>
@@ -360,8 +382,16 @@ export const Register = () => {
             <div className="w-full ">
               <h1 className="text-5xl font-black text-center mb-25">
                 Bienvenido a{' '}
-                <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10">
-                  Plan4Me
+                <span
+                  className="
+    relative inline-block isolate
+    before:content-[''] before:absolute
+    before:-inset-x-2 before:-bottom-[0.01em]
+    before:h-[1em] before:bg-red-200
+    before:z-0
+  "
+                >
+                  <span className="relative z-10">Plan4Me</span>
                 </span>
               </h1>
             </div>

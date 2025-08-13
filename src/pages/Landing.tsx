@@ -24,6 +24,14 @@ export const Landing = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.style.setProperty('--page-bg-html', '#fffff');
+    document.documentElement.style.setProperty('--page-bg-body', '#fffff'); // rojo
+    return () => {
+      document.documentElement.style.removeProperty('--page-bg-html');
+      document.documentElement.style.removeProperty('--page-bg-body');
+    };
+  }, []);
   return (
     <div className="flex flex-col items-center overflow-x-hidden">
       <Header isMobile={isMobile} isAdmin={false} />
@@ -40,8 +48,16 @@ export const Landing = () => {
           >
             Pierde peso en
             <br />
-            <span className="relative inline-block before:absolute before:-inset-x-1 before:-bottom-[0.01em] before:h-[0.4em] before:bg-red-200 before:-z-10">
-              semanas,
+            <span
+              className="
+     relative inline-block isolate
+    before:content-[''] before:absolute
+    before:-inset-x-2 before:-bottom-[0.01em]
+    before:h-[1em] before:bg-red-200
+    before:z-0
+  "
+            >
+              <span className="relative z-10">semanas,</span>
             </span>{' '}
             no en meses
           </h1>
@@ -99,8 +115,16 @@ export const Landing = () => {
             } `}
           >
             El 97% quiere comer mejor…,{' '}
-            <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[0.4em] before:bg-red-200 before:-z-10">
-              pero no empieza
+            <span
+              className="
+    relative inline-block isolate
+    before:content-[''] before:absolute
+    before:-inset-x-2 before:-bottom-[0.01em]
+    before:h-[1em] before:bg-red-200
+    before:z-0
+  "
+            >
+              <span className="relative z-10">pero no empieza</span>
             </span>
           </p>
           <p

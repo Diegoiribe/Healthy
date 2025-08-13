@@ -91,9 +91,18 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
     }
   };
 
+  useEffect(() => {
+    document.documentElement.style.setProperty('--page-bg-html', '#fffff');
+    document.documentElement.style.setProperty('--page-bg-body', '#fffff'); // rojo
+    return () => {
+      document.documentElement.style.removeProperty('--page-bg-html');
+      document.documentElement.style.removeProperty('--page-bg-body');
+    };
+  }, []);
+
   return (
     <div>
-      <div className="flex flex-col max-w-2xl gap-5 p-10 mx-auto ">
+      <div className="flex flex-col max-w-2xl gap-5 bg-white min-h-[100dvh] p-10 mx-auto ">
         <div className="flex justify-end w-full">
           <div
             className="flex items-center justify-center w-10 h-10 text-xl font-bold text-white rounded-full cursor-pointer bg-black/10 hover:bg-red-300 "

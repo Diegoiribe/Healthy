@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import type { WeekMeals } from '../../pages/Dashboard';
 
 interface ListProps {
@@ -22,6 +22,15 @@ export const List = ({ weekMeals, setIsList }: ListProps) => {
   const toggleItem = (index: number) => {
     setChecked((prev) => prev.map((val, i) => (i === index ? !val : val)));
   };
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--page-bg-html', '#fffff');
+    document.documentElement.style.setProperty('--page-bg-body', '#fffff'); // rojo
+    return () => {
+      document.documentElement.style.removeProperty('--page-bg-html');
+      document.documentElement.style.removeProperty('--page-bg-body');
+    };
+  }, []);
   return (
     <div>
       <div className="flex flex-col items-center min-h-[100dvh]  max-w-2xl p-10 mx-auto bg-white">

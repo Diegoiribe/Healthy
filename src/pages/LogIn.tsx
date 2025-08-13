@@ -1,5 +1,5 @@
 import { InputBottom, InputText } from '../components/TypeInputs';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { login } from '../api/auth';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -28,6 +28,15 @@ export const LogIn = () => {
     console.log('Form data:', formData);
   };
 
+  useEffect(() => {
+    document.documentElement.style.setProperty('--page-bg-html', '#fffff');
+    document.documentElement.style.setProperty('--page-bg-body', '#fffff'); // rojo
+    return () => {
+      document.documentElement.style.removeProperty('--page-bg-html');
+      document.documentElement.style.removeProperty('--page-bg-body');
+    };
+  }, []);
+
   return (
     <div className="flex items-center justify-center w-screen h-screen p-10">
       <div className="h-full ">
@@ -40,9 +49,15 @@ export const LogIn = () => {
               Iniciar sesion{' '}
               <Link
                 to={'/'}
-                className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10"
+                className="
+    relative inline-block isolate
+    before:content-[''] before:absolute
+    before:-inset-x-2 before:-bottom-[0.01em]
+    before:h-[1em] before:bg-red-200
+    before:z-0
+  "
               >
-                Plan4Me
+                <span className="relative z-10">Plan4Me</span>
               </Link>
             </h1>
           </div>
