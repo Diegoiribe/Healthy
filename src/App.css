@@ -1,7 +1,9 @@
 * {
   box-sizing: border-box;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
+}
+
+body {
+  background-color: transparent;
 }
 
 /* Modificar la barra de desplazamiento en navegadores basados en WebKit */
