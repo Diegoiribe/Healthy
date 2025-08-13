@@ -140,6 +140,12 @@ export const Calendar = ({
 
   const index = getMealIndexMasCercano();
 
+  useEffect(() => {
+    if (!weekMeals) {
+      setIsGeneratePlan(true);
+    }
+  }, [weekMeals]);
+
   return (
     <div className="w-[325px]">
       <div className="flex flex-col w-full gap-3 p-3 bg-red-400 rounded-3xl">
@@ -228,17 +234,6 @@ export const Calendar = ({
           <p className="font-bold text-center ">Crear Plan</p>
         </div>
       </div>
-
-      {!weekMeals && (
-        <GeneratePlan
-          userData={userData}
-          setIsGenerate={setIsGeneratePlan}
-          setIsGeneratePlan={setIsGeneratePlan}
-          setUserData={setUserData}
-          createPlan={createPlan}
-          isMobile={isMobile}
-        />
-      )}
 
       {isGeneratePlan && (
         <GeneratePlan
