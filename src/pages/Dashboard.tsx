@@ -362,7 +362,7 @@ export const Dashboard = () => {
   return isMobile ? (
     <>
       {userData?.plan == 'FREE' && <ChoosePlan setIsPayment={setIsPayment} />}
-      {isLoading && <Loading isLoading={isLoading} isMobile={isMobile} />}{' '}
+      {isLoading && <Loading isMobile={isMobile} />}{' '}
       <DashboardMobile
         exportPDF={exportPDF}
         weekMeals={weekMeals}
@@ -428,7 +428,7 @@ export const Dashboard = () => {
             </>
           )}
         </div>
-        {isLoading && <Loading isLoading={isLoading} isMobile={isMobile} />}
+        {isLoading && <Loading isMobile={isMobile} />}
 
         {!weekMeals && !isPayment && (
           <CreateFirstPlan
