@@ -17,7 +17,7 @@ export function setBaseURL(key: keyof typeof BASE_URLS) {
 
 const instance = axios.create({
   baseURL: currentBaseURL,
-  withCredentials: true,
+  withCredentials: false,
   headers: {
     'Content-Type': 'application/json'
   }
