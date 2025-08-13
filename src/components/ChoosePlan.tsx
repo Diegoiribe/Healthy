@@ -20,8 +20,8 @@ export const ChoosePlan = ({ setIsPayment }: ChoosePlanProps) => {
   };
 
   return (
-    <div className="fixed bottom-0 top-30 left-0 z-100 flex items-center justify-center w-full h-[100vh] bg-white ">
-      <div className="flex flex-col items-center justify-center w-[400px] h-full -mt-50">
+    <div className=" fixed bottom-0 top-30 left-0 z-100 flex items-center justify-center w-full h-[100vh] bg-white ">
+      <div className="flex flex-col items-center justify-center px-10 max-w-[400px] h-full -mt-50">
         <div className="w-full ">
           <h1 className="text-5xl font-black text-center mb-15">
             Suscribete a{' '}
