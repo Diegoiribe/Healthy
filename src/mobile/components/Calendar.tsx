@@ -140,12 +140,6 @@ export const Calendar = ({
 
   const index = getMealIndexMasCercano();
 
-  useEffect(() => {
-    if (!weekMeals) {
-      setIsGeneratePlan(true);
-    }
-  }, [weekMeals]);
-
   return (
     <div className="w-[325px]">
       <div className="flex flex-col w-full gap-3 p-3 bg-red-400 rounded-3xl">

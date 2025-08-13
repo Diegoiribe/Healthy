@@ -39,6 +39,11 @@ export const DashboardMobile = ({
   };
 
   useEffect(() => {
+    if (!weekMeals) {
+      setIsGeneratePlan(true);
+      setIsGenerate(true);
+    }
+
     const shouldBeWhite =
       isList || isConfig || isReferrals || isGenerate || isGeneratePlan;
 
