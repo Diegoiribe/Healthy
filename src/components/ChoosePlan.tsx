@@ -27,8 +27,8 @@ export const ChoosePlan = ({ setIsPayment, isMobile }: ChoosePlanProps) => {
       } left-0 z-100 flex items-center justify-center w-full h-[100vh] bg-white `}
     >
       <div
-        className={`flex flex-col items-center justify-center   max-w-[400px] h-full  ${
-          isMobile ? 'mt-20 ' : '-mt-50'
+        className={`flex flex-col items-center justify-center    h-full  ${
+          isMobile ? 'mt-20 max-w-[350px] ' : '-mt-50 max-w-[400px]'
         }`}
       >
         <div className="w-full ">
@@ -39,7 +39,7 @@ export const ChoosePlan = ({ setIsPayment, isMobile }: ChoosePlanProps) => {
             </span>
           </h1>
         </div>
-        <div className="flex flex-col items-center justify-center gap-5 px-10">
+        <div className="flex flex-col items-center justify-center gap-5 ">
           <div
             onClick={() => handleSubscription('/api/payments/checkout-trial')}
             className="items-center p-3 bg-white border cursor-pointer border-neutral-200 rounded-xl hover:bg-neutral-100"
