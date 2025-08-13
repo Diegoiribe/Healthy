@@ -9,6 +9,8 @@ import { Dashboard } from './pages/Dashboard';
 import { Landing } from './pages/Landing';
 import { LogIn } from './pages/LogIn';
 import { Register } from './pages/Register';
+import TServicios from './pages/TServicios';
+import { Privacidad } from './pages/Privacidad';
 
 function App() {
   const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -31,8 +33,10 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/LogIn" element={<LogIn />} />
-        <Route path="/Register" element={<Register />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/terminos-y-servicios" element={<TServicios />} />
+        <Route path="/privacidad" element={<Privacidad />} />
         <Route path="*" element={<Landing />} />
       </Routes>
     </Router>

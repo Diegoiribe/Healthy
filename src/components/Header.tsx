@@ -1,4 +1,4 @@
-import logo from '../assets/Logo.webp';
+import { Link } from 'react-router-dom';
 import Heart from '../assets/Heart.svg';
 import { InputBottom } from './TypeInputs';
 import { useEffect, useState } from 'react';
@@ -33,42 +33,58 @@ export const Header = ({ isAdmin, isMobile }: HeaderProps) => {
       }`}
     >
       <div className="flex items-center justify-between w-full max-w-6xl">
-        <div className="flex items-center justify-center ">
-          <div
-            className="w-[50px] h-[50px] flex items-center justify-center "
-            style={{
-              backgroundImage: `url(${Heart})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}
-          ></div>
-          <p className="text-2xl font-bold">Plan4Me</p>
-        </div>
+        {isAdmin ? (
+          <div className="flex items-center justify-center ">
+            <div
+              className="w-[50px] h-[50px] flex items-center justify-center "
+              style={{
+                backgroundImage: `url(${Heart})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            ></div>
+            <p className="text-2xl font-bold">Plan4Me</p>
+          </div>
+        ) : (
+          <Link to={'/'} className="flex items-center justify-center ">
+            <div
+              className="w-[50px] h-[50px] flex items-center justify-center "
+              style={{
+                backgroundImage: `url(${Heart})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            ></div>
+            <p className="text-2xl font-bold">Plan4Me</p>
+          </Link>
+        )}
 
         {isAdmin && (
           <InputBottom
-            name="Log out"
+            name="Salir"
             className="px-5 py-2 text-xs font-semibold transition-all duration-300 border border-neutral-300 hover:text-black hover:bg-red-200 bg-neutral-50 text-neutral-400 hover:border-black rounded-xl"
             to="/login"
             onClick={logOut}
           />
         )}
         {!isAdmin && !isMobile && (
+          // Opciones en header
           <>
             <div className="flex items-center gap-20">
-              <p className="">Reviews</p>
-              <p>Princing</p>
-              <p>FAQ</p>
+              <p className=""></p>
+              <p></p>
+              <p></p>
             </div>
             <div className="flex items-center gap-5">
               <InputBottom
-                name="Sign in"
+                name="Iniciar sesion"
                 className="px-4 py-2 text-sm border"
                 to="/login"
               />
               <InputBottom
-                name="Get Plan4Me"
+                name="Empezar Plan4Me"
                 className="px-4 py-2 text-sm text-red-300 bg-black border"
+                to="/register"
               />
             </div>
           </>
@@ -78,7 +94,7 @@ export const Header = ({ isAdmin, isMobile }: HeaderProps) => {
           <>
             <div className="flex items-center gap-5">
               <InputBottom
-                name="Sign in"
+                name="Iniciar sesion"
                 className="px-4 py-2 text-sm text-red-300 bg-black border"
                 to="/login"
               />

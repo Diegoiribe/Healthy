@@ -24,7 +24,7 @@ export const List = ({ weekMeals }: ListProps) => {
 
   return (
     <div className="flex flex-col max-w-3xl gap-10 mx-auto py-15">
-      <p className="mb-5 text-5xl font-semibold text-orange-300">
+      <p className="mb-5 text-5xl font-semibold text-red-300">
         Lista de compras
       </p>
 
@@ -37,14 +37,16 @@ export const List = ({ weekMeals }: ListProps) => {
             {flatItems.map((item, index) => (
               <div key={index} className="flex items-center justify-between">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-2 h-2 bg-orange-300 rounded-full"></div>
+                  <div className="w-2 h-2 bg-red-300 rounded-full"></div>
                   <p className="text-lg font-light truncate">{item}</p>
                 </div>
                 <div
                   className="cursor-pointer"
                   onClick={() => toggleItem(index)}
                 >
-                  <p className="text-2xl">{checked[index] ? '✅' : '✓'}</p>
+                  <p className="text-2xl text-neutral-400">
+                    {checked[index] ? '✅' : '✓'}
+                  </p>
                 </div>
               </div>
             ))}

@@ -1,27 +1,30 @@
 import { Information } from './Information';
-import { Plan } from './Plan';
 import { useState } from 'react';
+import type { UserDataProps } from '../pages/Dashboard';
 
-export const ConfigUser = (props: {
+interface ConfigUserProps {
   setIsConfig: (value: boolean) => void;
-}) => {
-  const { setIsConfig } = props;
+  userData?: UserDataProps;
+  setUserData: (data: UserDataProps) => void;
+}
+
+export const ConfigUser = ({
+  setIsConfig,
+  userData,
+  setUserData
+}: ConfigUserProps) => {
   const [IsSelected, setIsSelected] = useState<string>('information');
 
   return (
-    <div className="w-full h-screen mt-25">
-      <div className="flex items-center justify-between max-w-3xl mx-auto min-w-3xl ">
+    <div className="w-full h-screen mt-10">
+      <div className="flex items-center justify-between max-w-3xl mx-auto ">
+        <p
+          className="items-center justify-center text-2xl font-semibold text-black rounded-full cursor-pointer lex hover:text-red-300"
+          onClick={() => setIsConfig(false)}
+        >
+          ←
+        </p>
         <div className="flex items-center justify-between gap-10 py-5 ">
-          <p
-            className={` text-lg cursor-pointer  ${
-              IsSelected === 'plan'
-                ? 'text-black font-semibold border-black border-b'
-                : 'text-neutral-400'
-            }`}
-            onClick={() => setIsSelected('plan')}
-          >
-            Your Plan
-          </p>
           <p
             className={` text-lg cursor-pointer  ${
               IsSelected === 'information'
@@ -30,20 +33,14 @@ export const ConfigUser = (props: {
             }`}
             onClick={() => setIsSelected('information')}
           >
-            Settings
+            Ajustes
           </p>
         </div>
-
-        <p
-          className="text-2xl cursor-pointer text-neutral-300 hover:text-black"
-          onClick={() => setIsConfig(false)}
-        >
-          🆇
-        </p>
       </div>
 
-      {IsSelected === 'plan' && <Plan />}
-      {IsSelected === 'information' && <Information />}
+      {IsSelected === 'information' && (
+        <Information userData={userData} setUserData={setUserData} />
+      )}
     </div>
   );
 };

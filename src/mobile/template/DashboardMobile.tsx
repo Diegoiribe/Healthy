@@ -4,6 +4,8 @@ import { CalendarMobile } from '../components/CalendarMobile';
 import type { WeekMeals, UserDataProps } from '../../pages/Dashboard';
 import { List } from '../components/List';
 import { Config } from '../components/Config';
+import { Referrals } from '../components/Referrals';
+import imgProfile from '../../assets/icon.jpeg'; // Asegúrate de que la ruta sea correcta
 
 type DashboardMobileProps = {
   exportPDF: (weekMeals: WeekMeals | null) => void;
@@ -34,6 +36,7 @@ export const DashboardMobile = ({
   const [active, setActive] = useState<'links' | 'calendar'>('links');
   const [isConfig, setIsConfig] = useState(false);
   const [openCalendar, setOpenCalendar] = useState(false);
+  const [isReferrals, setIsReferrals] = useState(false);
   console.log('🐞 weekMeals in DashboardMobile:', weekMeals);
 
   const logOut = () => {
@@ -43,17 +46,22 @@ export const DashboardMobile = ({
 
   return (
     <>
-      {isConfig && !isList && (
+      {isConfig && !isList && !isReferrals && (
         <Config
           setIsConfig={setIsConfig}
           userData={userData}
           setUserData={setUserData}
         />
       )}
-      {isList && !isConfig && (
+      {isList && !isConfig && !isReferrals && (
         <List setIsList={setIsList} weekMeals={weekMeals} />
       )}
-      {!isList && !isConfig && (
+
+      {isReferrals && !isList && !isConfig && (
+        <Referrals setIsReferrals={setIsReferrals} userData={userData} />
+      )}
+
+      {!isList && !isConfig && !isReferrals && (
         <div className="w-full min-h-screen bg-red-600">
           <div className="flex flex-col items-center max-w-2xl p-10 mx-auto ">
             <div className="flex justify-end w-full">
@@ -67,20 +75,21 @@ export const DashboardMobile = ({
             <div
               className="w-24 h-24 mb-5 bg-white rounded-full"
               style={{
-                backgroundImage:
-                  'url(https://p19-common-sign-sg.tiktokcdn-us.com/tos-alisg-avt-0068/f4c9191f1c76929b98fec24bdfd2fb37~tplv-tiktokx-cropcenter:168:168.jpeg?dr=9638&refresh_token=e4c6e3c1&x-expires=1754431200&x-signature=yHY8ZjfdW%2FaxYC6l4kXAqyC7YCw%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=8aecc5ac&idc=useast5)',
+                backgroundImage: `url(${imgProfile})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat'
               }}
             ></div>
             <div className="flex items-center gap-1 mb-5">
-              <p className="text-3xl font-black text-white ">Diego</p>
+              <p className="text-3xl font-black text-white ">
+                {userData?.firstName}
+              </p>
               <p className="flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-blue-500 rounded-full">
                 ✓
               </p>
             </div>
-            <div className="flex items-center justify-center gap-4 pr-2 mb-7">
+            <div className="flex items-center justify-center gap-2 pr-2 mb-7">
               <p
                 className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-500 rounded-full cursor-pointer hover:bg-red-400 "
                 onClick={() => exportPDF(weekMeals)}
@@ -94,10 +103,17 @@ export const DashboardMobile = ({
                 ⚙️
               </p>
               <p
-                className="flex items-center justify-center w-12 h-12 text-2xl rounded-full cursor-pointer hover:bg-red-400"
+                className="flex items-center justify-center w-12 h-12 text-3xl rounded-full cursor-pointer hover:bg-red-400"
                 onClick={() => setIsList(true)}
               >
                 📋
+              </p>
+
+              <p
+                className="flex items-center justify-center w-12 h-12 p-2 text-3xl font-semibold text-blue-500 rounded-full cursor-pointer hover:bg-red-400"
+                onClick={() => setIsReferrals(true)}
+              >
+                🗂️
               </p>
             </div>
             <div className="flex p-[2px] overflow-hidden rounded-full bg-red-400 ">
@@ -114,18 +130,18 @@ export const DashboardMobile = ({
 
               <button
                 onClick={() => setActive('calendar')}
-                className={`w-26 h-13 font-black transition-all duration-300 cursor-pointer ${
+                className={`w-28 h-13 font-black transition-all duration-300 cursor-pointer ${
                   active === 'calendar'
                     ? 'bg-black text-white rounded-full'
                     : ' text-white'
                 }`}
               >
-                Calendar
+                Calendario
               </button>
             </div>
             <div className="w-full mt-10">
               {/* Links y Shop */}
-              {active === 'links' && <HomeMobile />}
+              {active === 'links' && <HomeMobile userData={userData} />}
               {active === 'calendar' && (
                 <CalendarMobile
                   openCalendar={openCalendar}

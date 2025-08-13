@@ -9,117 +9,82 @@ export const Plans = (props: { isMobile: boolean }) => {
           isMobile ? 'text-3xl' : 'text-6xl'
         }`}
       >
-        Simple Plans, <span className="text-red-300">Free</span> To Try
+        Planes Simples, <span className="text-red-300">Probar</span> Gratis
       </p>
       <p
         className={`mb-20 text-2xl text-center text-neutral-600 ${
           isMobile ? 'text-lg' : 'text-2xl'
         }`}
       >
-        No Hidden Fees, No Games, No Surprises.
+        Sin comisiones ocultas, sin juegos, sin sorpresas.
         <br />
-        Free To Get Started
+        Cambiar tu vida gratis
       </p>
       <div className={`${isMobile && 'mt-20'} w-full`}>
         <div className="flex w-full px-4 py-2">
-          <div className="w-[30%]"></div>
-          <div className="w-[29%] flex flex-col items-center">
-            <p
-              className={` font-semibold text-center text-neutral-400 ${
-                isMobile ? 'text-2xl' : 'text-4xl'
-              }`}
-            >
-              FREE
-            </p>
-          </div>
-          <div className="w-[29%] flex flex-col items-center">
+          <div className="w-[30%] flex flex-col items-center"></div>
+          <div className="w-[70%] flex flex-col items-center">
             <p
               className={`font-semibold text-center text-red-300 uppercase ${
                 isMobile ? 'text-2xl' : 'text-4xl'
               }`}
             >
-              Basic
+              Premium
             </p>
-          </div>
-          <div className="w-[11%] flex flex-col items-center">
-            <p className="text-4xl font-semibold text-center text-yellow-400 uppercase"></p>
           </div>
         </div>
         <div className="flex items-center w-full px-4 py-2">
           <p className="w-[30%] text-sm text-neutral-500 font-semibold">
-            Monthly Fees
+            Tarifa mensual
           </p>
+
           <p
-            className={`w-[29%]  text-center  ${
+            className={`w-[70%]  text-center  ${
               isMobile ? 'text-2xl' : 'text-4xl'
             }`}
           >
-            <span className="mr-1 text-lg">$</span>0
-          </p>
-          <p
-            className={`w-[29%]  text-center  ${
-              isMobile ? 'text-2xl' : 'text-4xl'
-            }`}
-          >
-            <span className="mr-1 text-lg">$</span>9.99
-          </p>
-          <p className="w-[11%] text-4xl text-center font-light">
-            <span className="text-lg"></span>
+            <span className="mr-1 text-lg">$</span>149
           </p>
         </div>
         <div className="flex w-full px-4 py-2 rounded-lg bg-neutral-50">
           <p className={`w-[30%] ${isMobile ? 'text-xs' : ''}`}>
-            No. of Uploads per Month
+            No. de planes por mes
           </p>
-          <p className="w-[29%] text-center font-semibold">1</p>
-          <p className="w-[29%] text-center font-semibold">20</p>
-          <p className="w-[11%] text-center font-semibold"></p>
+
+          <p className="w-[70%] text-center font-semibold">20</p>
         </div>
         <div className="flex w-full px-4 py-4 ">
           <p className={`w-[30%] ${isMobile ? 'text-xs' : ''}`}>
-            Per upload event price
+            No. de comidas por dia
           </p>
-          <p className="w-[29%]  text-center font-semibold">1</p>
-          <p className="w-[29%] text-center font-semibold">1</p>
-          <p className="w-[11%] text-center font-semibold"></p>
+
+          <p className="w-[70%] text-center font-semibold">5</p>
         </div>
-        <div className="flex w-full px-4 py-2 rounded-lg bg-neutral-100">
+        <div className="flex items-center w-full px-4 py-2 rounded-lg bg-neutral-100">
           <p className={`w-[30%] ${isMobile ? 'text-xs' : ''}`}>
-            No. of Uploads per Month
+            No. de dietas
           </p>
-          <p className="w-[29%] text-center font-semibold">1</p>
-          <p className="w-[29%] text-center font-semibold">20</p>
-          <p className="w-[11%] text-center font-semibold"></p>
+
+          <p className="w-[70%] text-center font-semibold">12</p>
         </div>
         <div className="flex w-full px-4 pt-4 pb-4 border-b border-neutral-300">
           <p className={`w-[30%] ${isMobile ? 'text-xs' : ''}`}>
-            Per upload event price
+            Planes personalizados
           </p>
-          <p className="w-[29%] text-center font-semibold">1</p>
-          <p className="w-[29%] text-center font-semibold">1</p>
-          <p className="w-[11%] text-center font-semibold"></p>
+
+          <p className="w-[70%] text-center font-semibold">✅</p>
         </div>
         <div className="flex w-full py-5">
           <div className="w-[30%]"></div>
-          <div className="flex items-center justify-center w-[29%]">
-            <InputBottom
-              name="Get Plan4Me"
-              className={`px-4 py-2  text-white bg-black border ${
-                isMobile ? 'hidden' : 'text-sm'
-              }`}
-            />
-          </div>
 
-          <div className="flex items-center justify-center w-[29%]">
+          <div className="flex items-center justify-center w-[70%]">
             <InputBottom
-              name="Get Plan4Me"
+              name="Empezar Plan4Me"
               className={`px-4 py-2  text-white bg-black border ${
                 isMobile ? 'hidden' : 'text-sm'
               }`}
+              to="/Register"
             />
-          </div>
-          <div className="flex items-center justify-center w-[11%]">
-            <p className=""></p>
           </div>
         </div>
       </div>

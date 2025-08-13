@@ -23,11 +23,10 @@ export const CalendarMobile = ({
   createPlan,
   userData,
   setUserData,
-  setIsGenerate,
+
   setIsGeneratePlan,
   isGeneratePlan,
-  isMobile,
-  isGenerate
+  isMobile
 }: CalendarMobileProps) => {
   return (
     <div className="flex flex-col items-center ">
@@ -38,28 +37,10 @@ export const CalendarMobile = ({
         createPlan={createPlan}
         userData={userData}
         setUserData={setUserData}
-        setIsGenerate={setIsGenerate}
         setIsGeneratePlan={setIsGeneratePlan}
         isGeneratePlan={isGeneratePlan}
-        isGenerate={isGenerate}
         isMobile={isMobile}
       />
-
-      <div className="flex flex-col items-center justify-center pt-15">
-        <div className="flex items-center gap-4 ">
-          <p className="text-xs font-light text-white cursor-pointer hover:font-semibold">
-            Cookie Preferences
-          </p>
-          <p className="text-xs font-black text-white">·</p>
-          <p className="text-xs font-light text-white cursor-pointer hover:font-semibold">
-            Report
-          </p>
-          <p className="text-xs font-black text-white">·</p>
-          <p className="text-xs font-light text-white cursor-pointer hover:font-semibold">
-            Privacy
-          </p>
-        </div>
-      </div>
     </div>
   );
 };

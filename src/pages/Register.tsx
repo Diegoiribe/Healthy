@@ -1,10 +1,11 @@
 import { InputBottom, InputText, InputSelect } from '../components/TypeInputs';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { post } from '../api/http';
 
 export const Register = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     email: '',
@@ -17,40 +18,62 @@ export const Register = () => {
     birthday: ''
   });
   const [isTerms, setIsTerms] = useState(false);
-
+  const [searchParams] = useSearchParams();
+  const ref = searchParams.get('ref'); // devuelve el valor de ?ref=...
+  console.log('Referrer code:', ref);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!isTerms) {
+      alert('Debes aceptar los Términos y la Política de Privacidad');
+      return;
+    }
     if (formData.password !== formData.confirmPassword) {
       alert('Las contraseñas no coinciden');
       return;
     }
 
     const data = {
-      firstName: formData.name,
-      lastName: formData.lastName,
-      email: formData.email,
+      firstName: formData.name.trim(),
+      lastName: formData.lastName.trim(),
+      email: formData.email.trim(),
       gender: formData.gender,
-      phoneNumber: formData.phone,
+      phoneNumber: formData.phone.trim(),
       password: formData.password,
-      birthDate: formData.birthday
+      birthDate: formData.birthday, // ISO (yyyy-mm-dd) con type="date"
+      referralCode: ref ?? ''
     };
 
-    post('/auth/register', data)
-      .then((res) => {
-        console.log('User data fetched:', res);
+    try {
+      await post('/auth/register', data);
 
-        setStep(3);
-        setTimeout(() => {
-          navigate('/login');
-        }, 3000);
-      })
-      .catch((error) => console.error('Error fetching user data:', error));
+      // auto-login (si tu backend no devuelve token en register)
+      const loginRes = await post('/auth/login', {
+        email: formData.email,
+        password: formData.password
+      });
+      localStorage.setItem('token', loginRes.token);
+
+      setStep(3);
+    } catch (error) {
+      console.error('Error registering/logging in:', error);
+    }
+  };
+
+  const handleSubscription = async (endpoint: string) => {
+    try {
+      const { url } = await post(endpoint); // 👈 tu post ya devuelve data
+      window.location.replace(url);
+    } catch (err) {
+      console.error('Checkout error:', err);
+      // opcional: mostrar toast
+    }
   };
 
   return (
@@ -60,10 +83,13 @@ export const Register = () => {
           <div className="flex flex-col items-center justify-center max-w-[400px] ">
             <div className="w-full ">
               <h1 className="text-5xl font-black text-center mb-15">
-                Register to{' '}
-                <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10">
+                Registrate en{' '}
+                <Link
+                  to={'/'}
+                  className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10"
+                >
                   Plan4Me
-                </span>
+                </Link>
               </h1>
             </div>
             <div className="flex items-center justify-between">
@@ -71,7 +97,7 @@ export const Register = () => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Eje. Steve "
-                label="Name"
+                label="Nombre"
                 type="text"
                 name="name"
                 required={true}
@@ -81,7 +107,7 @@ export const Register = () => {
                 value={formData.lastName}
                 onChange={handleChange}
                 placeholder="Eje. Smith "
-                label="Last Name"
+                label="Apellido"
                 type="text"
                 name="lastName"
                 required={true}
@@ -91,7 +117,7 @@ export const Register = () => {
 
             <div className="flex items-center justify-between w-full">
               <InputSelect
-                label="Gender"
+                label="Genero"
                 name="gender"
                 value={formData.gender}
                 className="w-1/2 mb-5"
@@ -105,8 +131,8 @@ export const Register = () => {
                 value={formData.birthday}
                 onChange={handleChange}
                 placeholder="Eje. Culican "
-                label="Birthday"
-                type="Date"
+                label="Nacimiento"
+                type="date"
                 name="birthday"
                 required={true}
                 className="w-1/2 mb-5"
@@ -117,8 +143,8 @@ export const Register = () => {
               value={formData.phone}
               onChange={handleChange}
               placeholder="Eje. 6674507062"
-              label="Phone"
-              type="number"
+              label="Telefono"
+              type="tel"
               name="phone"
               required={true}
               className="w-full mb-10"
@@ -126,16 +152,16 @@ export const Register = () => {
 
             <div className="flex justify-end w-full px-1">
               <InputBottom
-                name="Next Step"
+                name="Siguiente paso"
                 onClick={() => setStep(2)}
                 className="px-10 py-2 text-black bg-red-200 border rounded-2xl "
               />
             </div>
 
             <p className="mt-10 font-light text-normal">
-              Already have an account?{' '}
+              Ya tienes una cuenta?{' '}
               <Link to={'/login'} className="text-blue-400 underline">
-                Sign In
+                Inicia sesion
               </Link>
             </p>
           </div>
@@ -146,7 +172,7 @@ export const Register = () => {
           <div className="flex flex-col items-center justify-center max-w-[400px]   ">
             <div className="w-full">
               <h1 className="text-5xl font-black text-center mb-15">
-                Register to{' '}
+                Registrate en{' '}
                 <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10">
                   Plan4Me
                 </span>
@@ -155,32 +181,62 @@ export const Register = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter your email"
-                label="Email"
+                label="Correo electronico"
                 type="email"
                 name="email"
                 required={true}
                 className="w-full mb-5"
               />
-              <InputText
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter your password"
-                label="Password"
-                type="password"
-                name="password"
-                required={true}
-                className="w-full mb-5"
-              />
-              <InputText
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                placeholder="Enter your password"
-                label="Confirm password"
-                type="password"
-                name="confirmPassword"
-                required={true}
-                className="w-full mb-10"
-              />
+
+              <div className={`flex flex-col  gap-1 p-1 overflow-hidden`}>
+                <label className="text-lg font-semibold ">Contraseña</label>
+                <div className="flex w-full p-4 mb-5 bg-white border-2 border-neutral-100 rounded-2xl focus:outline-2 outline-orange-300/5">
+                  <input
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Enter your password"
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    required={true}
+                    className="w-full focus:outline-none"
+                  />
+                  <span
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
+                    className="cursor-pointer"
+                    title="Mostrar contraseña"
+                  >
+                    👁️
+                  </span>
+                </div>
+              </div>
+
+              <div className={`flex flex-col  gap-1 p-1 overflow-hidden`}>
+                <label className="text-lg font-semibold ">
+                  Confirmar contraseña
+                </label>
+                <div className="flex w-full p-4 mb-10 bg-white border-2 border-neutral-100 rounded-2xl focus:outline-2 outline-orange-300/5">
+                  <input
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    placeholder="Enter your password"
+                    type={showPassword ? 'text' : 'password'}
+                    name="confirmPassword"
+                    required={true}
+                    className="w-full focus:outline-none"
+                  />
+                  <span
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
+                    className="cursor-pointer"
+                    title="Mostrar contraseña"
+                  >
+                    👁️
+                  </span>
+                </div>
+              </div>
             </div>
             <div className="flex gap-3 p-1 mb-10">
               <div onClick={() => setIsTerms(!isTerms)}>
@@ -194,16 +250,17 @@ export const Register = () => {
               </div>
 
               <p className="font-light text-normal">
-                I agree with Plan4Me's{' '}
-                <span className="text-blue-400 underline">
-                  Terms of Service
-                </span>
-                ,{' '}
-                <span className="text-blue-400 underline">Privacy Policy</span>,
-                and{' '}
-                <span className="text-blue-400 underline">
-                  default Notification Settings
-                </span>
+                Estoy de acuerdo con Plan4Me en{' '}
+                <Link
+                  to={'/terminos-y-servicios'}
+                  className="text-blue-400 underline"
+                >
+                  Los Terminos de Servicios
+                </Link>{' '}
+                y{' '}
+                <Link to={'/privacidad'} className="text-blue-400 underline">
+                  Politica de Privacidad
+                </Link>
               </p>
             </div>
 
@@ -220,19 +277,89 @@ export const Register = () => {
               </div>
               <InputBottom
                 type="submit"
-                name="Register"
+                name="Registrarse"
                 className="px-10 py-2 text-black bg-red-200 border rounded-2xl"
               />
             </div>
           </div>
         </form>
       )}
+
       {step === 3 && (
         <div className="h-full ">
           <div className="flex flex-col items-center justify-center w-[400px] h-full">
             <div className="w-full ">
+              <h1 className="text-5xl font-black text-center mb-15">
+                Suscribete a{' '}
+                <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10">
+                  Plan4Me
+                </span>
+              </h1>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-5">
+              <div
+                onClick={() =>
+                  handleSubscription('/api/payments/checkout-trial')
+                }
+                className="items-center p-3 bg-white border cursor-pointer border-neutral-200 rounded-xl hover:bg-neutral-100"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center justify-center w-4 h-4 bg-white rounded-full border-neutral-200">
+                    <div className="w-3 h-3 bg-red-300 rounded-full"></div>
+                  </div>
+                  <p className="text-sm font-bold">Prueba Gratis</p>
+                  <p className="text-xs text-neutral-500">Primer mes</p>
+                </div>
+                <p className="text-xs text-neutral-500">
+                  Acceso a todas las funciones de Plan4Me durante el periodo de
+                  prueba, con planes de alimentación personalizados y
+                  herramientas fáciles de usar para gestionar tu dieta y
+                  progreso.
+                </p>
+              </div>
+              <div
+                onClick={() =>
+                  handleSubscription('/api/payments/checkout-premium')
+                }
+                className="items-center p-3 bg-white border cursor-pointer border-neutral-200 rounded-xl hover:bg-neutral-100"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center justify-center w-4 h-4 bg-white rounded-full border-neutral-200">
+                    <div className="w-3 h-3 bg-red-300 rounded-full"></div>
+                  </div>
+                  <p className="text-sm font-bold">Premium</p>
+                  <p className="text-xs text-neutral-500">$149/mes</p>
+                </div>
+                <p className="text-xs text-neutral-500">
+                  Acceso ilimitado a todas las funciones de Plan4Me, con planes
+                  de alimentación personalizados, seguimiento avanzado de
+                  progreso, recomendaciones exclusivas y soporte prioritario
+                  para alcanzar tus metas más rápido.
+                </p>
+              </div>
+            </div>
+            <p
+              className="font-light cursor-pointer mt-15 text-normal"
+              onClick={() => {
+                setStep(4);
+                setTimeout(() => {
+                  navigate('/login');
+                }, 2000);
+              }}
+            >
+              Hacerlo mas{' '}
+              <span className="text-blue-400 underline">tarde →</span>
+            </p>
+          </div>
+        </div>
+      )}
+
+      {step === 4 && (
+        <div className="h-full ">
+          <div className="flex flex-col items-center justify-center w-[400px] h-full">
+            <div className="w-full ">
               <h1 className="text-5xl font-black text-center mb-25">
-                Register to{' '}
+                Bienvenido a{' '}
                 <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10">
                   Plan4Me
                 </span>

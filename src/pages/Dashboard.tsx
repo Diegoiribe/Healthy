@@ -12,6 +12,8 @@ import autoTable from 'jspdf-autotable';
 import { GeneratePlan } from '../components/GeneratePlan';
 import { DashboardMobile } from '../mobile/template/DashboardMobile';
 import Heart from '../assets/HeartPNG.png';
+import { ChoosePlan } from '../components/ChoosePlan';
+import { Referrals } from '../components/Referrals';
 // Días de la semana
 export type WeekDay =
   | 'lunes'
@@ -77,16 +79,18 @@ export interface UserDataProps {
   phoneNumber?: string;
   plan?: string;
   weight?: number;
-  dietType?: string; // Agregado para el tipo de dieta
+  dietType?: string;
+  refCode?: string;
 }
 
 export const Dashboard = () => {
   const [userData, setUserData] = useState<UserDataProps>();
+  const [isPayment, setIsPayment] = useState<boolean>(false);
   const [isConfig, setIsConfig] = useState<boolean>(false);
   const [isList, setIsList] = useState<boolean>(false);
   const [isGenerate, setIsGenerate] = useState<boolean>(false);
   const [isGeneratePlan, setIsGeneratePlan] = useState<boolean>(false);
-
+  const [isReferrals, setIsReferrals] = useState<boolean>(false);
   const [weekMeals, setWeekMeal] = useState<WeekMeals | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -116,6 +120,10 @@ export const Dashboard = () => {
   useEffect(() => {
     get('/user/me')
       .then((res) => {
+        if (res.plan == 'FREE') {
+          setIsPayment(true);
+          console.log('Plan is FREE, setting isGeneratePlan to true');
+        }
         setUserData(res);
         console.log('User data fetched:', res);
       })
@@ -129,43 +137,52 @@ export const Dashboard = () => {
           shoppingList: res.shoppingList ?? res.listaDeCompras ?? {}
         };
         setWeekMeal(fixedRes);
+
         console.log('Week meals fetched:', res);
       })
       .catch((error) => console.error('Error fetching week meals:', error));
   }, []);
 
-  const createPlan = () => {
-    if (isUserDataIncomplete(userData)) {
+  const createPlan = async (u?: UserDataProps): Promise<void> => {
+    // Si no se pasa un usuario, usar el del estado
+    const user = u ?? userData;
+
+    if (!user) {
+      console.error('No user data available');
+      return;
+    }
+
+    if (isUserDataIncomplete(user)) {
       setIsGenerate(true);
       console.error('Please complete your profile before generating a plan.');
       return;
     }
-    if (!userData?.dietType) {
+
+    if (!user.dietType) {
       console.error('Please select a diet type before generating the plan.');
       return;
     }
-    console.log('Creating plan with diet type:', userData.dietType);
+
+    console.log('Creating plan with diet type:', user.dietType);
     setIsLoading(true);
+    setIsGeneratePlan(false);
+    setIsGenerate(false);
 
-    // Aquí puedes implementar la lógica para crear un plan
-    const data = {
-      dietType: userData?.dietType
-    };
+    try {
+      const data = { dietType: user.dietType };
+      const res = await post('/user/plan/generate', data);
 
-    post('/user/plan/generate', data)
-      .then((res) => {
-        const fixedRes = {
-          plan: res.plan ?? res.Plan ?? {},
-          shoppingList: res.shoppingList ?? res.listaDeCompras ?? {}
-        };
-        setWeekMeal(fixedRes);
+      const fixedRes = {
+        plan: res.plan ?? res.Plan ?? {},
+        shoppingList: res.shoppingList ?? res.listaDeCompras ?? {}
+      };
 
-        console.log('Plan generated successfully:', res);
-        setIsLoading(false);
-        setIsGeneratePlan(false);
-        setIsGenerate(false);
-      })
-      .catch((error) => console.error('Error generating plan:', error));
+      setWeekMeal(fixedRes);
+    } catch (error) {
+      console.error('Error generating plan:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const dietNames: Record<string, string> = {
@@ -209,27 +226,35 @@ export const Dashboard = () => {
     { label: 'Cena', key: 'cena' }
   ];
 
-  const exportPDF = (weekMeals: WeekMeals | null) => {
+  const exportPDF = (
+    weekMeals: WeekMeals | null,
+    checked: boolean[] = []
+  ): void => {
     if (!weekMeals?.plan) return;
 
-    const normalizedPlan = Object.entries(weekMeals.plan).reduce(
-      (acc, [day, entry]) => {
-        acc[normalize(day)] = entry;
-        return acc;
-      },
-      {} as Record<string, any>
-    );
+    // Normaliza claves de días (sin usar `any`)
+    const normalizedPlan = Object.entries(weekMeals.plan).reduce<
+      Record<string, MealEntry>
+    >((acc, [day, entry]) => {
+      acc[normalize(day)] = entry;
+      return acc;
+    }, {});
 
-    const body = meals.map((meal) => {
-      const row: string[] = [meal.label];
+    // Tipamos los keys de comidas contra MealEntry
+    const mealsTyped = meals as Array<{ label: string; key: keyof MealEntry }>;
+
+    // ---------- Tabla del plan (página 1) ----------
+    const bodyPlan: (string | number)[][] = mealsTyped.map((meal) => {
+      const row: (string | number)[] = [meal.label];
       orderedDays.forEach((day) => {
         const entry = normalizedPlan[day];
-        row.push(entry?.[meal.key] ?? '');
+        const val = entry?.[meal.key];
+        row.push(typeof val === 'number' ? String(val) : val ?? '');
       });
       return row;
     });
 
-    const head = [
+    const headPlan: (string | number)[][] = [
       [
         'Meals',
         'Monday',
@@ -248,31 +273,26 @@ export const Dashboard = () => {
       format: 'a4'
     });
 
-    // 👇 Cargar imagen
     const image = new Image();
     image.src = Heart;
 
     image.onload = () => {
-      // Agrega logo en esquina izquierda
-      doc.addImage(image, 'PNG', 40, 30, 50, 50); // x, y, width, height
-
-      // Texto "Plan4Me"
+      // Encabezado + logo
+      doc.addImage(image, 'PNG', 40, 30, 50, 50);
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(18);
       doc.text('Plan4Me', 100, 60);
-
-      // Texto alineado a la derecha
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(12);
       const pageWidth = doc.internal.pageSize.getWidth();
-      const textWidth = doc.getTextWidth('www.plan4me.com');
-      doc.text('www.plan4me.com', pageWidth - textWidth - 40, 60);
+      const urlTxt = 'www.plan4me.com';
+      doc.text(urlTxt, pageWidth - doc.getTextWidth(urlTxt) - 40, 60);
 
-      // Tabla
+      // Tabla del plan
       autoTable(doc, {
         startY: 100,
-        head,
-        body,
+        head: headPlan,
+        body: bodyPlan,
         styles: {
           fontSize: 8,
           cellPadding: 9,
@@ -284,17 +304,64 @@ export const Dashboard = () => {
           textColor: 255,
           halign: 'center'
         },
-        columnStyles: {
-          0: { fontStyle: 'bold', textColor: [33, 150, 243] }
-        }
+        columnStyles: { 0: { fontStyle: 'bold', textColor: [33, 150, 243] } }
       });
 
-      doc.save('PlanSemanal.pdf');
+      // ---------- Lista de compras (página 2) ----------
+      doc.addPage('a4', 'landscape');
+
+      // Encabezado + logo
+      doc.addImage(image, 'PNG', 40, 30, 50, 50);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(18);
+      doc.text('Lista de compras', 100, 60);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(12);
+      doc.text(urlTxt, pageWidth - doc.getTextWidth(urlTxt) - 40, 60);
+
+      const headShop: (string | number)[][] = [['Categoría', 'Artículo', '✔']];
+      const rowsShop: (string | number)[][] = [];
+      let idx = 0;
+
+      const pushItems = (categoria: string, items: string[]) => {
+        items.forEach((item) => {
+          rowsShop.push([categoria, item, checked[idx] ? '✓' : '']);
+          idx += 1;
+        });
+      };
+
+      const sl = weekMeals.shoppingList;
+      pushItems('Proteínas', sl.proteinas);
+      pushItems('Lácteos', sl.lacteos);
+      pushItems('Frutas y Verduras', sl.frutasYVerduras);
+      pushItems('Frutos Secos', sl.frutosSecos);
+      pushItems('Otros', sl.otros);
+
+      autoTable(doc, {
+        startY: 100,
+        head: headShop,
+        body: rowsShop,
+        styles: {
+          fontSize: 9,
+          cellPadding: 6,
+          overflow: 'linebreak',
+          valign: 'top'
+        },
+        headStyles: {
+          fillColor: [33, 150, 243],
+          textColor: 255,
+          halign: 'center'
+        },
+        columnStyles: { 0: { fontStyle: 'bold' }, 2: { halign: 'center' } }
+      });
+
+      doc.save('Plan4Me_Plan_y_Lista.pdf');
     };
   };
 
   return isMobile ? (
     <>
+      {userData?.plan == 'FREE' && <ChoosePlan setIsPayment={setIsPayment} />}
       {isLoading && <Loading />}{' '}
       <DashboardMobile
         exportPDF={exportPDF}
@@ -311,9 +378,19 @@ export const Dashboard = () => {
     </>
   ) : (
     <>
+      {userData?.plan == 'FREE' && <ChoosePlan setIsPayment={setIsPayment} />}
       <div className="flex flex-col ">
         <Header isAdmin={true} />
-        {isConfig && <ConfigUser setIsConfig={setIsConfig} />}
+        {isReferrals && (
+          <Referrals setIsReferrals={setIsReferrals} userData={userData} />
+        )}
+        {isConfig && (
+          <ConfigUser
+            setIsConfig={setIsConfig}
+            userData={userData}
+            setUserData={setUserData}
+          />
+        )}
         {isList && <ListUser setIsList={setIsList} weekMeals={weekMeals} />}
         <div className="flex flex-col items-center justify-center gap-10 mx-auto mt-40">
           {!isConfig && !isList && (
@@ -321,7 +398,7 @@ export const Dashboard = () => {
               <div className="flex items-center justify-between max-w-5xl mx-auto min-w-4xl">
                 <p className="font-black text-7xl">
                   <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[.4em] before:bg-red-200 before:-z-10">
-                    Welcome,
+                    Hola,
                   </span>{' '}
                   {userData ? userData.firstName : 'User'}
                 </p>
@@ -344,13 +421,20 @@ export const Dashboard = () => {
                   >
                     📋
                   </p>
+                  <p
+                    className="flex items-center justify-center w-12 h-12 text-3xl rounded-full cursor-pointer hover:bg-black/5"
+                    onClick={() => setIsReferrals(true)}
+                  >
+                    🗂️
+                  </p>
                 </div>
               </div>
             </>
           )}
         </div>
         {isLoading && <Loading />}
-        {!weekMeals && (
+
+        {!weekMeals && !isPayment && (
           <CreateFirstPlan
             userData={userData}
             setUserData={setUserData}
@@ -362,7 +446,7 @@ export const Dashboard = () => {
           />
         )}
 
-        {isGenerate && (
+        {isGenerate && !isPayment && (
           <GeneratePlan
             userData={userData}
             setIsGenerate={setIsGenerate}
@@ -373,7 +457,7 @@ export const Dashboard = () => {
           />
         )}
 
-        {isGeneratePlan && (
+        {isGeneratePlan && !isPayment && (
           <CreateFirstPlan
             userData={userData}
             setUserData={setUserData}
@@ -393,7 +477,7 @@ export const Dashboard = () => {
               </p>
               <div className="flex items-center gap-2">
                 <InputBottom
-                  name="Create"
+                  name="Crear Plan"
                   onClick={() => setIsGeneratePlan(true)}
                   className="px-5 py-2 text-xs font-semibold transition-all duration-300 border text-green-600 bg-[#D0EACD]  border-green-600 rounded-xl"
                 />

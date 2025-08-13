@@ -1,18 +1,31 @@
 // src/instance.ts
 import axios from 'axios';
 
-const instance = axios.create({
-  baseURL: 'http://192.168.1.3:1000',
+// URL por defecto → localhost
+let currentBaseURL = 'https://15dcd7484ed2.ngrok-free.app';
 
-  withCredentials: true, // Permite enviar cookies y credenciales
+// Mapeo de URLs
+const BASE_URLS = {
+  local: 'https://15dcd7484ed2.ngrok-free.app'
+};
+
+// Función para cambiar la URL según necesidad
+export function setBaseURL(key: keyof typeof BASE_URLS) {
+  currentBaseURL = BASE_URLS[key];
+  instance.defaults.baseURL = currentBaseURL;
+}
+
+const instance = axios.create({
+  baseURL: currentBaseURL,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
   }
 });
 
-// Interceptor para agregar el token automáticamente a cada petición
+// Interceptor para agregar token
 instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token'); // o sessionStorage
+  const token = localStorage.getItem('token');
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
   }

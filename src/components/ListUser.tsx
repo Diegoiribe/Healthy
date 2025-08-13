@@ -11,8 +11,14 @@ export const ListUser = ({ setIsList, weekMeals }: ListProps) => {
   const [IsSelected, setIsSelected] = useState<string>('list');
 
   return (
-    <div className="w-full h-screen mt-25">
+    <div className="w-full h-screen mt-10">
       <div className="flex items-center justify-between max-w-3xl mx-auto min-w-3xl">
+        <p
+          className="flex items-center justify-center text-2xl font-semibold text-black rounded-full cursor-pointer hover:text-red-300"
+          onClick={() => setIsList(false)}
+        >
+          ←
+        </p>
         <div className="flex items-center justify-between gap-10 py-5 ">
           <p
             className={` text-lg cursor-pointer  ${
@@ -22,16 +28,9 @@ export const ListUser = ({ setIsList, weekMeals }: ListProps) => {
             }`}
             onClick={() => setIsSelected('list')}
           >
-            List
+            Lista
           </p>
         </div>
-
-        <p
-          className="text-2xl cursor-pointer text-neutral-300 hover:text-black"
-          onClick={() => setIsList(false)}
-        >
-          🆇
-        </p>
       </div>
 
       {IsSelected === 'list' && <List weekMeals={weekMeals} />}

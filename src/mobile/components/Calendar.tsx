@@ -1,7 +1,6 @@
 import type { WeekDay, WeekMeals } from '../../pages/Dashboard';
 import { useEffect, useState } from 'react';
-import { CreateFirstPlan } from '../../components/CreateFirstPlan';
-import { GeneratePlan } from '../../components/GeneratePlan';
+import { GeneratePlan } from './GeneratePlan';
 import type { UserDataProps } from '../../pages/Dashboard';
 
 type CalendarProps = {
@@ -10,11 +9,11 @@ type CalendarProps = {
   weekMeals?: WeekMeals | null;
   createPlan: () => void;
   userData?: UserDataProps;
-  setIsGenerate: (value: boolean) => void;
+
   setUserData: (data: UserDataProps) => void;
   setIsGeneratePlan: (value: boolean) => void;
   isGeneratePlan: boolean;
-  isGenerate: boolean;
+
   isMobile: boolean;
 };
 
@@ -25,10 +24,8 @@ export const Calendar = ({
   createPlan,
   userData,
   setUserData,
-  setIsGenerate,
   setIsGeneratePlan,
   isGeneratePlan,
-  isGenerate,
   isMobile
 }: CalendarProps) => {
   const meals = [
@@ -200,7 +197,7 @@ export const Calendar = ({
                 <div key={i} className="py-2 border-b last-of-type:border-0 ">
                   <div className="flex gap-1">
                     <p className="px-2 py-1 text-[10px] font-bold text-purple-500 bg-purple-200 rounded-lg">
-                      Now
+                      Ahora
                     </p>
                     <p className="p-1 px-2 text-[10px] font-bold text-blue-500 bg-blue-200 rounded-lg">
                       {meals[index].label}
@@ -224,47 +221,28 @@ export const Calendar = ({
           className="px-8 py-3 text-white bg-red-400 rounded-full shadow-xl cursor-pointer hover:bg-black hover:text-white "
           onClick={() => setIsGeneratePlan(true)}
         >
-          <p className="font-bold text-center ">Create Plan</p>
-        </div>
-        <div
-          className="flex items-center justify-center w-12 h-12 bg-red-400 rounded-full shadow-xl cursor-pointer hover:bg-black "
-          onClick={() => setIsGenerate(true)}
-        >
-          <p>✏️</p>
+          <p className="font-bold text-center ">Crear Plan</p>
         </div>
       </div>
 
       {!weekMeals && (
-        <CreateFirstPlan
-          userData={userData}
-          setUserData={setUserData}
-          setIsGenerate={setIsGenerate}
-          setIsGeneratePlan={setIsGeneratePlan}
-          createPlan={createPlan}
-          weekMeals={weekMeals}
-          isMobile={isMobile}
-        />
-      )}
-
-      {isGenerate && (
         <GeneratePlan
           userData={userData}
-          setIsGenerate={setIsGenerate}
+          setIsGenerate={setIsGeneratePlan}
+          setIsGeneratePlan={setIsGeneratePlan}
           setUserData={setUserData}
           createPlan={createPlan}
-          weekMeals={weekMeals}
           isMobile={isMobile}
         />
       )}
 
       {isGeneratePlan && (
-        <CreateFirstPlan
+        <GeneratePlan
           userData={userData}
-          setUserData={setUserData}
-          setIsGenerate={setIsGenerate}
+          setIsGenerate={setIsGeneratePlan}
           setIsGeneratePlan={setIsGeneratePlan}
+          setUserData={setUserData}
           createPlan={createPlan}
-          weekMeals={weekMeals}
           isMobile={isMobile}
         />
       )}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { InputBottom } from './TypeInputs';
 import { GeneratePlan } from './GeneratePlan';
-import type { UserDataProps } from '../pages/Dashboard';
+import type { UserDataProps, WeekMeals } from '../pages/Dashboard';
 
 type Option = {
   label: string;
@@ -14,7 +14,7 @@ interface CreatePlanProps {
   setIsGenerate: (value: boolean) => void;
   setUserData: (data: UserDataProps) => void;
   createPlan: () => void;
-  weekMeals?: any;
+  weekMeals?: WeekMeals | null;
   setIsGeneratePlan: (value: boolean) => void;
   isMobile: boolean;
 }
@@ -170,12 +170,11 @@ export const CreateFirstPlan = ({
                   isMobile ? ' text-3xl font-black mt-5' : 'mb-1 text-4xl'
                 }`}
               >
-                Create a new Plan
+                Crear un nuevo plan
               </p>
               {!isMobile && (
                 <p className="text-lg text-neutral-400">
-                  Start crating your contract by selecting the most relevant
-                  type
+                  Selecciona la dieta que mejor se adapte a tus necesidades.
                 </p>
               )}
             </div>

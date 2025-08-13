@@ -1,6 +1,6 @@
 import type { UserDataProps } from '../../pages/Dashboard';
 import { useState, useEffect } from 'react';
-import { patch, get } from '../../api/http';
+import { patch, get, post } from '../../api/http';
 
 interface ConfigProps {
   setIsConfig: (value: boolean) => void;
@@ -81,12 +81,22 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
   };
   const [editStep, setEditStep] = useState(0);
 
+  const handleSubscription = async (endpoint: string) => {
+    try {
+      const { url } = await post(endpoint); // 👈 tu post ya devuelve data
+      window.location.replace(url);
+    } catch (err) {
+      console.error('Checkout error:', err);
+      // opcional: mostrar toast
+    }
+  };
+
   return (
     <div>
       <div className="flex flex-col max-w-2xl gap-5 p-10 mx-auto ">
         <div className="flex justify-end w-full">
           <div
-            className="flex items-center justify-center w-10 h-10 text-xl font-bold text-white rounded-full cursor-pointer bg-black/10 hover:bg-red-300"
+            className="flex items-center justify-center w-10 h-10 text-xl font-bold text-white rounded-full cursor-pointer bg-black/10 hover:bg-red-300 "
             onClick={() => setIsConfig(false)}
           >
             Ｘ
@@ -98,13 +108,23 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
             {userData?.email}
           </p>
           <p className="text-sm font-light capitalize">{userData?.plan}</p>
+          <div className="w-full mt-4">
+            <p
+              className="inline px-4 py-2 text-sm text-white bg-red-400 rounded-full cursor-pointer"
+              onClick={() =>
+                handleSubscription('/api/payments/cancel-at-period-end')
+              }
+            >
+              Cancelar suscripcion
+            </p>
+          </div>
         </div>
 
-        <p className="mt-5 text-xl font-semibold">Information</p>
+        <p className="mt-5 text-xl font-semibold">Informacion</p>
         <div className="flex flex-col gap-10">
           <div className="">
             <div className="flex flex-wrap justify-between ">
-              <div className="w-[16%]">
+              <div className="w-[20%]">
                 <p className="font-medium ">Pais</p>
                 {editStep === 1 ? (
                   <div className="flex items-center w-full">
@@ -117,28 +137,12 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   </div>
                 ) : (
                   <p className="text-sm font-light capitalize text-neutral-400">
-                    {userData?.country || 'Null'}
+                    {userData?.country || '-'}
                   </p>
                 )}
               </div>
-              <div className="w-[16%]">
-                <p className="font-medium ">Ciudad</p>
-                {editStep === 1 ? (
-                  <div className="flex items-center w-full">
-                    <input
-                      onChange={(e) => handleChange('city', e.target.value)}
-                      placeholder="Culiacan"
-                      type="text"
-                      className="w-full px-1 py-2 text-xs border-b focus:outline-none"
-                    />
-                  </div>
-                ) : (
-                  <p className="text-sm font-light capitalize text-neutral-400">
-                    {userData?.city || 'Null'}
-                  </p>
-                )}
-              </div>
-              <div className="w-[12%]">
+
+              <div className="w-[19%]">
                 <p className="font-medium ">Peso</p>
                 {editStep === 1 ? (
                   <div className="flex items-center w-full border-b">
@@ -152,11 +156,11 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   </div>
                 ) : (
                   <p className="text-sm font-light text-neutral-400">
-                    {userData?.weight || 'Null'} kg
+                    {userData?.weight || '-'} kg
                   </p>
                 )}
               </div>
-              <div className="w-[12%]">
+              <div className="w-[19%]">
                 <p className="font-medium ">Altura</p>
                 {editStep === 1 ? (
                   <div className="flex items-center w-full border-b">
@@ -170,11 +174,11 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   </div>
                 ) : (
                   <p className="text-sm font-light text-neutral-400">
-                    {userData?.height || 'Null'} cm
+                    {userData?.height || '-'} cm
                   </p>
                 )}
               </div>
-              <div className="w-[12%]">
+              <div className="w-[15%]">
                 <p className="font-medium ">Sexo</p>
                 {editStep === 1 ? (
                   <div className="flex items-center w-full">
@@ -187,11 +191,11 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   </div>
                 ) : (
                   <p className="text-sm font-light capitalize text-neutral-400">
-                    {userData?.gender || 'Null'}
+                    {userData?.gender || '-'}
                   </p>
                 )}
               </div>
-              <div className="w-[12%]">
+              <div className="w-[19%]">
                 <p className="font-medium ">Edad</p>
                 {editStep === 1 ? (
                   <div className="flex items-center w-full border-b">
@@ -205,7 +209,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   </div>
                 ) : (
                   <p className="text-sm font-light text-neutral-400 ">
-                    {userData?.age || 'Null'} años
+                    {userData?.age || '-'} años
                   </p>
                 )}
               </div>
@@ -215,7 +219,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                 className="mt-2 text-xs font-bold text-green-600 rounded-full cursor-pointer"
                 onClick={() => handleSubmit()}
               >
-                Done
+                Actualizar
               </p>
             ) : (
               <p
@@ -241,7 +245,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
               </div>
             ) : (
               <p className="text-sm font-light capitalize text-neutral-400">
-                {userData?.activityLevel || 'Null'}
+                {userData?.activityLevel || '-'}
               </p>
             )}
 
@@ -250,7 +254,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                 className="mt-2 text-xs font-bold text-green-600 rounded-full cursor-pointer"
                 onClick={() => handleSubmit()}
               >
-                Done
+                Actualizar
               </p>
             ) : (
               <p
@@ -274,7 +278,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
               </div>
             ) : (
               <p className="text-sm font-light capitalize text-neutral-400">
-                {userData?.goal || 'Null'}
+                {userData?.goal || '-'}
               </p>
             )}
 
@@ -283,7 +287,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                 className="mt-2 text-xs font-bold text-green-600 rounded-full cursor-pointer"
                 onClick={() => handleSubmit()}
               >
-                Done
+                Actualizar
               </p>
             ) : (
               <p
@@ -308,7 +312,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
               </div>
             ) : (
               <p className="text-sm font-light capitalize text-neutral-400">
-                {userData?.dislikedFoods || 'Null'}
+                {userData?.dislikedFoods?.join(', ') || '-'}
               </p>
             )}
 
@@ -317,7 +321,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                 className="mt-2 text-xs font-bold text-green-600 rounded-full cursor-pointer"
                 onClick={() => handleSubmit()}
               >
-                Done
+                Actualizar
               </p>
             ) : (
               <p
@@ -341,7 +345,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
               </div>
             ) : (
               <p className="text-sm font-light capitalize text-neutral-400">
-                {userData?.likedFoods || 'Null'}
+                {userData?.likedFoods?.join(', ') || '-'}
               </p>
             )}
 
@@ -350,7 +354,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                 className="mt-2 text-xs font-bold text-green-600 rounded-full cursor-pointer"
                 onClick={() => handleSubmit()}
               >
-                Done
+                Actualizar
               </p>
             ) : (
               <p

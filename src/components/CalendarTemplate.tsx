@@ -62,28 +62,28 @@ export const CalendarTemplate = ({ weekMeals }: CalendarTemplateProps) => {
       <div className="w-full border shadow-xl min-5-xl border-neutral-300 rounded-xl">
         <div className="flex justify-between w-full bg-neutral-100 rounded-t-xl">
           <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
-            <p>Meals</p>
+            <p>Comidas</p>
           </div>
           <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
-            <p>Monday</p>
+            <p>Lunes</p>
           </div>
           <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
-            <p>Tuesday</p>
+            <p>Martes</p>
           </div>
           <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
-            <p>Wednesday</p>
+            <p>Miercoles</p>
           </div>
           <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
-            <p>Thursday</p>
+            <p>Jueves</p>
           </div>
           <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
-            <p>Friday</p>
+            <p>Viernes</p>
           </div>
           <div className="p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500 w-1/8">
-            <p>Saturday</p>
+            <p>Sabado</p>
           </div>
           <div className="p-2 text-xs font-semibold border-neutral-200 text-neutral-500 w-1/8">
-            <p>Sunday</p>
+            <p>Domingo</p>
           </div>
         </div>
         {/* Filas por comida */}

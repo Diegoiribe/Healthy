@@ -37,10 +37,13 @@ export const LogIn = () => {
         >
           <div className="w-full">
             <h1 className="text-5xl font-black text-center mb-15">
-              Sing in to{' '}
-              <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10">
+              Iniciar sesion{' '}
+              <Link
+                to={'/'}
+                className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10"
+              >
                 Plan4Me
-              </span>
+              </Link>
             </h1>
           </div>
 
@@ -48,7 +51,7 @@ export const LogIn = () => {
             value={formData.email}
             onChange={(e) => handleChange('email', e.target.value)}
             placeholder="Enter your email"
-            label="Email"
+            label="Correo electronico"
             type="email"
             name="email"
             required={true}
@@ -58,7 +61,7 @@ export const LogIn = () => {
             value={formData.password}
             onChange={(e) => handleChange('password', e.target.value)}
             placeholder="Enter your password"
-            label="Password"
+            label="Contraseña"
             type="password"
             name="password"
             required={true}
@@ -68,14 +71,14 @@ export const LogIn = () => {
           <div className="flex justify-end w-full px-1">
             <InputBottom
               type="submit"
-              name="Log In"
+              name="Iniciar Sesión"
               className="px-10 py-2 text-black bg-red-200 border rounded-2xl "
             />
           </div>
 
           <Link to={'/register'} className="mt-10 font-light text-normal">
-            Don't have an account?{' '}
-            <span className="text-blue-400 underline">Sign Up</span>
+            No tienes una cuenta?{' '}
+            <span className="text-blue-400 underline">Registrate</span>
           </Link>
         </form>
       </div>

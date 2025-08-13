@@ -30,19 +30,20 @@ export const Landing = () => {
       <div className="flex flex-col ">
         <div
           className={`flex flex-col items-center justify-center w-full h-screen  mx-auto ${
-            isMobile ? 'w-full' : 'max-w-3xl'
+            isMobile ? 'w-full' : 'max-w-4xl'
           } `}
         >
           <h1
-            className={`mt-12 mb-12 font-black text-center ${
-              isMobile ? 'text-3xl' : 'text-7xl'
+            className={`mt-12  font-black text-center ${
+              isMobile ? 'text-3xl mb-8' : 'text-7xl mb-12'
             } `}
           >
-            Lose weight <br />
-            <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[0.4em] before:bg-red-200 before:-z-10">
-              in weeks,
+            Pierde peso en
+            <br />
+            <span className="relative inline-block before:absolute before:-inset-x-1 before:-bottom-[0.01em] before:h-[0.4em] before:bg-red-200 before:-z-10">
+              semanas,
             </span>{' '}
-            not months
+            no en meses
           </h1>
 
           <p
@@ -50,15 +51,16 @@ export const Landing = () => {
               isMobile ? 'text-xl' : 'text-3xl'
             } `}
           >
-            Everything you need to get fit, lose weight, and feel great—even if
-            you’re just starting out.
+            Todo lo que necesitas para ponerte en forma, bajar de peso y
+            sentirte genial, incluso si apenas estás empezando.
           </p>
 
           <InputBottom
-            name="Get instant access"
+            name="Comienza ahora"
             className={` text-black bg-red-200 border ${
               isMobile ? 'px-5 py-2 mb-8 ' : 'px-10 py-4 mb-8 text-xl'
             } `}
+            to="/register"
           />
 
           <div className="flex -space-x-4">
@@ -78,8 +80,8 @@ export const Landing = () => {
               isMobile ? 'mt-4 text-sm' : 'mt-4 text-lg'
             } `}
           >
-            <span className="font-bold text-black">3,334</span> entrepreneurs
-            love the course
+            <span className="font-bold text-black">3,334</span> personas aman la
+            app
           </p>
         </div>
 
@@ -88,17 +90,17 @@ export const Landing = () => {
           className={`flex flex-col justify-center h-screen ${
             isMobile
               ? 'w-full gap-5 -mt-20 mb-40 mx-auto '
-              : 'max-w-3xl gap-5 mx-auto min-w-3xl'
+              : 'max-w-4xl gap-5 mx-auto min-w-3xl'
           } `}
         >
           <p
             className={` mb-12 font-black text-center  ${
-              isMobile ? 'text-3xl' : 'text-7xl mt-12'
+              isMobile ? 'text-3xl ' : 'text-7xl mt-12'
             } `}
           >
-            97% of visitors aren't{' '}
+            El 97% quiere comer mejor…,{' '}
             <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[0.4em] before:bg-red-200 before:-z-10">
-              ready to buy
+              pero no empieza
             </span>
           </p>
           <p
@@ -106,8 +108,8 @@ export const Landing = () => {
               isMobile ? 'text-xl' : 'text-3xl'
             } `}
           >
-            All the time and money spent on ads, SEO, and content marketing goes
-            to waste. Potential customers leave and never come back.
+            No dejes que tu motivación se enfríe. Cada día que pasa, es un día
+            menos para sentirte como quieres.
           </p>
           <div
             className={`flex justify-between   ${
@@ -121,7 +123,7 @@ export const Landing = () => {
                   isMobile ? 'text-sm' : 'text-lg'
                 } `}
               >
-                Potential customer is interested
+                Tienes el deseo de cambiar
               </p>
             </div>
             <p
@@ -139,7 +141,7 @@ export const Landing = () => {
                   isMobile ? 'text-sm' : 'text-lg'
                 } `}
               >
-                Doesn't find a reason to buy right now
+                Pero algo te detiene
               </p>
             </div>
             <p
@@ -157,14 +159,14 @@ export const Landing = () => {
                   isMobile ? 'text-sm' : 'text-lg'
                 } `}
               >
-                Leaves and never come back
+                Y al final, todo sigue igual…
               </p>
             </div>
           </div>
         </div>
         <div
           className={` ${
-            isMobile ? ' mx-auto  px-10' : 'max-w-5xl mx-auto min-w-4xl'
+            isMobile ? ' mx-auto  px-10' : 'max-w-4xl mx-auto min-w-3xl'
           } `}
         >
           <Plans isMobile={isMobile} />

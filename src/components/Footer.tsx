@@ -18,7 +18,7 @@ export const Footer = (props: { isMobile: boolean }) => {
                 isMobile ? ' text-xs ' : 'text-sm'
               }   `}
             >
-              Twitter
+              X
             </p>
           </div>
 
@@ -37,7 +37,7 @@ export const Footer = (props: { isMobile: boolean }) => {
                 isMobile ? ' text-xs ' : 'text-sm'
               }   `}
             >
-              Linkedin
+              Youtube
             </p>
           </div>
           <p
@@ -45,7 +45,7 @@ export const Footer = (props: { isMobile: boolean }) => {
               isMobile ? ' text-xs ' : 'text-sm'
             }   `}
           >
-            Broccoli@gmail.com
+            Plan4me@gmail.com
           </p>
           <p
             className={` font-semibold text-white ${
@@ -69,12 +69,13 @@ export const Footer = (props: { isMobile: boolean }) => {
               isMobile ? ' text-7xl ' : 'text-9xl'
             }  text-red-300 `}
           >
-            Stay healthy
+            Stay Healthy
           </p>
         </div>
         <div>
           <p className="text-[10px] text-neutral-200">
-            © 2023 All right reserved to Mama and Papa Bejgart
+            © 2025 Plan4me. Todos los derechos reservados. Este sitio esta hecho
+            para cambiar la vida de las personas
           </p>
         </div>
       </div>
