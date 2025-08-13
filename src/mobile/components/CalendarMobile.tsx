@@ -6,7 +6,7 @@ type CalendarMobileProps = {
   setOpenCalendar: (value: boolean) => void;
   openCalendar: boolean;
   weekMeals?: WeekMeals | null;
-  createPlan: () => void;
+  createPlan: () => Promise<void>;
   userData?: UserDataProps;
   setIsGenerate: (value: boolean) => void;
   setUserData: (data: UserDataProps) => void;

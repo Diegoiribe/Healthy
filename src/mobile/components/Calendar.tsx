@@ -7,7 +7,7 @@ type CalendarProps = {
   setOpenCalendar: (value: boolean) => void;
   openCalendar: boolean;
   weekMeals?: WeekMeals | null;
-  createPlan: () => void;
+  createPlan: () => Promise<void>;
   userData?: UserDataProps;
 
   setUserData: (data: UserDataProps) => void;

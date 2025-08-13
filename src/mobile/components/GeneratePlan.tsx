@@ -13,7 +13,7 @@ interface CreatePlanProps {
   userData?: UserDataProps;
   setIsGenerate: (value: boolean) => void;
   setUserData: (data: UserDataProps) => void;
-  createPlan: () => void;
+  createPlan: () => Promise<void>;
   setIsGeneratePlan: (value: boolean) => void;
   isMobile: boolean;
   weekMeals?: WeekMeals | null;
@@ -369,7 +369,7 @@ export const GeneratePlan = ({
                 className="px-8 py-3 mt-5 font-semibold text-black rounded-full cursor-pointer bg-black/5 hover:bg-black hover:text-white "
                 onClick={async () => {
                   await handleSubmit();
-                  createPlan();
+                  await createPlan();
                 }}
               >
                 Enviar

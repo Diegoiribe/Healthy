@@ -10,7 +10,7 @@ import icon from '../../assets/appleBlue.png'; // Asegúrate de que la ruta sea 
 type DashboardMobileProps = {
   exportPDF: (weekMeals: WeekMeals | null) => void;
   weekMeals: WeekMeals | null;
-  createPlan: () => void;
+  createPlan: () => Promise<void>;
   userData?: UserDataProps;
   setUserData: (data: UserDataProps) => void;
   isMobile: boolean;
