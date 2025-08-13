@@ -364,13 +364,13 @@ export const Dashboard = () => {
       {userData?.plan == 'FREE' && (
         <ChoosePlan isMobile={isMobile} setIsPayment={setIsPayment} />
       )}
-      {isLoading && <Loading isMobile={isMobile} />}{' '}
+
       <DashboardMobile
         exportPDF={exportPDF}
         weekMeals={weekMeals}
+        setWeekMeal={setWeekMeal}
         userData={userData}
         setUserData={setUserData}
-        createPlan={createPlan}
         isMobile={isMobile}
       />
     </>

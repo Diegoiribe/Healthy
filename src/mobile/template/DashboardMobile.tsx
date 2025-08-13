@@ -3,14 +3,16 @@ import { HomeMobile } from '../components/HomeMobile';
 import { CalendarMobile } from '../components/CalendarMobile';
 import type { WeekMeals, UserDataProps } from '../../pages/Dashboard';
 import { List } from '../components/List';
+import { post } from '../../api/http';
 import { Config } from '../components/Config';
 import { Referrals } from '../components/Referrals';
+import { Loading } from '../components/Loading';
 import icon from '../../assets/appleBlue.png'; // Asegúrate de que la ruta sea correcta
 
 type DashboardMobileProps = {
   exportPDF: (weekMeals: WeekMeals | null) => void;
   weekMeals: WeekMeals | null;
-  createPlan: () => Promise<void>;
+  setWeekMeal: (data: WeekMeals) => void;
   userData?: UserDataProps;
   setUserData: (data: UserDataProps) => void;
   isMobile: boolean;
@@ -19,15 +21,16 @@ type DashboardMobileProps = {
 export const DashboardMobile = ({
   exportPDF,
   weekMeals,
+  setWeekMeal,
   userData,
   setUserData,
-  isMobile,
-  createPlan
+  isMobile
 }: DashboardMobileProps) => {
   const [isList, setIsList] = useState(false);
   const [isGeneratePlan, setIsGeneratePlan] = useState(false);
   const [active, setActive] = useState<'links' | 'calendar'>('links');
   const [isConfig, setIsConfig] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [openCalendar, setOpenCalendar] = useState(false);
   const [isReferrals, setIsReferrals] = useState(false);
 
@@ -39,7 +42,8 @@ export const DashboardMobile = ({
   };
 
   useEffect(() => {
-    const shouldBeWhite = isList || isConfig || isReferrals || isGeneratePlan;
+    const shouldBeWhite =
+      isList || isConfig || isReferrals || isGeneratePlan || isLoading;
 
     if (shouldBeWhite) {
       document.documentElement.style.setProperty('--page-bg-body', '#ffffff');
@@ -52,7 +56,42 @@ export const DashboardMobile = ({
       const meta = document.querySelector('meta[name="theme-color"]');
       if (meta) meta.setAttribute('content', '#dc2626');
     }
-  }, [isList, isConfig, isReferrals, isGeneratePlan]);
+  }, [isList, isConfig, isReferrals, isGeneratePlan, isLoading]);
+
+  const createPlan = async (u?: UserDataProps): Promise<void> => {
+    // Si no se pasa un usuario, usar el del estado
+    const user = u ?? userData;
+
+    if (!user) {
+      console.error('No user data available');
+      return;
+    }
+
+    if (!user.dietType) {
+      console.error('Please select a diet type before generating the plan.');
+      return;
+    }
+
+    console.log('Creating plan with diet type:', user.dietType);
+    setIsLoading(true);
+    setIsGeneratePlan(false);
+
+    try {
+      const data = { dietType: user.dietType };
+      const res = await post('/user/plan/generate', data);
+
+      const fixedRes = {
+        plan: res.plan ?? res.Plan ?? {},
+        shoppingList: res.shoppingList ?? res.listaDeCompras ?? {}
+      };
+
+      setWeekMeal(fixedRes);
+    } catch (error) {
+      console.error('Error generating plan:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -66,11 +105,10 @@ export const DashboardMobile = ({
       {isList && !isConfig && !isReferrals && (
         <List setIsList={setIsList} weekMeals={weekMeals} />
       )}
-
       {isReferrals && !isList && !isConfig && (
         <Referrals setIsReferrals={setIsReferrals} />
       )}
-
+      {isLoading && <Loading />}{' '}
       {!isList && !isConfig && !isReferrals && (
         <div
           className=" bg-red-600 w-full min-h-viewport
