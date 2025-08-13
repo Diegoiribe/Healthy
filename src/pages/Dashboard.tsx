@@ -369,10 +369,6 @@ export const Dashboard = () => {
         userData={userData}
         setUserData={setUserData}
         createPlan={createPlan}
-        isGenerate={isGenerate}
-        setIsGenerate={setIsGenerate}
-        isGeneratePlan={isGeneratePlan}
-        setIsGeneratePlan={setIsGeneratePlan}
         isMobile={isMobile}
       />
     </>

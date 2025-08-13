@@ -12,11 +12,7 @@ type DashboardMobileProps = {
   weekMeals: WeekMeals | null;
   createPlan: () => void;
   userData?: UserDataProps;
-  setIsGenerate: (value: boolean) => void;
   setUserData: (data: UserDataProps) => void;
-  setIsGeneratePlan: (value: boolean) => void;
-  isGeneratePlan: boolean;
-  isGenerate: boolean;
   isMobile: boolean;
 };
 
@@ -25,14 +21,12 @@ export const DashboardMobile = ({
   weekMeals,
   userData,
   setUserData,
-  setIsGenerate,
-  setIsGeneratePlan,
-  isGeneratePlan,
-  isGenerate,
   isMobile,
   createPlan
 }: DashboardMobileProps) => {
   const [isList, setIsList] = useState(false);
+  const [isGenerate, setIsGenerate] = useState(false);
+  const [isGeneratePlan, setIsGeneratePlan] = useState(false);
   const [active, setActive] = useState<'links' | 'calendar'>('links');
   const [isConfig, setIsConfig] = useState(false);
   const [openCalendar, setOpenCalendar] = useState(false);
@@ -46,7 +40,12 @@ export const DashboardMobile = ({
 
   useEffect(() => {
     const shouldBeWhite =
-      isList || isConfig || openCalendar || isReferrals || isGenerate;
+      isList ||
+      isConfig ||
+      openCalendar ||
+      isReferrals ||
+      isGenerate ||
+      isGeneratePlan;
 
     if (shouldBeWhite) {
       document.documentElement.style.setProperty('--page-bg-body', '#ffffff');
@@ -59,7 +58,7 @@ export const DashboardMobile = ({
       const meta = document.querySelector('meta[name="theme-color"]');
       if (meta) meta.setAttribute('content', '#dc2626');
     }
-  }, [isList, isConfig, openCalendar, isReferrals, isGenerate]);
+  }, [isList, isConfig, openCalendar, isReferrals, isGenerate, isGeneratePlan]);
 
   return (
     <>
