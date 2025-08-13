@@ -57,8 +57,8 @@ const phrases = [
   'Desayunando bits...'
 ];
 
-export const Loading = (props: { isMobile: boolean }) => {
-  const { isMobile } = props;
+export const Loading = (props: { isMobile: boolean; isLoading: boolean }) => {
+  const { isMobile, isLoading } = props;
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -68,13 +68,29 @@ export const Loading = (props: { isMobile: boolean }) => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const shouldBeWhite = isLoading;
+
+    if (shouldBeWhite) {
+      document.documentElement.style.setProperty('--page-bg-body', '#ffffff');
+      document.documentElement.style.setProperty('--page-bg-html', '#ffffff');
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', '#ffffff');
+    } else {
+      document.documentElement.style.setProperty('--page-bg-body', '#dc2626'); // rojo
+      document.documentElement.style.setProperty('--page-bg-html', '#1e1e1e'); // o el que uses
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', '#dc2626');
+    }
+  }, [isLoading]);
+
   return isMobile ? (
     <div className="fixed bottom-0 left-0 z-100 flex items-center justify-center w-full h-[100svh] backdrop-blur bg-white">
       <div className="max-w-4xl text-center rounded-2xl">
         <AnimatePresence mode="wait">
           <motion.p
             key={phrases[index]} // ✅ clave única
-            className="text-xl font-semibold text-neutral-600"
+            className="text-xl font-semibold text-black"
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
