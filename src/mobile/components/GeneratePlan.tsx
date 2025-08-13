@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { UserDataProps } from '../../pages/Dashboard';
 import { patch, get } from '../../api/http';
+import type { WeekMeals } from '../../pages/Dashboard';
 
 type Option = {
   label: string;
@@ -15,6 +16,7 @@ interface CreatePlanProps {
   createPlan: () => void;
   setIsGeneratePlan: (value: boolean) => void;
   isMobile: boolean;
+  weekMeals?: WeekMeals | null;
 }
 
 export const GeneratePlan = ({
@@ -23,6 +25,7 @@ export const GeneratePlan = ({
   setIsGenerate,
   setIsGeneratePlan,
   createPlan,
+  weekMeals,
   isMobile
 }: CreatePlanProps) => {
   const [step, setStep] = useState<number>(1);
@@ -196,7 +199,7 @@ export const GeneratePlan = ({
           >
             <div
               className={`${
-                step === 1 ? '' : 'hidden'
+                step === 1 || !weekMeals ? '' : 'hidden'
               } text-2xl font-black cursor-pointer text-black hover:text-red-300`}
             >
               ←
