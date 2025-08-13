@@ -69,7 +69,7 @@ export const Loading = (props: { isMobile: boolean }) => {
   }, []);
 
   return isMobile ? (
-    <div className="fixed bottom-0 left-0 z-100 flex items-center justify-center w-full h-[100vh] backdrop-blur bg-white">
+    <div className="fixed bottom-0 left-0 z-100 flex items-center justify-center w-full h-[100svh] backdrop-blur bg-white">
       <div className="max-w-4xl text-center rounded-2xl">
         <AnimatePresence mode="wait">
           <motion.p
