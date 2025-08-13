@@ -147,6 +147,10 @@ export const Calendar = ({
           <p className="text-lg font-black text-white">
             {dia} <span className="">{numero}</span>
           </p>
+          <div
+            className="min-w-[30%] w-auto h-4"
+            onClick={() => setOpenCalendar(!openCalendar)}
+          ></div>
           <div className="flex items-center justify-center gap-2 text-white">
             <div
               className="text-lg font-bold cursor-pointer"
