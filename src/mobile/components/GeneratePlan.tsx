@@ -11,7 +11,6 @@ type Option = {
 
 interface CreatePlanProps {
   userData?: UserDataProps;
-  setIsGenerate: (value: boolean) => void;
   setUserData: (data: UserDataProps) => void;
   createPlan: () => Promise<void>;
   setIsGeneratePlan: (value: boolean) => void;
@@ -22,7 +21,6 @@ interface CreatePlanProps {
 export const GeneratePlan = ({
   userData,
   setUserData,
-  setIsGenerate,
   setIsGeneratePlan,
   createPlan,
   weekMeals,
@@ -195,7 +193,6 @@ export const GeneratePlan = ({
             onClick={() => {
               if (!weekMeals) return;
               setIsGeneratePlan(false);
-              setIsGenerate(false);
             }}
           >
             <div

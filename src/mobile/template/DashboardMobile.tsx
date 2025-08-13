@@ -25,7 +25,6 @@ export const DashboardMobile = ({
   createPlan
 }: DashboardMobileProps) => {
   const [isList, setIsList] = useState(false);
-  const [isGenerate, setIsGenerate] = useState(false);
   const [isGeneratePlan, setIsGeneratePlan] = useState(false);
   const [active, setActive] = useState<'links' | 'calendar'>('links');
   const [isConfig, setIsConfig] = useState(false);
@@ -40,15 +39,7 @@ export const DashboardMobile = ({
   };
 
   useEffect(() => {
-    if (!weekMeals) {
-      setIsGeneratePlan(true);
-      setIsGenerate(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    const shouldBeWhite =
-      isList || isConfig || isReferrals || isGenerate || isGeneratePlan;
+    const shouldBeWhite = isList || isConfig || isReferrals || isGeneratePlan;
 
     if (shouldBeWhite) {
       document.documentElement.style.setProperty('--page-bg-body', '#ffffff');
@@ -61,7 +52,7 @@ export const DashboardMobile = ({
       const meta = document.querySelector('meta[name="theme-color"]');
       if (meta) meta.setAttribute('content', '#dc2626');
     }
-  }, [isList, isConfig, isReferrals, isGenerate, isGeneratePlan]);
+  }, [isList, isConfig, isReferrals, isGeneratePlan]);
 
   return (
     <>
@@ -191,10 +182,8 @@ export const DashboardMobile = ({
                   createPlan={createPlan}
                   userData={userData}
                   setUserData={setUserData}
-                  setIsGenerate={setIsGenerate}
                   setIsGeneratePlan={setIsGeneratePlan}
                   isGeneratePlan={isGeneratePlan}
-                  isGenerate={isGenerate}
                   isMobile={isMobile}
                 />
               )}

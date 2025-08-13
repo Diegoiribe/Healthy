@@ -1,6 +1,7 @@
 import type { WeekMeals } from '../../pages/Dashboard';
 import { Calendar } from './Calendar';
 import type { UserDataProps } from '../../pages/Dashboard';
+import { useEffect } from 'react';
 
 type CalendarMobileProps = {
   setOpenCalendar: (value: boolean) => void;
@@ -8,11 +9,11 @@ type CalendarMobileProps = {
   weekMeals?: WeekMeals | null;
   createPlan: () => Promise<void>;
   userData?: UserDataProps;
-  setIsGenerate: (value: boolean) => void;
+
   setUserData: (data: UserDataProps) => void;
   setIsGeneratePlan: (value: boolean) => void;
   isGeneratePlan: boolean;
-  isGenerate: boolean;
+
   isMobile: boolean;
 };
 
@@ -23,11 +24,15 @@ export const CalendarMobile = ({
   createPlan,
   userData,
   setUserData,
-
   setIsGeneratePlan,
   isGeneratePlan,
   isMobile
 }: CalendarMobileProps) => {
+  useEffect(() => {
+    if (!weekMeals) {
+      setIsGeneratePlan(true);
+    }
+  }, []);
   return (
     <div className="flex flex-col items-center ">
       <Calendar

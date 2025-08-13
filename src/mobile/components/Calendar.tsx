@@ -9,7 +9,6 @@ type CalendarProps = {
   weekMeals?: WeekMeals | null;
   createPlan: () => Promise<void>;
   userData?: UserDataProps;
-
   setUserData: (data: UserDataProps) => void;
   setIsGeneratePlan: (value: boolean) => void;
   isGeneratePlan: boolean;
@@ -232,7 +231,6 @@ export const Calendar = ({
       {isGeneratePlan && (
         <GeneratePlan
           userData={userData}
-          setIsGenerate={setIsGeneratePlan}
           setIsGeneratePlan={setIsGeneratePlan}
           setUserData={setUserData}
           createPlan={createPlan}
