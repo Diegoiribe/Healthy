@@ -39,7 +39,13 @@ export const DashboardMobile = ({
   };
 
   useEffect(() => {
-    const shouldBeWhite = isList || isConfig || isReferrals || isGeneratePlan;
+    const shouldBeWhite =
+      isList ||
+      isConfig ||
+      isReferrals ||
+      openCalendar ||
+      isGenerate ||
+      isGeneratePlan;
 
     if (shouldBeWhite) {
       document.documentElement.style.setProperty('--page-bg-body', '#ffffff');
@@ -52,7 +58,7 @@ export const DashboardMobile = ({
       const meta = document.querySelector('meta[name="theme-color"]');
       if (meta) meta.setAttribute('content', '#dc2626');
     }
-  }, [isList, isConfig, isReferrals, isGeneratePlan]);
+  }, [isList, isConfig, isReferrals, isGenerate, isGeneratePlan, openCalendar]);
 
   return (
     <>
