@@ -16,7 +16,7 @@ export const Plans = (props: { isMobile: boolean }) => {
           isMobile ? 'text-lg' : 'text-2xl'
         }`}
       >
-        Sin comisiones ocultas, sin juegos, sin sorpresas.
+        Sin comisiones ocultas, sin juegos y sin sorpresas.
         <br />
         {isMobile ? '' : 'Cambiar tu vida '}
       </p>

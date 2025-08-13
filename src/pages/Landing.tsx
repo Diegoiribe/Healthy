@@ -52,7 +52,7 @@ export const Landing = () => {
               className="
      relative inline-block isolate
     before:content-[''] before:absolute
-    before:-inset-x-2 before:-bottom-[0.01em]
+    before:-inset-x-[2px] before:-bottom-[0.01em]
     before:h-[1em] before:bg-red-200
     before:z-0
   "
@@ -105,7 +105,7 @@ export const Landing = () => {
         <div
           className={`flex flex-col justify-center h-screen ${
             isMobile
-              ? 'w-full gap-5 -mt-20 mb-40 mx-auto '
+              ? 'w-full gap-5 -mt-20 mb-20 mx-auto '
               : 'max-w-4xl gap-5 mx-auto min-w-3xl'
           } `}
         >

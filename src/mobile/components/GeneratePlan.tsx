@@ -174,7 +174,7 @@ export const GeneratePlan = ({
   return (
     <div
       className={`
-      fixed inset-0 z-[9999] text-black
+      fixed inset-0 z-[9999] text-black min-h-[100svh]
       ${isMobile ? 'bg-white' : 'bg-black/30 backdrop-blur-sm'}
       overflow-y-auto overscroll-contain
     `}
@@ -182,7 +182,7 @@ export const GeneratePlan = ({
       <div
         className={`${
           isMobile
-            ? 'flex flex-col items-center max-w-2xl p-10 mx-auto justify-between min-h-[100dvh]'
+            ? 'flex flex-col items-center max-w-2xl p-10 mx-auto justify-between min-h-[100svh]'
             : 'shadow-2xl pb-15 max-w-4xl px-10 pt-10 bg-white  rounded-2xl'
         }`}
       >
