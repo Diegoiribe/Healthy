@@ -58,11 +58,11 @@ export const DashboardMobile = ({
       )}
 
       {isReferrals && !isList && !isConfig && (
-        <Referrals setIsReferrals={setIsReferrals} userData={userData} />
+        <Referrals setIsReferrals={setIsReferrals} />
       )}
 
       {!isList && !isConfig && !isReferrals && (
-        <div className="w-full min-h-screen bg-red-600">
+        <div className="w-full min-h-[100dvh] bg-red-600">
           <div className="flex flex-col items-center max-w-2xl p-10 mx-auto ">
             <div className="flex justify-end w-full">
               <div

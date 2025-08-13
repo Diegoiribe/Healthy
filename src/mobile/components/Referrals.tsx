@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { get } from '../../api/http';
-import type { UserDataProps } from '../../pages/Dashboard';
 
 type Referral = {
   email: string;
@@ -11,11 +10,10 @@ type Referral = {
 };
 
 interface ReferralProps {
-  userData?: UserDataProps;
   setIsReferrals: (value: boolean) => void;
 }
 
-export const Referrals = ({ userData, setIsReferrals }: ReferralProps) => {
+export const Referrals = ({ setIsReferrals }: ReferralProps) => {
   const [referrals, setReferrals] = useState<Referral[]>([]);
   const [earnings, setEarnings] = useState<number>(0);
 
@@ -37,7 +35,7 @@ export const Referrals = ({ userData, setIsReferrals }: ReferralProps) => {
 
   return (
     <div>
-      <div className="flex flex-col max-w-2xl min-h-screen gap-5 p-10 mx-auto bg-white">
+      <div className="flex flex-col max-w-2xl min-h-[100dvh] gap-5 p-10 mx-auto bg-white">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-2">
             <p className="px-4 py-2 text-xs text-black rounded-full cursor-pointer bg-black/5 hover:bg-black hover:text-white">

@@ -182,7 +182,7 @@ export const GeneratePlan = ({
       <div
         className={`${
           isMobile
-            ? 'flex flex-col items-center max-w-2xl p-10 mx-auto justify-between min-h-screen'
+            ? 'flex flex-col items-center max-w-2xl p-10 mx-auto justify-between min-h-[100dvh]'
             : 'shadow-2xl pb-15 max-w-4xl px-10 pt-10 bg-white  rounded-2xl'
         }`}
       >
