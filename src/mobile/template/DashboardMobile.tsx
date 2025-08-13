@@ -62,7 +62,7 @@ export const DashboardMobile = ({
       )}
 
       {!isList && !isConfig && !isReferrals && (
-        <div className="w-full min-h-[100dvh] bg-red-600 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
+        <div className="w-full min-h-[100dvh] bg-red-600 vh-fit safe">
           <div className="flex flex-col items-center max-w-2xl p-10 mx-auto ">
             <div className="flex justify-end w-full">
               <div
