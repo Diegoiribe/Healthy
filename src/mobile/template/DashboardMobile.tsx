@@ -31,6 +31,7 @@ export const DashboardMobile = ({
   const [isConfig, setIsConfig] = useState(false);
   const [openCalendar, setOpenCalendar] = useState(false);
   const [isReferrals, setIsReferrals] = useState(false);
+
   console.log('🐞 weekMeals in DashboardMobile:', weekMeals);
 
   const logOut = () => {
@@ -43,7 +44,9 @@ export const DashboardMobile = ({
       setIsGeneratePlan(true);
       setIsGenerate(true);
     }
+  }, []);
 
+  useEffect(() => {
     const shouldBeWhite =
       isList || isConfig || isReferrals || isGenerate || isGeneratePlan;
 

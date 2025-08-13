@@ -237,7 +237,6 @@ export const Calendar = ({
           setUserData={setUserData}
           createPlan={createPlan}
           isMobile={isMobile}
-          weekMeals={weekMeals}
         />
       )}
     </div>
