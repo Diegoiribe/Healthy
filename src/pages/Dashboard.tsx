@@ -398,11 +398,11 @@ export const Dashboard = () => {
     relative inline-block isolate
     before:content-[''] before:absolute
     before:-inset-x-2 before:-bottom-[0.01em]
-    before:h-[1em] before:bg-red-200
+    before:h-[.4em] before:bg-red-200
     before:z-0
   "
                   >
-                    <span className="relative z-10">Hola</span>
+                    <span className="relative z-10">Hola,</span>
                   </span>{' '}
                   {userData ? userData.firstName : 'User'}
                 </p>
