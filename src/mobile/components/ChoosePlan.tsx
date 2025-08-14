@@ -21,17 +21,25 @@ export const ChoosePlan = ({ setIsPayment }: ChoosePlanProps) => {
 
   return (
     <div
-      className={` flex flex-col items-center min-h-[100dvh]  max-w-2xl px-10 mx-auto bg-white `}
+      className={` flex flex-col justify-center min-h-[100dvh]  max-w-2xl px-10 mx-auto bg-white `}
     >
       <div
-        className={`flex flex-col items-center justify-center    h-full  max-w-[400px] `}
+        className={`flex flex-col -mt-10 items-center justify-center    h-full  max-w-[400px] `}
       >
         <div className="w-full ">
           <h1 className="text-5xl font-black text-center mb-15">
             Suscribete a{' '}
-            <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[1em] before:bg-red-200 before:-z-10">
-              Plan4Me
-            </span>
+            <span
+              className="
+     relative inline-block isolate
+    before:content-[''] before:absolute
+    before:-inset-x-[6px] before:-bottom-[0.01em]
+    before:h-[1em] before:bg-red-200
+    before:z-0
+  "
+            >
+              <span className="relative z-10">Plan4Me</span>
+            </span>{' '}
           </h1>
         </div>
         <div className="flex flex-col items-center justify-center gap-5 ">
