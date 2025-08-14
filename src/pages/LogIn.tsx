@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export const LogIn = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -15,10 +16,12 @@ export const LogIn = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     // Evita el comportamiento por defecto del formulario
     e.preventDefault();
     try {
       const response = await login(formData);
+      setIsLoading(false);
       if (response) {
         navigate('/dashboard');
       }
@@ -83,12 +86,22 @@ export const LogIn = () => {
             className="w-full mb-10"
           />
 
-          <div className="flex justify-end w-full px-1">
-            <InputBottom
-              type="submit"
-              name="Iniciar Sesión"
-              className="px-10 py-2 text-black bg-red-200 border rounded-2xl "
-            />
+          <div
+            className={`flex ${
+              isLoading ? 'justify-center' : 'justify-end'
+            }  w-full px-1`}
+          >
+            {isLoading ? (
+              <div className="flex items-center justify-center h-full">
+                <div className="w-8 h-8 border-4 border-neutral-200 border-t-red-300 rounded-full animate-[spin_0.5s_linear_infinite]"></div>
+              </div>
+            ) : (
+              <InputBottom
+                type="submit"
+                name="Iniciar Sesión"
+                className="px-10 py-2 text-black bg-red-200 border rounded-2xl "
+              />
+            )}
           </div>
 
           <Link to={'/register'} className="mt-10 font-light text-normal">

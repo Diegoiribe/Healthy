@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import type { UserDataProps } from '../../pages/Dashboard';
 import { patch, get } from '../../api/http';
 import type { WeekMeals } from '../../pages/Dashboard';
+import { useLocalBg } from '../template/DashboardMobile';
 
 type Option = {
   label: string;
@@ -26,6 +27,7 @@ export const GeneratePlan = ({
   weekMeals,
   isMobile
 }: CreatePlanProps) => {
+  const { pushWhite, popWhite } = useLocalBg();
   const [step, setStep] = useState<number>(1);
   const [dietPage, setDietPage] = useState<number>(0);
   const [dietSelect, setDietSelect] = useState<string>('');
@@ -174,6 +176,11 @@ export const GeneratePlan = ({
       return null;
     }
   };
+
+  useEffect(() => {
+    pushWhite();
+    return () => popWhite();
+  }, [pushWhite, popWhite]);
 
   return (
     <div

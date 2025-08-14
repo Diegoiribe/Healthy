@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useLocalBg } from '../template/DashboardMobile';
 
 const phrases = [
   'Cargando productos...',
@@ -59,6 +60,12 @@ const phrases = [
 
 export const Loading = () => {
   const [index, setIndex] = useState(0);
+  const { pushWhite, popWhite } = useLocalBg();
+
+  useEffect(() => {
+    pushWhite();
+    return () => popWhite();
+  }, [pushWhite, popWhite]);
 
   useEffect(() => {
     const interval = setInterval(() => {

@@ -1,6 +1,7 @@
 import type { UserDataProps } from '../../pages/Dashboard';
 import { useState, useEffect } from 'react';
 import { patch, get, post } from '../../api/http';
+import { useLocalBg } from '../template/DashboardMobile';
 
 interface ConfigProps {
   setIsConfig: (value: boolean) => void;
@@ -9,6 +10,7 @@ interface ConfigProps {
 }
 
 export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
+  const { pushWhite, popWhite } = useLocalBg();
   const [formData, setFormData] = useState({
     weight: '',
     height: '',
@@ -91,6 +93,11 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
     }
   };
 
+  useEffect(() => {
+    pushWhite();
+    return () => popWhite();
+  }, [pushWhite, popWhite]);
+
   return (
     <div>
       <div className="flex flex-col max-w-2xl gap-5 bg-white min-h-[100dvh] p-10 mx-auto ">
@@ -124,25 +131,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
         <div className="flex flex-col gap-10">
           <div className="">
             <div className="flex flex-wrap justify-between ">
-              <div className="w-[20%]">
-                <p className="font-medium ">Pais</p>
-                {editStep === 1 ? (
-                  <div className="flex items-center w-full">
-                    <input
-                      onChange={(e) => handleChange('country', e.target.value)}
-                      placeholder="Mexico"
-                      type="text"
-                      className="w-full px-1 py-2 text-xs border-b focus:outline-none"
-                    />
-                  </div>
-                ) : (
-                  <p className="text-sm font-light capitalize text-neutral-400">
-                    {userData?.country || '-'}
-                  </p>
-                )}
-              </div>
-
-              <div className="w-[19%]">
+              <div className="w-[24%]">
                 <p className="font-medium ">Peso</p>
                 {editStep === 1 ? (
                   <div className="flex items-center w-full border-b">
@@ -160,7 +149,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   </p>
                 )}
               </div>
-              <div className="w-[19%]">
+              <div className="w-[24%]">
                 <p className="font-medium ">Altura</p>
                 {editStep === 1 ? (
                   <div className="flex items-center w-full border-b">
@@ -178,7 +167,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   </p>
                 )}
               </div>
-              <div className="w-[15%]">
+              <div className="w-[24%]">
                 <p className="font-medium ">Sexo</p>
                 {editStep === 1 ? (
                   <div className="flex items-center w-full">
@@ -195,7 +184,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   </p>
                 )}
               </div>
-              <div className="w-[19%]">
+              <div className="w-[24%]">
                 <p className="font-medium ">Edad</p>
                 {editStep === 1 ? (
                   <div className="flex items-center w-full border-b">
@@ -215,12 +204,22 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
               </div>
             </div>
             {editStep === 1 ? (
-              <p
-                className="mt-2 text-xs font-bold text-green-600 rounded-full cursor-pointer"
-                onClick={() => handleSubmit()}
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="
+    inline-flex items-center justify-center
+    px-4 py-2 rounded-full
+    text-xs font-bold text-green-600
+    ring-1 ring-green-600/40
+    hover:bg-green-50 active:scale-95
+    select-none touch-manipulation cursor-pointer
+    min-h-[44px] min-w-[44px]
+    relative z-10 pointer-events-auto
+  "
               >
                 Actualizar
-              </p>
+              </button>
             ) : (
               <p
                 className="mt-2 text-xs font-bold cursor-pointer "
@@ -231,72 +230,110 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
             )}
           </div>
           <div>
-            <p className="font-medium ">Tipo de persona</p>
-            {editStep === 2 ? (
-              <div className="flex items-center w-full border-b">
-                <input
+            <div>
+              <p className="font-medium ">Nivel de actividad</p>
+              <div className="flex items-center w-full border-b border-neutral-300">
+                <select
                   onChange={(e) =>
                     handleChange('activityLevel', e.target.value)
                   }
-                  placeholder="Moderado"
-                  type="text"
-                  className="w-full px-1 py-2 text-xs focus:outline-none"
-                />
+                  value={formData.activityLevel}
+                  className="w-full px-1 py-2 text-xs appearance-none cursor-pointer focus:outline-none"
+                >
+                  <option value="" disabled>
+                    Selecciona tu nivel de actividad
+                  </option>
+                  <option value="Bajar peso">Bajo</option>
+                  <option value="Mantener tu masa">Moderado</option>
+                  <option value="Ganar músculo">Alto</option>
+                </select>
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    className="lucide lucide-chevron-down-icon lucide-chevron-down"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </div>
               </div>
-            ) : (
-              <p className="text-sm font-light capitalize text-neutral-400">
-                {userData?.activityLevel || '-'}
-              </p>
-            )}
+            </div>
 
-            {editStep === 2 ? (
-              <p
-                className="mt-2 text-xs font-bold text-green-600 rounded-full cursor-pointer"
-                onClick={() => handleSubmit()}
-              >
-                Actualizar
-              </p>
-            ) : (
-              <p
-                className="mt-2 text-xs font-bold cursor-pointer "
-                onClick={() => setEditStep(2)}
-              >
-                Editar →
-              </p>
-            )}
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="
+    inline-flex items-center justify-center
+    px-4 py-2 rounded-full
+    text-xs font-bold text-green-600
+    ring-1 ring-green-600/40
+    hover:bg-green-50 active:scale-95
+    select-none touch-manipulation cursor-pointer
+    min-h-[44px] min-w-[44px]
+    relative z-10 pointer-events-auto
+  "
+            >
+              Actualizar
+            </button>
           </div>
           <div>
-            <p className="font-medium ">Objetivo</p>
-            {editStep === 3 ? (
-              <div className="flex items-center w-full border-b">
-                <input
+            <div>
+              <p className="font-medium ">Objetivo</p>
+              <div className="flex items-center w-full border-b border-neutral-300">
+                <select
                   onChange={(e) => handleChange('goal', e.target.value)}
-                  placeholder="Bajar de peso"
-                  type="text"
-                  className="w-full px-1 py-2 text-xs focus:outline-none"
-                />
+                  value={formData.goal}
+                  className="w-full px-1 py-2 text-xs appearance-none cursor-pointer focus:outline-none"
+                >
+                  <option value="" disabled>
+                    Selecciona tu objetivo
+                  </option>
+                  <option value="Bajar peso">Bajar peso</option>
+                  <option value="Mantener tu masa">Mantener tu masa</option>
+                  <option value="Ganar músculo">Ganar músculo</option>
+                </select>
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    className="lucide lucide-chevron-down-icon lucide-chevron-down"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </div>
               </div>
-            ) : (
-              <p className="text-sm font-light capitalize text-neutral-400">
-                {userData?.goal || '-'}
-              </p>
-            )}
+            </div>
 
-            {editStep === 3 ? (
-              <p
-                className="mt-2 text-xs font-bold text-green-600 rounded-full cursor-pointer"
-                onClick={() => handleSubmit()}
-              >
-                Actualizar
-              </p>
-            ) : (
-              <p
-                className="mt-2 text-xs font-bold cursor-pointer "
-                onClick={() => setEditStep(3)}
-              >
-                Editar →
-              </p>
-            )}
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="
+    inline-flex items-center justify-center
+    px-4 py-2 rounded-full
+    text-xs font-bold text-green-600
+    ring-1 ring-green-600/40
+    hover:bg-green-50 active:scale-95
+    select-none touch-manipulation cursor-pointer
+    min-h-[44px] min-w-[44px]
+    relative z-10 pointer-events-auto
+  "
+            >
+              Actualizar
+            </button>
           </div>
           <div>
             <p className="text-lg font-medium">Alimentos no deseados</p>
@@ -317,12 +354,22 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
             )}
 
             {editStep === 4 ? (
-              <p
-                className="mt-2 text-xs font-bold text-green-600 rounded-full cursor-pointer"
-                onClick={() => handleSubmit()}
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="
+    inline-flex items-center justify-center
+    px-4 py-2 rounded-full
+    text-xs font-bold text-green-600
+    ring-1 ring-green-600/40
+    hover:bg-green-50 active:scale-95
+    select-none touch-manipulation cursor-pointer
+    min-h-[44px] min-w-[44px]
+    relative z-10 pointer-events-auto
+  "
               >
                 Actualizar
-              </p>
+              </button>
             ) : (
               <p
                 className="mt-2 text-xs font-bold cursor-pointer "
@@ -350,12 +397,22 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
             )}
 
             {editStep === 5 ? (
-              <p
-                className="mt-2 text-xs font-bold text-green-600 rounded-full cursor-pointer"
-                onClick={() => handleSubmit()}
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="
+    inline-flex items-center justify-center
+    px-4 py-2 rounded-full
+    text-xs font-bold text-green-600
+    ring-1 ring-green-600/40
+    hover:bg-green-50 active:scale-95
+    select-none touch-manipulation cursor-pointer
+    min-h-[44px] min-w-[44px]
+    relative z-10 pointer-events-auto
+  "
               >
                 Actualizar
-              </p>
+              </button>
             ) : (
               <p
                 className="mt-2 text-xs font-bold cursor-pointer "

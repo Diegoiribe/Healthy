@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext, useContext, useMemo } from 'react';
 import { HomeMobile } from '../components/HomeMobile';
 import { CalendarMobile } from '../components/CalendarMobile';
 import type { WeekMeals, UserDataProps } from '../../pages/Dashboard';
@@ -7,7 +7,18 @@ import { post } from '../../api/http';
 import { Config } from '../components/Config';
 import { Referrals } from '../components/Referrals';
 import { Loading } from '../components/Loading';
-import icon from '../../assets/appleBlue.png'; // Asegúrate de que la ruta sea correcta
+import { ChoosePlan } from '../components/ChoosePlan';
+import icon from '../../assets/appleBlue.png';
+
+// ===== Context local SOLO para este componente rojo =====
+type LocalBgAPI = { pushWhite: () => void; popWhite: () => void };
+const LocalBgCtx = createContext<LocalBgAPI | null>(null);
+export const useLocalBg = () => {
+  const ctx = useContext(LocalBgCtx);
+  if (!ctx) throw new Error('useLocalBg must be used within DashboardMobile');
+  return ctx;
+};
+// =======================================================
 
 type DashboardMobileProps = {
   exportPDF: (weekMeals: WeekMeals | null) => void;
@@ -26,65 +37,63 @@ export const DashboardMobile = ({
   setUserData,
   isMobile
 }: DashboardMobileProps) => {
+  // Estados propios del dashboard
   const [isList, setIsList] = useState(false);
   const [isGeneratePlan, setIsGeneratePlan] = useState(false);
   const [active, setActive] = useState<'links' | 'calendar'>('links');
   const [isConfig, setIsConfig] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [openCalendar, setOpenCalendar] = useState(false);
+  const [isPayment, setIsPayment] = useState<boolean>(false);
   const [isReferrals, setIsReferrals] = useState(false);
 
-  console.log('🐞 weekMeals in DashboardMobile:', weekMeals);
+  // ===== Contador de “peticiones de blanco” desde cualquier hijo =====
+  const [whiteRefs, setWhiteRefs] = useState(0);
+  const api = useMemo<LocalBgAPI>(
+    () => ({
+      pushWhite: () => setWhiteRefs((n) => n + 1),
+      popWhite: () => setWhiteRefs((n) => Math.max(0, n - 1))
+    }),
+    []
+  );
+  const isWhite = whiteRefs > 0; // si >0, fondo blanco
+  // ===================================================================
 
   const logOut = () => {
-    localStorage.removeItem('token'); // o sessionStorage
-    window.location.replace('/login'); // reemplaza historial
+    localStorage.removeItem('token');
+    window.location.replace('/login');
   };
 
   useEffect(() => {
-    const shouldBeWhite =
-      isList || isConfig || isReferrals || isGeneratePlan || isLoading;
-
-    if (shouldBeWhite) {
-      document.documentElement.style.setProperty('--page-bg-body', '#ffffff');
-      document.documentElement.style.setProperty('--page-bg-html', '#ffffff');
-      const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', '#ffffff');
-    } else {
-      document.documentElement.style.setProperty('--page-bg-body', '#dc2626'); // rojo
-      document.documentElement.style.setProperty('--page-bg-html', '#1e1e1e'); // o el que uses
-      const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', '#dc2626');
+    if (userData?.plan === 'FREE') {
+      setIsPayment(true);
     }
-  }, [isList, isConfig, isReferrals, isGeneratePlan, isLoading]);
+  }, [userData?.plan]);
+
+  // 🔴 Un SOLO efecto para pintar fondo según isWhite (no según cada modal)
+  useEffect(() => {
+    const html = isWhite ? '#ffffff' : '#1e1e1e';
+    const body = isWhite ? '#ffffff' : '#dc2626';
+    document.documentElement.style.setProperty('--page-bg-html', html);
+    document.documentElement.style.setProperty('--page-bg-body', body);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', body);
+  }, [isWhite]);
 
   const createPlan = async (u?: UserDataProps): Promise<void> => {
-    // Si no se pasa un usuario, usar el del estado
     const user = u ?? userData;
+    if (!user || !user.dietType) return;
 
-    if (!user) {
-      console.error('No user data available');
-      return;
-    }
-
-    if (!user.dietType) {
-      console.error('Please select a diet type before generating the plan.');
-      return;
-    }
-
-    console.log('Creating plan with diet type:', user.dietType);
     setIsLoading(true);
     setIsGeneratePlan(false);
 
     try {
       const data = { dietType: user.dietType };
       const res = await post('/user/plan/generate', data);
-
       const fixedRes = {
         plan: res.plan ?? res.Plan ?? {},
         shoppingList: res.shoppingList ?? res.listaDeCompras ?? {}
       };
-
       setWeekMeal(fixedRes);
     } catch (error) {
       console.error('Error generating plan:', error);
@@ -94,22 +103,23 @@ export const DashboardMobile = ({
   };
 
   return (
-    <>
-      {isConfig && !isList && !isReferrals && (
+    <LocalBgCtx.Provider value={api}>
+      {userData?.plan == 'FREE' && <ChoosePlan setIsPayment={setIsPayment} />}
+      {isConfig && !isList && !isReferrals && !isPayment && (
         <Config
           setIsConfig={setIsConfig}
           userData={userData}
           setUserData={setUserData}
         />
       )}
-      {isList && !isConfig && !isReferrals && (
+      {isList && !isConfig && !isReferrals && !isPayment && (
         <List setIsList={setIsList} weekMeals={weekMeals} />
       )}
-      {isReferrals && !isList && !isConfig && (
+      {isReferrals && !isList && !isConfig && !isPayment && (
         <Referrals setIsReferrals={setIsReferrals} />
       )}
       {isLoading && <Loading />}{' '}
-      {!isList && !isConfig && !isReferrals && (
+      {!isList && !isConfig && !isReferrals && !isPayment && (
         <div
           className=" bg-red-600 w-full min-h-viewport
       pt-[env(safe-area-inset-top)] 
@@ -229,6 +239,6 @@ export const DashboardMobile = ({
           </div>
         </div>
       )}
-    </>
+    </LocalBgCtx.Provider>
   );
 };

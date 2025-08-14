@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { get } from '../../api/http';
+import { useLocalBg } from '../template/DashboardMobile';
 
 type Referral = {
   email: string;
@@ -14,6 +15,7 @@ interface ReferralProps {
 }
 
 export const Referrals = ({ setIsReferrals }: ReferralProps) => {
+  const { pushWhite, popWhite } = useLocalBg();
   const [referrals, setReferrals] = useState<Referral[]>([]);
   const [earnings, setEarnings] = useState<number>(0);
 
@@ -32,6 +34,11 @@ export const Referrals = ({ setIsReferrals }: ReferralProps) => {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   });
+
+  useEffect(() => {
+    pushWhite();
+    return () => popWhite();
+  }, [pushWhite, popWhite]);
 
   return (
     <div>

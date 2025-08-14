@@ -5,6 +5,7 @@ import { post } from '../api/http';
 
 export const Register = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -29,13 +30,17 @@ export const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (!isTerms) {
+      setIsLoading(false);
       alert('Debes aceptar los Términos y la Política de Privacidad');
       return;
     }
     if (formData.password !== formData.confirmPassword) {
+      setIsLoading(false);
       alert('Las contraseñas no coinciden');
+
       return;
     }
 
@@ -59,9 +64,10 @@ export const Register = () => {
         password: formData.password
       });
       localStorage.setItem('token', loginRes.token);
-
+      setIsLoading(false);
       setStep(3);
     } catch (error) {
+      setIsLoading(false);
       console.error('Error registering/logging in:', error);
     }
   };
@@ -284,22 +290,34 @@ export const Register = () => {
               </p>
             </div>
 
-            <div className="flex justify-end w-full gap-2 px-1">
-              <div className="">
-                <p
-                  className="flex items-center justify-center w-10 h-10 text-xl font-bold border rounded-full cursor-pointer bg-black/5 hover:bg-black/15"
-                  onClick={() => {
-                    return step <= 1 ? setStep(1) : setStep(step - 1);
-                  }}
-                >
-                  {step === 2 && '←'}
-                </p>
-              </div>
-              <InputBottom
-                type="submit"
-                name="Registrarse"
-                className="px-10 py-2 text-black bg-red-200 border rounded-2xl"
-              />
+            <div
+              className={`flex ${
+                isLoading ? 'justify-center' : 'justify-end'
+              }  justify-end w-full gap-2 px-1`}
+            >
+              {isLoading ? (
+                <div className="flex items-center justify-center h-full">
+                  <div className="w-8 h-8 border-4 border-neutral-200 border-t-red-300 rounded-full animate-[spin_0.5s_linear_infinite]"></div>
+                </div>
+              ) : (
+                <>
+                  <div className="">
+                    <p
+                      className="flex items-center justify-center w-10 h-10 text-xl font-bold border rounded-full cursor-pointer bg-black/5 hover:bg-black/15"
+                      onClick={() => {
+                        return step <= 1 ? setStep(1) : setStep(step - 1);
+                      }}
+                    >
+                      {step === 2 && '←'}
+                    </p>
+                  </div>
+                  <InputBottom
+                    type="submit"
+                    name="Registrarse"
+                    className="px-10 py-2 text-black bg-red-200 border rounded-2xl"
+                  />
+                </>
+              )}
             </div>
           </div>
         </form>
@@ -307,7 +325,7 @@ export const Register = () => {
 
       {step === 3 && (
         <div className="h-full ">
-          <div className="flex flex-col items-center justify-center w-[400px] h-full">
+          <div className="flex flex-col items-center justify-center max-w-[400px] px-10 h-full">
             <div className="w-full ">
               <h1 className="text-5xl font-black text-center mb-15">
                 Suscribete a{' '}
@@ -324,7 +342,7 @@ export const Register = () => {
                 </span>
               </h1>
             </div>
-            <div className="flex flex-col items-center justify-center gap-5 px-10">
+            <div className="flex flex-col items-center justify-center gap-5 ">
               <div
                 onClick={() =>
                   handleSubscription('/api/payments/checkout-trial')

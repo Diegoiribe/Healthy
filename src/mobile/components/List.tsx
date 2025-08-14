@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import type { WeekMeals } from '../../pages/Dashboard';
+import { useLocalBg } from '../template/DashboardMobile';
 
 interface ListProps {
   weekMeals?: WeekMeals | null;
@@ -7,6 +8,8 @@ interface ListProps {
 }
 
 export const List = ({ weekMeals, setIsList }: ListProps) => {
+  const { pushWhite, popWhite } = useLocalBg();
+
   // Aplanar la lista una sola vez
   const flatItems = useMemo(() => {
     if (!weekMeals) return [];
@@ -22,6 +25,11 @@ export const List = ({ weekMeals, setIsList }: ListProps) => {
   const toggleItem = (index: number) => {
     setChecked((prev) => prev.map((val, i) => (i === index ? !val : val)));
   };
+
+  useEffect(() => {
+    pushWhite(); // pide blanco al abrirse
+    return () => popWhite(); // vuelve a soltar al cerrarse
+  }, [pushWhite, popWhite]);
 
   return (
     <div>

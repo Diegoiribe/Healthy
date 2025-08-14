@@ -2,10 +2,9 @@ import { post } from '../../api/http';
 
 interface ChoosePlanProps {
   setIsPayment: (value: boolean) => void;
-  isMobile: boolean;
 }
 
-export const ChoosePlan = ({ setIsPayment, isMobile }: ChoosePlanProps) => {
+export const ChoosePlan = ({ setIsPayment }: ChoosePlanProps) => {
   const handleSubscription = async (endpoint: string) => {
     try {
       const { url } = await post(endpoint); // 👈 tu post ya devuelve data
@@ -25,9 +24,7 @@ export const ChoosePlan = ({ setIsPayment, isMobile }: ChoosePlanProps) => {
       className={` flex flex-col items-center min-h-[100dvh]  max-w-2xl p-10 mx-auto bg-white `}
     >
       <div
-        className={`flex flex-col items-center justify-center    h-full  ${
-          isMobile ? 'mt-10 max-w-[350px] ' : '-mt-50 max-w-[400px]'
-        }`}
+        className={`flex flex-col items-center justify-center    h-full  max-w-[400px] mt-10 `}
       >
         <div className="w-full ">
           <h1 className="text-5xl font-black text-center mb-15">
