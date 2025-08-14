@@ -361,10 +361,6 @@ export const Dashboard = () => {
 
   return isMobile ? (
     <>
-      {userData?.plan == 'FREE' && (
-        <ChoosePlan isMobile={isMobile} setIsPayment={setIsPayment} />
-      )}
-
       <DashboardMobile
         exportPDF={exportPDF}
         weekMeals={weekMeals}
