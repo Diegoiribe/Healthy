@@ -393,8 +393,16 @@ export const Dashboard = () => {
             <>
               <div className="flex items-center justify-between max-w-5xl mx-auto min-w-4xl">
                 <p className="font-black text-7xl">
-                  <span className="relative inline-block before:absolute before:-inset-x-2 before:-bottom-[0.01em] before:h-[.4em] before:bg-red-200 before:-z-10">
-                    Hola,
+                  <span
+                    className="
+    relative inline-block isolate
+    before:content-[''] before:absolute
+    before:-inset-x-2 before:-bottom-[0.01em]
+    before:h-[1em] before:bg-red-200
+    before:z-0
+  "
+                  >
+                    <span className="relative z-10">Hola</span>
                   </span>{' '}
                   {userData ? userData.firstName : 'User'}
                 </p>

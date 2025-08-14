@@ -1,4 +1,11 @@
-import { useState, useEffect, createContext, useContext, useMemo } from 'react';
+import {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  createContext,
+  useContext,
+  useMemo
+} from 'react';
 import { HomeMobile } from '../components/HomeMobile';
 import { CalendarMobile } from '../components/CalendarMobile';
 import type { WeekMeals, UserDataProps } from '../../pages/Dashboard';
@@ -71,7 +78,7 @@ export const DashboardMobile = ({
   }, [userData?.plan]);
 
   // 🔴 Un SOLO efecto para pintar fondo según isWhite (no según cada modal)
-  useEffect(() => {
+  useLayoutEffect(() => {
     const html = isWhite ? '#ffffff' : '#1e1e1e';
     const body = isWhite ? '#ffffff' : '#dc2626';
     document.documentElement.style.setProperty('--page-bg-html', html);
