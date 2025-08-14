@@ -29,11 +29,9 @@ export const ChoosePlan = ({ setIsPayment }: ChoosePlanProps) => {
 
   return (
     <div
-      className={` flex flex-col  min-h-[100dvh]  max-w-2xl p-10 mx-auto bg-white `}
+      className={` flex flex-col  min-h-[100dvh]  max-w-2xl p-10  bg-white `}
     >
-      <div
-        className={`flex flex-col bg-black  items-center  h-full   max-w-[400px] `}
-      >
+      <div className={`flex flex-col   h-full   max-w-[400px] `}>
         <div className="w-full ">
           <h1 className="text-5xl font-black text-center mb-15">
             Suscribete a{' '}
@@ -42,7 +40,7 @@ export const ChoosePlan = ({ setIsPayment }: ChoosePlanProps) => {
      relative inline-block isolate
     before:content-[''] before:absolute
     before:-inset-x-[6px] before:-bottom-[0.01em]
-    before:h-[1em] before:bg-red-200
+    before:h-[1em] before:bg-blue-200
     before:z-0
   "
             >
