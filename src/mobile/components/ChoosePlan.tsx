@@ -1,10 +1,13 @@
 import { post } from '../../api/http';
+import { useEffect } from 'react';
+import { useLocalBg } from '../template/DashboardMobile';
 
 interface ChoosePlanProps {
   setIsPayment: (value: boolean) => void;
 }
 
 export const ChoosePlan = ({ setIsPayment }: ChoosePlanProps) => {
+  const { pushWhite, popWhite } = useLocalBg();
   const handleSubscription = async (endpoint: string) => {
     try {
       const { url } = await post(endpoint); // 👈 tu post ya devuelve data
@@ -19,12 +22,17 @@ export const ChoosePlan = ({ setIsPayment }: ChoosePlanProps) => {
     }
   };
 
+  useEffect(() => {
+    pushWhite();
+    return () => popWhite();
+  }, [pushWhite, popWhite]);
+
   return (
     <div
       className={` flex flex-col justify-center min-h-[100dvh]  max-w-2xl px-10 mx-auto bg-white `}
     >
       <div
-        className={`flex flex-col -mt-10 items-center justify-center    h-full  max-w-[400px] `}
+        className={`flex flex-col -mt-5 items-center justify-center   max-w-[400px] `}
       >
         <div className="w-full ">
           <h1 className="text-5xl font-black text-center mb-15">
