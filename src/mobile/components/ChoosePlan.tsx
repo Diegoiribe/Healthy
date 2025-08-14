@@ -21,10 +21,10 @@ export const ChoosePlan = ({ setIsPayment }: ChoosePlanProps) => {
 
   return (
     <div
-      className={` flex flex-col items-center min-h-[100dvh]  max-w-2xl p-10 mx-auto bg-white `}
+      className={` flex flex-col items-center min-h-[100dvh]  max-w-2xl px-10 mx-auto bg-white `}
     >
       <div
-        className={`flex flex-col items-center justify-center    h-full  max-w-[400px] mt-10 `}
+        className={`flex flex-col items-center justify-center    h-full  max-w-[400px] `}
       >
         <div className="w-full ">
           <h1 className="text-5xl font-black text-center mb-15">
