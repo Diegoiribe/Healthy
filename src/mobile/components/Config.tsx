@@ -46,10 +46,12 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
   };
 
   const handleSubmit = async () => {
+    const weightParsed = parseFloat(formData.weight);
+    const heightParsed = parseFloat(formData.height);
     const payload = {
       goal: formData.goal,
-      weightKg: parseFloat(formData.weight),
-      heightCm: parseFloat(formData.height),
+      weightKg: Number.isFinite(weightParsed) ? weightParsed : 0,
+      heightCm: Number.isFinite(heightParsed) ? heightParsed : 0,
       likedFoods:
         formData.likedFoods
           .split(',')
@@ -136,8 +138,10 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                 {editStep === 1 ? (
                   <div className="flex items-center w-full border-b">
                     <input
+                      value={formData.weight}
                       onChange={(e) => handleChange('weight', e.target.value)}
                       placeholder="90"
+                      inputMode="decimal"
                       type="text"
                       className="w-full px-1 py-2 text-xs focus:outline-none"
                     />
@@ -154,8 +158,10 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                 {editStep === 1 ? (
                   <div className="flex items-center w-full border-b">
                     <input
+                      value={formData.height}
                       onChange={(e) => handleChange('height', e.target.value)}
                       placeholder="129"
+                      inputMode="decimal"
                       type="text"
                       className="w-full px-1 py-2 text-xs focus:outline-none"
                     />
@@ -172,6 +178,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                 {editStep === 1 ? (
                   <div className="flex items-center w-full">
                     <input
+                      value={formData.gender}
                       onChange={(e) => handleChange('gender', e.target.value)}
                       placeholder="M"
                       type="text"
@@ -189,8 +196,10 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                 {editStep === 1 ? (
                   <div className="flex items-center w-full border-b">
                     <input
+                      value={formData.age}
                       onChange={(e) => handleChange('age', e.target.value)}
                       placeholder="25"
+                      inputMode="numeric"
                       type="text"
                       className="w-full px-1 py-2 text-xs focus:outline-none"
                     />
@@ -207,16 +216,8 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="
-    inline-flex items-center justify-center
-    px-4 py-2 rounded-full
-    text-xs font-bold text-green-600
-    ring-1 ring-green-600/40
-    hover:bg-green-50 active:scale-95
-    select-none touch-manipulation cursor-pointer
-    min-h-[44px] min-w-[44px]
-    relative z-10 pointer-events-auto
-  "
+                className="relative z-10 inline-flex items-center justify-center py-2 text-xs font-bold text-green-600 rounded-full cursor-pointer pointer-events-auto select-none  active:scale-95 touch-manipulation"
+                aria-busy={false}
               >
                 Actualizar
               </button>
@@ -243,9 +244,9 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   <option value="" disabled>
                     Selecciona tu nivel de actividad
                   </option>
-                  <option value="Bajar peso">Bajo</option>
-                  <option value="Mantener tu masa">Moderado</option>
-                  <option value="Ganar músculo">Alto</option>
+                  <option value="Bajo">Bajo</option>
+                  <option value="Moderado">Moderado</option>
+                  <option value="Alto">Alto</option>
                 </select>
                 <div>
                   <svg
@@ -269,16 +270,8 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
             <button
               type="button"
               onClick={handleSubmit}
-              className="
-    inline-flex items-center justify-center
-    px-4 py-2 rounded-full
-    text-xs font-bold text-green-600
-    ring-1 ring-green-600/40
-    hover:bg-green-50 active:scale-95
-    select-none touch-manipulation cursor-pointer
-    min-h-[44px] min-w-[44px]
-    relative z-10 pointer-events-auto
-  "
+              className="relative z-10 inline-flex items-center justify-center py-2 text-xs font-bold text-green-600 rounded-full cursor-pointer pointer-events-auto select-none  active:scale-95 touch-manipulation"
+              aria-busy={false}
             >
               Actualizar
             </button>
@@ -321,16 +314,8 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
             <button
               type="button"
               onClick={handleSubmit}
-              className="
-    inline-flex items-center justify-center
-    px-4 py-2 rounded-full
-    text-xs font-bold text-green-600
-    ring-1 ring-green-600/40
-    hover:bg-green-50 active:scale-95
-    select-none touch-manipulation cursor-pointer
-    min-h-[44px] min-w-[44px]
-    relative z-10 pointer-events-auto
-  "
+              className="relative z-10 inline-flex items-center justify-center py-2 text-xs font-bold text-green-600 rounded-full cursor-pointer pointer-events-auto select-none  active:scale-95 touch-manipulation"
+              aria-busy={false}
             >
               Actualizar
             </button>
@@ -341,7 +326,10 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
             {editStep === 4 ? (
               <div className="flex items-center w-full">
                 <input
-                  onChange={(e) => handleChange('country', e.target.value)}
+                  value={formData.dislikedFoods}
+                  onChange={(e) =>
+                    handleChange('dislikedFoods', e.target.value)
+                  }
                   placeholder="Pollo, Camarones, Aguacate"
                   type="text"
                   className="w-full px-1 py-2 text-xs border-b focus:outline-none"
@@ -357,16 +345,8 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="
-    inline-flex items-center justify-center
-    px-4 py-2 rounded-full
-    text-xs font-bold text-green-600
-    ring-1 ring-green-600/40
-    hover:bg-green-50 active:scale-95
-    select-none touch-manipulation cursor-pointer
-    min-h-[44px] min-w-[44px]
-    relative z-10 pointer-events-auto
-  "
+                className="relative z-10 inline-flex items-center justify-center py-2 text-xs font-bold text-green-600 rounded-full cursor-pointer pointer-events-auto select-none  active:scale-95 touch-manipulation"
+                aria-busy={false}
               >
                 Actualizar
               </button>
@@ -384,7 +364,8 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
             {editStep === 5 ? (
               <div className="flex items-center w-full">
                 <input
-                  onChange={(e) => handleChange('country', e.target.value)}
+                  value={formData.likedFoods}
+                  onChange={(e) => handleChange('likedFoods', e.target.value)}
                   placeholder="Pollo, Camarones, Aguacate"
                   type="text"
                   className="w-full px-1 py-2 text-xs border-b focus:outline-none"
@@ -400,16 +381,8 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="
-    inline-flex items-center justify-center
-    px-4 py-2 rounded-full
-    text-xs font-bold text-green-600
-    ring-1 ring-green-600/40
-    hover:bg-green-50 active:scale-95
-    select-none touch-manipulation cursor-pointer
-    min-h-[44px] min-w-[44px]
-    relative z-10 pointer-events-auto
-  "
+                className="relative z-10 inline-flex items-center justify-center py-2 text-xs font-bold text-green-600 rounded-full cursor-pointer pointer-events-auto select-none active:scale-95 touch-manipulation"
+                aria-busy={false}
               >
                 Actualizar
               </button>

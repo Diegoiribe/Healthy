@@ -82,6 +82,28 @@ export const Register = () => {
     }
   };
 
+  // Función para validar campos del paso 1
+  const validateStep = () => {
+    // Lista de campos requeridos
+    const requiredFields = [
+      { name: 'name', label: 'Nombre' },
+      { name: 'lastName', label: 'Apellido' },
+      { name: 'gender', label: 'Género' },
+      { name: 'birthday', label: 'Nacimiento' },
+      { name: 'phone', label: 'Teléfono' }
+    ];
+
+    for (const field of requiredFields) {
+      if (!formData[field.name as keyof typeof formData]?.trim()) {
+        alert(`Por favor, completa el campo: ${field.label}`);
+        return false; // Detiene validación si hay un campo vacío
+      }
+    }
+
+    // Si todo está bien
+    return true;
+  };
+
   return (
     <div className="flex items-center justify-center w-screen min-h-screen p-10">
       {step === 1 && (
@@ -171,7 +193,11 @@ export const Register = () => {
             <div className="flex justify-end w-full px-1">
               <InputBottom
                 name="Siguiente paso"
-                onClick={() => setStep(2)}
+                onClick={() => {
+                  if (validateStep()) {
+                    setStep(2);
+                  }
+                }}
                 className="px-10 py-2 text-black bg-red-200 border rounded-2xl "
               />
             </div>
@@ -216,7 +242,7 @@ export const Register = () => {
 
               <div className={`flex flex-col  gap-1 p-1 overflow-hidden`}>
                 <label className="text-lg font-semibold ">Contraseña</label>
-                <div className="flex w-full p-4 mb-5 bg-white border-2 border-neutral-100 rounded-2xl focus:outline-2 outline-orange-300/5">
+                <div className="flex w-full p-4 mb-2 bg-white border-2 border-neutral-100 rounded-2xl focus:outline-2 outline-orange-300/5">
                   <input
                     value={formData.password}
                     onChange={handleChange}
@@ -238,11 +264,47 @@ export const Register = () => {
                 </div>
               </div>
 
-              <div className={`flex flex-col  gap-1 p-1 overflow-hidden`}>
+              {/* Password requirements */}
+              {(() => {
+                const password = formData.password;
+                const hasUppercase = /[A-Z]/.test(password);
+                const hasNumber = /[0-9]/.test(password);
+                const hasSymbol = /[^A-Za-z0-9]/.test(password);
+                return (
+                  <div className="px-1 mb-2">
+                    {!hasUppercase && (
+                      <div className="flex items-center gap-2 ">
+                        <p className="mb-[3px] text-xl text-red-300">▸</p>
+                        <p className="text-xs text-neutral-500">
+                          Falta una mayúscula
+                        </p>
+                      </div>
+                    )}
+                    {!hasNumber && (
+                      <div className="flex items-center gap-2 ">
+                        <p className="text-xl mb-[3px] text-red-300">▸</p>
+                        <p className="text-xs text-neutral-500">
+                          Falta un número
+                        </p>
+                      </div>
+                    )}
+                    {!hasSymbol && (
+                      <div className="flex items-center gap-2 ">
+                        <p className="text-xl mb-[3px] text-red-300">▸</p>
+                        <p className="text-xs text-neutral-500">
+                          Falta un símbolo
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+
+              <div className={`flex flex-col mt-3  gap-1 p-1 overflow-hidden`}>
                 <label className="text-lg font-semibold ">
                   Confirmar contraseña
                 </label>
-                <div className="flex w-full p-4 mb-10 bg-white border-2 border-neutral-100 rounded-2xl focus:outline-2 outline-orange-300/5">
+                <div className="flex w-full p-4 bg-white border-2 border-neutral-100 rounded-2xl focus:outline-2 outline-orange-300/5">
                   <input
                     value={formData.confirmPassword}
                     onChange={handleChange}
@@ -263,6 +325,29 @@ export const Register = () => {
                   </span>
                 </div>
               </div>
+              {/* Password mismatch notice */}
+              {(() => {
+                const p = formData.password ?? '';
+                const c = formData.confirmPassword ?? '';
+                const showMismatch = c.length > 0 && p !== c;
+
+                return (
+                  <div
+                    className="px-1 mt-2 mb-5"
+                    aria-live="polite"
+                    role="status"
+                  >
+                    {showMismatch && (
+                      <div className="flex items-center gap-2 ">
+                        <p className="mb-[3px] text-xl text-red-300">▸</p>
+                        <p className="text-xs text-neutral-500">
+                          Las contraseñas no coinciden
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
             </div>
             <div className="flex gap-3 p-1 mb-10">
               <div onClick={() => setIsTerms(!isTerms)}>
