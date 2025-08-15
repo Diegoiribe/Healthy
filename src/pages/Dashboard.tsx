@@ -93,6 +93,7 @@ export const Dashboard = () => {
   const [isReferrals, setIsReferrals] = useState<boolean>(false);
   const [weekMeals, setWeekMeal] = useState<WeekMeals | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [userReady, setUserReady] = useState<boolean>(false);
   const [weekMealsReady, setWeekMealsReady] = useState<boolean>(false);
 
   const isUserDataIncomplete = (userData?: UserDataProps): boolean => {
@@ -119,6 +120,7 @@ export const Dashboard = () => {
   }, []);
 
   useEffect(() => {
+    setUserReady(false);
     get('/user/me')
       .then((res) => {
         if (res.plan == 'FREE') {
@@ -128,7 +130,8 @@ export const Dashboard = () => {
         setUserData(res);
         console.log('User data fetched:', res);
       })
-      .catch((error) => console.error('Error fetching user data:', error));
+      .catch((error) => console.error('Error fetching user data:', error))
+      .finally(() => setUserReady(true));
 
     // Traer plan alimenticio
     setWeekMealsReady(false);
@@ -227,6 +230,10 @@ export const Dashboard = () => {
     { label: 'Merienda', key: 'snackTarde' },
     { label: 'Cena', key: 'cena' }
   ];
+
+  const Skeleton: React.FC<{ className?: string }> = ({ className = '' }) => (
+    <div className={`bg-neutral-200/80 animate-pulse rounded ${className}`} />
+  );
 
   const exportPDF = (
     weekMeals: WeekMeals | null,
@@ -393,47 +400,61 @@ export const Dashboard = () => {
         <div className="flex flex-col items-center justify-center gap-10 mx-auto mt-40">
           {!isConfig && !isList && (
             <>
-              <div className="flex items-center justify-between max-w-5xl mx-auto min-w-4xl">
-                <p className="font-black text-7xl">
-                  <span
-                    className="
+              <div className="w-full max-w-5xl mx-auto min-w-4xl">
+                {!userReady ? (
+                  <div className="flex items-center justify-between">
+                    <Skeleton className="h-14 w-72" />
+                    <div className="flex items-center gap-4 pr-2">
+                      <Skeleton className="w-12 h-12 rounded-full" />
+                      <Skeleton className="w-12 h-12 rounded-full" />
+                      <Skeleton className="w-12 h-12 rounded-full" />
+                      <Skeleton className="w-12 h-12 rounded-full" />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between transition-opacity duration-300 opacity-100">
+                    <p className="font-black text-7xl">
+                      <span
+                        className="
     relative inline-block isolate
     before:content-[''] before:absolute
     before:-inset-x-2 before:-bottom-[0.01em]
     before:h-[.4em] before:bg-red-200
     before:z-0
   "
-                  >
-                    <span className="relative z-10">Hola,</span>
-                  </span>{' '}
-                  {userData ? userData.firstName : 'User'}
-                </p>
-                <div className="flex items-center justify-center gap-4 pr-2">
-                  <p
-                    className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-400 rounded-full cursor-pointer hover:bg-black/5"
-                    onClick={() => exportPDF(weekMeals)}
-                  >
-                    ↓
-                  </p>
-                  <p
-                    className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer hover:bg-black/5"
-                    onClick={() => setIsConfig(true)}
-                  >
-                    ⚙️
-                  </p>
-                  <p
-                    className="flex items-center justify-center w-12 h-12 text-2xl rounded-full cursor-pointer hover:bg-black/5"
-                    onClick={() => setIsList(true)}
-                  >
-                    📋
-                  </p>
-                  <p
-                    className="flex items-center justify-center w-12 h-12 text-3xl rounded-full cursor-pointer hover:bg-black/5"
-                    onClick={() => setIsReferrals(true)}
-                  >
-                    🗂️
-                  </p>
-                </div>
+                      >
+                        <span className="relative z-10">Hola,</span>
+                      </span>{' '}
+                      {userData ? userData.firstName : 'User'}
+                    </p>
+                    <div className="flex items-center justify-center gap-4 pr-2">
+                      <p
+                        className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-400 rounded-full cursor-pointer hover:bg-black/5"
+                        onClick={() => exportPDF(weekMeals)}
+                      >
+                        ↓
+                      </p>
+                      <p
+                        className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer hover:bg-black/5"
+                        onClick={() => setIsConfig(true)}
+                      >
+                        ⚙️
+                      </p>
+                      <p
+                        className="flex items-center justify-center w-12 h-12 text-2xl rounded-full cursor-pointer hover:bg-black/5"
+                        onClick={() => setIsList(true)}
+                      >
+                        📋
+                      </p>
+                      <p
+                        className="flex items-center justify-center w-12 h-12 text-3xl rounded-full cursor-pointer hover:bg-black/5"
+                        onClick={() => setIsReferrals(true)}
+                      >
+                        🗂️
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </>
           )}
@@ -495,7 +516,17 @@ export const Dashboard = () => {
               </div>
             </div>
 
-            <CalendarTemplate weekMeals={weekMeals} />
+            <div
+              className={`transition-opacity duration-300 ${
+                weekMeals ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              {weekMeals ? (
+                <CalendarTemplate weekMeals={weekMeals} />
+              ) : (
+                <div className="w-full max-w-5xl mx-auto min-h-[600px] rounded-2xl border border-neutral-200 bg-neutral-100 animate-pulse" />
+              )}
+            </div>
           </>
         )}
       </div>

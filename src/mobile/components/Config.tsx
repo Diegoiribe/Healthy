@@ -203,7 +203,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   <select
                     onChange={(e) => handleChange('gender', e.target.value)}
                     value={formData.goal}
-                    className="w-full px-1 py-2 text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
+                    className="w-full text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
                   >
                     <option value="" disabled>
                       Selecciona tu sexo

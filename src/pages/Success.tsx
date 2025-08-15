@@ -7,7 +7,7 @@ export const Success = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate('/login'); // Cambia a la ruta que quieras
-    }, 5000);
+    }, 2000);
 
     return () => clearTimeout(timer); // Limpia el timeout si el componente se desmonta
   }, [navigate]);
