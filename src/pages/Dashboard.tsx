@@ -93,6 +93,7 @@ export const Dashboard = () => {
   const [isReferrals, setIsReferrals] = useState<boolean>(false);
   const [weekMeals, setWeekMeal] = useState<WeekMeals | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [weekMealsReady, setWeekMealsReady] = useState<boolean>(false);
 
   const isUserDataIncomplete = (userData?: UserDataProps): boolean => {
     if (!userData) return true;
@@ -130,6 +131,7 @@ export const Dashboard = () => {
       .catch((error) => console.error('Error fetching user data:', error));
 
     // Traer plan alimenticio
+    setWeekMealsReady(false);
     get('/user/plan')
       .then((res) => {
         const fixedRes = {
@@ -137,10 +139,10 @@ export const Dashboard = () => {
           shoppingList: res.shoppingList ?? res.listaDeCompras ?? {}
         };
         setWeekMeal(fixedRes);
-
         console.log('Week meals fetched:', res);
       })
-      .catch((error) => console.error('Error fetching week meals:', error));
+      .catch((error) => console.error('Error fetching week meals:', error))
+      .finally(() => setWeekMealsReady(true));
   }, []);
 
   const createPlan = async (u?: UserDataProps): Promise<void> => {
@@ -438,7 +440,7 @@ export const Dashboard = () => {
         </div>
         {isLoading && <Loading isMobile={isMobile} />}
 
-        {!weekMeals && !isPayment && (
+        {weekMealsReady && !weekMeals && !isPayment && (
           <CreateFirstPlan
             userData={userData}
             setUserData={setUserData}
