@@ -13,6 +13,7 @@ import { LogIn } from './pages/LogIn';
 import { Register } from './pages/Register';
 import TServicios from './pages/TServicios';
 import { Privacidad } from './pages/Privacidad';
+import { Success } from './pages/Success';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -48,6 +49,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/terminos-y-servicios" element={<TServicios />} />
         <Route path="/privacidad" element={<Privacidad />} />
+        <Route path="/success" element={<Success />} />
         <Route path="*" element={<Landing />} />
       </Routes>
     </Router>

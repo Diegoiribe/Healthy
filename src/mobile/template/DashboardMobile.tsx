@@ -72,7 +72,7 @@ export const DashboardMobile = ({
 
   // 🔴 Un SOLO efecto para pintar fondo según isWhite (no según cada modal)
   useEffect(() => {
-    const html = isWhite ? '#ffffff' : '#1e1e1e';
+    const html = isWhite ? '#ffffff' : '#ffffff';
     const body = isWhite ? '#ffffff' : '#dc2626';
     document.documentElement.style.setProperty('--page-bg-html', html);
     document.documentElement.style.setProperty('--page-bg-body', body);

@@ -470,7 +470,7 @@ export const Register = () => {
               </div>
             </div>
             <p
-              className="font-light cursor-pointer mt-15 text-normal"
+              className="font-light text-blue-400 underline cursor-pointer mt-15 text-normal"
               onClick={() => {
                 setStep(4);
                 setTimeout(() => {
@@ -478,8 +478,7 @@ export const Register = () => {
                 }, 2000);
               }}
             >
-              Hacerlo mas{' '}
-              <span className="text-blue-400 underline">tarde →</span>
+              Hacerlo mas <span className="">tarde →</span>
             </p>
           </div>
         </div>

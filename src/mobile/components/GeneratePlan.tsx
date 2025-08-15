@@ -251,7 +251,7 @@ export const GeneratePlan = ({
                   <div
                     key={page}
                     onClick={() => setDietPage(page)}
-                    className={`w-2 h-2 border rounded-full cursor-pointer transition-all
+                    className={`w-3 h-3 border rounded-full cursor-pointer transition-all
         ${
           dietPage === page
             ? 'bg-neutral-200 border-neutral-200 '
@@ -306,7 +306,7 @@ export const GeneratePlan = ({
                     </option>
                     <option value="Bajar peso">Bajar peso</option>
                     <option value="Mantener tu masa">Mantener tu masa</option>
-                    <option value="Ganar músculo">Ganar músculo</option>
+                    <option value="Ganar musculo">Ganar músculo</option>
                   </select>
                   <div>
                     <svg

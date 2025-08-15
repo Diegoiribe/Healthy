@@ -8,7 +8,7 @@
   }
   /* Pon un color base oscuro y otro para body; puedes usar CSS vars por ruta */
   html {
-    background: #1e1e1e;
+    background: #ffffff;
   } /* como su raisin-black */
   body {
     background: #dc2626;

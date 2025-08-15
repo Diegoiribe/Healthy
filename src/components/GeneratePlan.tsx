@@ -67,7 +67,7 @@ export const GeneratePlan = ({
           .map((f) => f.trim())
           .filter((f) => f.length > 0),
         activityLevel: 'Moderado',
-        dietType: dietSelect ? dietSelect : 'Omnívoro'
+        dietType: dietSelect
       };
 
       if (Number.isNaN(payload.weightKg) || Number.isNaN(payload.heightCm)) {
@@ -206,7 +206,7 @@ export const GeneratePlan = ({
               type="text"
               value={formData.likedFoods}
               onChange={(e) => handleChange('likedFoods', e.target.value)}
-              placeholder="Chicken, Rice, Broccoli"
+              placeholder="Eje. Pollo, Arroz"
               name="likedFoods"
               required={true}
               className={isMobile ? 'w-full' : 'w-1/2'}
@@ -222,7 +222,7 @@ export const GeneratePlan = ({
               type="text"
               value={formData.dislikedFoods}
               onChange={(e) => handleChange('dislikedFoods', e.target.value)}
-              placeholder="Almonds, Eggs"
+              placeholder="Eje. Almendras, Aceitunas"
               name="dislikedFoods"
               required={true}
               className={isMobile ? 'w-full' : 'w-1/2'}
