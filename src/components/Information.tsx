@@ -117,7 +117,7 @@ export const Information = ({ userData, setUserData }: ConfigProps) => {
             <button
               type="button"
               onClick={handleSubmit}
-              className="relative z-10 inline-flex items-center justify-center py-2 text-xs font-bold text-white bg-green-600 rounded-full cursor-pointer pointer-events-auto select-none active:scale-95 touch-manipulation"
+              className="relative z-10 inline-flex items-center justify-center py-2 text-xs font-bold text-green-600 rounded-full cursor-pointer pointer-events-auto select-none active:scale-95 touch-manipulation"
               aria-busy={false}
             >
               Actualizar
@@ -172,7 +172,11 @@ export const Information = ({ userData, setUserData }: ConfigProps) => {
               </div>
               <div className="w-[24%]">
                 <p className="font-medium ">Sexo</p>
-                <div className="flex items-center w-full border-b border-neutral-200">
+                <div
+                  className={`flex ${
+                    editStep ? 'border-b border-black' : ''
+                  } items-center w-full `}
+                >
                   <select
                     onChange={(e) => handleChange('gender', e.target.value)}
                     value={formData.goal}
@@ -184,22 +188,24 @@ export const Information = ({ userData, setUserData }: ConfigProps) => {
                     <option value="M">Masculino</option>
                     <option value="F">Femenino</option>
                   </select>
-                  <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      className="lucide lucide-chevron-down-icon lucide-chevron-down"
-                    >
-                      <path d="m6 9 6 6 6-6" />
-                    </svg>
-                  </div>
+                  {editStep && (
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        className="lucide lucide-chevron-down-icon lucide-chevron-down"
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="w-[24%]">
@@ -225,7 +231,11 @@ export const Information = ({ userData, setUserData }: ConfigProps) => {
           <div>
             <div>
               <p className="font-medium ">Nivel de actividad</p>
-              <div className="flex items-center w-full border-b border-neutral-200">
+              <div
+                className={`flex ${
+                  editStep ? 'border-b border-black' : ''
+                } items-center w-full `}
+              >
                 <select
                   onChange={(e) =>
                     handleChange('activityLevel', e.target.value)
@@ -242,29 +252,35 @@ export const Information = ({ userData, setUserData }: ConfigProps) => {
                   <option value="Activo">Activo</option>
                   <option value="Intenso">Intenso</option>
                 </select>
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    className="lucide lucide-chevron-down-icon lucide-chevron-down"
-                  >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
-                </div>
+                {editStep && (
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      className="lucide lucide-chevron-down-icon lucide-chevron-down"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </div>
+                )}
               </div>
             </div>
           </div>
           <div>
             <div>
               <p className="font-medium ">Objetivo</p>
-              <div className="flex items-center w-full border-b border-neutral-200">
+              <div
+                className={`flex ${
+                  editStep ? 'border-b border-black' : ''
+                } items-center w-full `}
+              >
                 <select
                   onChange={(e) => handleChange('goal', e.target.value)}
                   value={formData.goal}
@@ -277,22 +293,24 @@ export const Information = ({ userData, setUserData }: ConfigProps) => {
                   <option value="Mantener tu masa">Mantener tu masa</option>
                   <option value="Ganar musculo">Ganar músculo</option>
                 </select>
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    className="lucide lucide-chevron-down-icon lucide-chevron-down"
-                  >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
-                </div>
+                {editStep && (
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      className="lucide lucide-chevron-down-icon lucide-chevron-down"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </div>
+                )}
               </div>
             </div>
           </div>
