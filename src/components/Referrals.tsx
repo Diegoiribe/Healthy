@@ -78,7 +78,13 @@ export const Referrals = ({ userData, setIsReferrals }: ReferralProps) => {
 
           {/* Tabla de referidos */}
           <div className="w-full mt-10 border shadow-xl border-neutral-300 rounded-xl">
-            <div className="flex justify-between w-full bg-neutral-100 rounded-t-xl">
+            <div
+              className={`flex justify-between w-full bg-neutral-100 ${
+                !referrals || referrals.length === 0
+                  ? 'rounded-xl'
+                  : ' rounded-t-xl'
+              }  `}
+            >
               <div className="w-1/3 p-2 text-xs font-semibold border-r border-neutral-200 text-neutral-500">
                 <p>Nombre</p>
               </div>

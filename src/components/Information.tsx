@@ -180,7 +180,7 @@ export const Information = ({ userData, setUserData }: ConfigProps) => {
                   <select
                     onChange={(e) => handleChange('gender', e.target.value)}
                     value={formData.goal}
-                    className="w-full px-1 py-2 text-xs appearance-none cursor-pointer focus:outline-none"
+                    className="w-full px-1 py-2 text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
                   >
                     <option value="" disabled>
                       Selecciona tu sexo
@@ -241,7 +241,7 @@ export const Information = ({ userData, setUserData }: ConfigProps) => {
                     handleChange('activityLevel', e.target.value)
                   }
                   value={formData.activityLevel}
-                  className="w-full px-1 py-2 text-xs appearance-none cursor-pointer focus:outline-none"
+                  className="w-full px-1 py-2 text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
                 >
                   <option value="" disabled>
                     Selecciona tu nivel de actividad
@@ -284,7 +284,7 @@ export const Information = ({ userData, setUserData }: ConfigProps) => {
                 <select
                   onChange={(e) => handleChange('goal', e.target.value)}
                   value={formData.goal}
-                  className="w-full px-1 py-2 text-xs appearance-none cursor-pointer focus:outline-none"
+                  className="w-full px-1 py-2 text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
                 >
                   <option value="" disabled>
                     Selecciona tu objetivo

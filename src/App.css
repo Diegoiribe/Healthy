@@ -4,7 +4,7 @@
 }
 @layer base {
   html {
-    background: var(--page-bg-html, #1e1e1e);
+    background: var(--page-bg-html, #ffffff);
   }
   body {
     background: var(--page-bg-body, #ffffff);
