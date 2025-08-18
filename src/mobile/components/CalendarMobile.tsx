@@ -1,6 +1,5 @@
 import type { WeekMeals } from '../../pages/Dashboard';
 import { Calendar } from './Calendar';
-
 import { useEffect } from 'react';
 
 type CalendarMobileProps = {

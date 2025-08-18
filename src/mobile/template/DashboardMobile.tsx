@@ -273,7 +273,7 @@ export const DashboardMobile = ({
                   🗂️
                 </p>
               </div>
-              <div className="flex p-[2px] overflow-hidden rounded-full backdrop-blur-md bg-white/60 ">
+              <div className="flex p-[4px] overflow-hidden rounded-full backdrop-blur-md bg-white/60 ">
                 <button
                   onClick={() => setActive('links')}
                   className={`w-24 h-13 font-black transition-all duration-300 cursor-pointer ${
