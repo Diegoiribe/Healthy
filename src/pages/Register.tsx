@@ -118,11 +118,11 @@ export const Register = () => {
     relative inline-block isolate
     before:content-[''] before:absolute
     before:-inset-x-2 before:-bottom-[0.01em]
-    before:h-[1em] before:bg-red-200
+    before:h-[1em] before:bg-orange-100
     before:z-0
   "
                 >
-                  <span className="relative z-10">Plan4Me</span>
+                  <span className="relative z-10 text-yellow-800">Plan4Me</span>
                 </Link>
               </h1>
             </div>
@@ -198,7 +198,7 @@ export const Register = () => {
                     setStep(2);
                   }
                 }}
-                className="px-10 py-2 text-black bg-red-200 border rounded-2xl "
+                className="px-10 py-2 text-yellow-800 bg-orange-100 border rounded-2xl "
               />
             </div>
 
@@ -222,11 +222,11 @@ export const Register = () => {
     relative inline-block isolate
     before:content-[''] before:absolute
     before:-inset-x-2 before:-bottom-[0.01em]
-    before:h-[1em] before:bg-red-200
+    before:h-[1em] before:bg-orange-100
     before:z-0
   "
                 >
-                  <span className="relative z-10">Plan4Me</span>
+                  <span className="relative z-10 text-yellow-800">Plan4Me</span>
                 </span>
               </h1>
               <InputText
@@ -399,7 +399,7 @@ export const Register = () => {
                   <InputBottom
                     type="submit"
                     name="Registrarse"
-                    className="px-10 py-2 text-black bg-red-200 border rounded-2xl"
+                    className="px-10 py-2 text-yellow-800 bg-orange-100 border rounded-2xl"
                   />
                 </>
               )}
@@ -419,11 +419,11 @@ export const Register = () => {
     relative inline-block isolate
     before:content-[''] before:absolute
     before:-inset-x-2 before:-bottom-[0.01em]
-    before:h-[1em] before:bg-red-200
+    before:h-[1em] before:bg-orange-100
     before:z-0
   "
                 >
-                  <span className="relative z-10">Plan4Me</span>
+                  <span className="relative z-10 text-yellow-800">Plan4Me</span>
                 </span>
               </h1>
             </div>
@@ -495,11 +495,11 @@ export const Register = () => {
     relative inline-block isolate
     before:content-[''] before:absolute
     before:-inset-x-2 before:-bottom-[0.01em]
-    before:h-[1em] before:bg-red-200
+    before:h-[1em] before:bg-orange-100
     before:z-0
   "
                 >
-                  <span className="relative z-10">Plan4Me</span>
+                  <span className="relative z-10 text-yellow-800">Plan4Me</span>
                 </span>
               </h1>
             </div>

@@ -56,11 +56,11 @@ export const LogIn = () => {
     relative inline-block isolate
     before:content-[''] before:absolute
     before:-inset-x-2 before:-bottom-[0.01em]
-    before:h-[1em] before:bg-red-200
+    before:h-[1em] before:bg-orange-100
     before:z-0
   "
               >
-                <span className="relative z-10">Plan4Me</span>
+                <span className="relative z-10 text-yellow-800">Plan4Me</span>
               </Link>
             </h1>
           </div>
@@ -93,13 +93,13 @@ export const LogIn = () => {
           >
             {isLoading ? (
               <div className="flex items-center justify-center h-full">
-                <div className="w-8 h-8 border-4 border-neutral-200 border-t-red-300 rounded-full animate-[spin_0.5s_linear_infinite]"></div>
+                <div className="w-8 h-8 border-4 border-neutral-200 border-t-orange-200 rounded-full animate-[spin_0.5s_linear_infinite]"></div>
               </div>
             ) : (
               <InputBottom
                 type="submit"
                 name="Iniciar Sesión"
-                className="px-10 py-2 text-black bg-red-200 border rounded-2xl "
+                className="px-10 py-2 text-yellow-800 bg-orange-100 border rounded-2xl "
               />
             )}
           </div>

@@ -9,7 +9,7 @@ export const Plans = (props: { isMobile: boolean }) => {
           isMobile ? 'text-3xl' : 'text-6xl'
         }`}
       >
-        Planes Simples, <span className="text-red-300">Probar</span> Gratis
+        Planes Simples, <span className="text-yellow-800">Probar</span> Gratis
       </p>
       <p
         className={`mb-20 text-2xl text-center text-neutral-600 ${
@@ -25,7 +25,7 @@ export const Plans = (props: { isMobile: boolean }) => {
           <div className="w-[30%] flex flex-col items-center"></div>
           <div className="w-[70%] flex flex-col items-center">
             <p
-              className={`font-semibold text-center text-red-300 uppercase ${
+              className={`font-semibold text-center text-yellow-800 uppercase ${
                 isMobile ? 'text-2xl' : 'text-4xl'
               }`}
             >

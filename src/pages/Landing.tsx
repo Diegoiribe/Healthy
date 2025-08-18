@@ -42,8 +42,8 @@ export const Landing = () => {
           } `}
         >
           <h1
-            className={`mt-12  font-black text-center ${
-              isMobile ? 'text-3xl mb-8' : 'text-7xl mb-12'
+            className={`  font-black text-center ${
+              isMobile ? 'text-3xl mb-8 mt-20' : 'text-7xl mt-12 mb-12'
             } `}
           >
             Pierde peso en
@@ -53,11 +53,11 @@ export const Landing = () => {
      relative inline-block isolate
     before:content-[''] before:absolute
     before:-inset-x-[2px] before:-bottom-[0.01em]
-    before:h-[1em] before:bg-red-200
+    before:h-[1em] before:bg-orange-100
     before:z-0
   "
             >
-              <span className="relative z-10">semanas,</span>
+              <span className="relative z-10 text-yellow-800">semanas,</span>
             </span>{' '}
             no en meses
           </h1>
@@ -73,7 +73,7 @@ export const Landing = () => {
 
           <InputBottom
             name="Comienza ahora"
-            className={` text-black bg-red-200 border ${
+            className={` text-yellow-800 bg-orange-100 border ${
               isMobile ? 'px-5 py-2 mb-8 ' : 'px-10 py-4 mb-8 text-xl'
             } `}
             to="/register"
@@ -120,11 +120,13 @@ export const Landing = () => {
     relative inline-block isolate
     before:content-[''] before:absolute
     before:-inset-x-2 before:-bottom-[0.01em]
-    before:h-[1em] before:bg-red-200
+    before:h-[1em] before:bg-orange-100
     before:z-0
   "
             >
-              <span className="relative z-10">pero no empieza</span>
+              <span className="relative z-10 text-yellow-800">
+                pero no empieza
+              </span>
             </span>
           </p>
           <p
@@ -151,7 +153,7 @@ export const Landing = () => {
               </p>
             </div>
             <p
-              className={`font-thin text-red-300 ${
+              className={`font-thin text-orange-300 ${
                 isMobile ? 'text-6xl ml-2' : 'text-7xl'
               } `}
             >
@@ -169,7 +171,7 @@ export const Landing = () => {
               </p>
             </div>
             <p
-              className={`font-thin text-red-300 rotate-180  ${
+              className={`font-thin text-orange-300 rotate-180  ${
                 isMobile ? 'text-4xl' : 'text-7xl'
               } `}
             >

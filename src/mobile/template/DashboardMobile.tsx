@@ -172,7 +172,7 @@ export const DashboardMobile = ({
             {useHeroBg && (
               <button
                 onClick={logOut}
-                className="absolute z-30 flex items-center justify-center w-10 h-10 text-lg font-bold text-black rounded-full top-10 right-10 backdrop-blur-md bg-white/60 hover:bg-white"
+                className="absolute z-30 flex items-center justify-center w-10 h-10 text-lg font-bold text-black rounded-full cursor-pointer top-10 right-10 backdrop-blur-md bg-white/60 hover:bg-white"
                 aria-label="Log out"
                 type="button"
               >

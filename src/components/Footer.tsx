@@ -7,7 +7,7 @@ export const Footer = (props: { isMobile: boolean }) => {
       }`}
     >
       <div
-        className={`flex flex-col justify-between p-5 bg-black  shadow-xl ${
+        className={`flex flex-col justify-between p-5 bg-orange-100  shadow-xl ${
           isMobile ? ' h-[450px]' : 'min-w-4xl h-[450px]'
         }  rounded-2xl overflow-x-hidden`}
       >
@@ -41,7 +41,7 @@ export const Footer = (props: { isMobile: boolean }) => {
             </p>
           </div>
           <p
-            className={` font-semibold text-white ${
+            className={` font-semibold text-yellow-800 ${
               isMobile ? ' text-xs ' : 'text-sm'
             }   `}
           >
@@ -50,7 +50,7 @@ export const Footer = (props: { isMobile: boolean }) => {
           <p
             className={` font-semibold text-white ${
               isMobile ? ' text-xs hidden' : 'text-sm'
-            }  text-red-300 `}
+            }  text-yellow-800 `}
           >
             +52 66 74 50 70 62
           </p>
@@ -60,20 +60,20 @@ export const Footer = (props: { isMobile: boolean }) => {
           <p
             className={`font-bold ${
               isMobile ? ' text-7xl ' : 'text-9xl'
-            }  text-red-300 `}
+            }  text-yellow-800 `}
           >
             Plan4Me
           </p>
           <p
             className={`font-bold capitalize ${
               isMobile ? ' text-7xl ' : 'text-9xl'
-            }  text-red-300 `}
+            }  text-yellow-800 `}
           >
             Stay Healthy
           </p>
         </div>
         <div>
-          <p className="text-[10px] text-neutral-200">
+          <p className="text-[10px] text-yellow-800 ">
             © 2025 Plan4me. Todos los derechos reservados. Este sitio esta hecho
             para cambiar la vida de las personas
           </p>
