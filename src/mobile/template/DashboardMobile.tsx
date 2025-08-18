@@ -144,14 +144,14 @@ export const DashboardMobile = ({
             <>
               {/* FOTO del usuario ocupando solo el header */}
               <div
-                className="absolute inset-x-0 top-0 h-[460px] -z-10 bg-top bg-cover rounded-b-[28px]"
+                className="absolute inset-x-0 top-0 h-[460px] -z-10 bg-top bg-cover "
                 style={{ backgroundImage: `url(${bgImageUrl})` }}
               />
               {/* Oscurecer la foto para legibilidad */}
-              <div className="absolute inset-x-0 top-0 h-[460px] -z-10 rounded-b-[28px] bg-black/15" />
+              <div className="absolute inset-x-0 top-0 h-[460px] -z-10  bg-black/15" />
               {/* Degradado de la foto hacia el fondo actual de la página */}
               <div
-                className="pointer-events-none absolute inset-x-0 top-0 h-[460px] -z-10 rounded-b-[28px]
+                className="pointer-events-none absolute inset-x-0 top-0 h-[460px] -z-10 
                               bg-[linear-gradient(to_bottom,rgba(0,0,0,0.05)_40%,#FFEDD5_100%)]"
               />
             </>
@@ -228,7 +228,7 @@ export const DashboardMobile = ({
                    text-yellow-800
                 `}
               >
-                {userData?.firstName}
+                {userData?.firstName}Diego
               </p>
               <p className="flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white  bg-blue-400 rounded-full">
                 ✓
@@ -236,26 +236,26 @@ export const DashboardMobile = ({
             </div>
             <div className="flex items-center justify-center gap-2 pr-2 mb-7">
               <p
-                className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-400 rounded-full cursor-pointer backdrop-blur-md hover:bg-white/60 "
+                className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-400 rounded-full cursor-pointer hover:backdrop-blur-md hover:bg-white/60 "
                 onClick={() => exportPDF(weekMeals)}
               >
                 ↓
               </p>
               <p
-                className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer backdrop-blur-md hover:bg-white/60"
+                className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer hover:backdrop-blur-md hover:bg-white/60"
                 onClick={() => setIsConfig(true)}
               >
                 ⚙️
               </p>
               <p
-                className="flex items-center justify-center w-12 h-12 text-3xl rounded-full cursor-pointer backdrop-blur-md hover:bg-white/60"
+                className="flex items-center justify-center w-12 h-12 text-3xl rounded-full cursor-pointer hover:backdrop-blur-md hover:bg-white/60"
                 onClick={() => setIsList(true)}
               >
                 📋
               </p>
 
               <p
-                className="flex items-center justify-center w-12 h-12 p-2 text-3xl font-semibold rounded-full cursor-pointer backdrop-blur-md hover:bg-white/60"
+                className="flex items-center justify-center w-12 h-12 p-2 text-3xl font-semibold rounded-full cursor-pointer hover:backdrop-blur-md hover:bg-white/60"
                 onClick={() => setIsReferrals(true)}
               >
                 🗂️
@@ -266,7 +266,7 @@ export const DashboardMobile = ({
                 onClick={() => setActive('links')}
                 className={`w-24 h-13 font-black transition-all duration-300 cursor-pointer ${
                   active === 'links'
-                    ? 'bg-black text-white  rounded-full'
+                    ? 'bg-blue-400 text-white  rounded-full'
                     : ' text-yellow-800 '
                 }`}
               >
@@ -277,7 +277,7 @@ export const DashboardMobile = ({
                 onClick={() => setActive('calendar')}
                 className={`w-28 h-13 font-black transition-all duration-300 cursor-pointer ${
                   active === 'calendar'
-                    ? 'bg-black text-white  rounded-full'
+                    ? 'bg-blue-400 text-white  rounded-full'
                     : ' text-yellow-800 '
                 }`}
               >

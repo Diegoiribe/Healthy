@@ -48,7 +48,7 @@ export const List = ({ weekMeals, setIsList }: ListProps) => {
             <div
               key={index}
               className={`flex items-center border-b last:border-0 last:rounded-b-3xl border-neutral-300 first:rounded-t-3xl justify-between w-full ${
-                index % 2 === 0 ? 'bg-orange-100' : 'bg-neutral-100'
+                index % 2 === 0 ? 'bg-white' : 'bg-neutral-100'
               } p-5  `}
             >
               <p className="text-sm truncate">{item}</p>
