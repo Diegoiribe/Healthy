@@ -228,7 +228,7 @@ export const DashboardMobile = ({
                    text-yellow-800
                 `}
               >
-                {userData?.firstName}Diego
+                {userData?.firstName}
               </p>
               <p className="flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white  bg-blue-400 rounded-full">
                 ✓
@@ -266,7 +266,7 @@ export const DashboardMobile = ({
                 onClick={() => setActive('links')}
                 className={`w-24 h-13 font-black transition-all duration-300 cursor-pointer ${
                   active === 'links'
-                    ? 'bg-blue-400 text-white  rounded-full'
+                    ? 'bg-black text-white  rounded-full'
                     : ' text-yellow-800 '
                 }`}
               >
@@ -277,7 +277,7 @@ export const DashboardMobile = ({
                 onClick={() => setActive('calendar')}
                 className={`w-28 h-13 font-black transition-all duration-300 cursor-pointer ${
                   active === 'calendar'
-                    ? 'bg-blue-400 text-white  rounded-full'
+                    ? 'bg-black text-white  rounded-full'
                     : ' text-yellow-800 '
                 }`}
               >

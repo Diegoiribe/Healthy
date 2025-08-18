@@ -186,7 +186,7 @@ export const Calendar = ({
                   </div>
                   <div className="flex flex-col gap-20 mt-3 ">
                     <div className="flex items-center w-full gap-2 pl-2">
-                      <p className="w-auto text-sm font-bold text-neutral-600">
+                      <p className="w-auto text-sm font-bold text-neutral-800">
                         {mealRow[offset]}
                       </p>
                     </div>
@@ -208,7 +208,7 @@ export const Calendar = ({
                   </div>
                   <div className="flex flex-col gap-20 mt-3 ">
                     <div className="flex items-center w-full gap-2 pl-2">
-                      <p className="w-auto text-sm font-bold text-neutral-600">
+                      <p className="w-auto text-sm font-bold text-neutral-800">
                         {transposed[index][offset]}
                       </p>
                     </div>

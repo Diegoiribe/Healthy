@@ -29,7 +29,7 @@ export const InvitationLink = (props: { userData?: UserDataProps }) => {
 
         <div
           onClick={shareLink}
-          className="w-full px-4 py-2 text-white bg-blue-400 cursor-pointer rounded-xl hover:bg-black/90"
+          className="w-full px-4 py-[10px] text-white bg-blue-400 cursor-pointer rounded-xl hover:bg-blue-500"
         >
           <p className="text-sm font-medium text-center">Compartir</p>
         </div>
