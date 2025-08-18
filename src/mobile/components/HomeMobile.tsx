@@ -1,10 +1,12 @@
 import type { UserDataProps } from '../../pages/Dashboard';
+import { Goal } from './Goal';
 import { InvitationLink } from './InvitationLink';
 
 export const HomeMobile = (props: { userData?: UserDataProps }) => {
   const { userData } = props;
   return (
     <div className="flex flex-col items-center w-full">
+      <Goal />
       <InvitationLink userData={userData} />
     </div>
   );

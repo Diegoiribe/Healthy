@@ -283,18 +283,18 @@ export const DashboardMobile = ({
                       : ' text-yellow-800 '
                   }`}
                 >
-                  Links
+                  Inicio
                 </button>
 
                 <button
                   onClick={() => setActive('calendar')}
-                  className={`w-28 h-13 font-black transition-all duration-300 cursor-pointer ${
+                  className={`w-24 h-13 font-black transition-all duration-300 cursor-pointer ${
                     active === 'calendar'
                       ? 'bg-black text-white  rounded-full'
                       : ' text-yellow-800 '
                   }`}
                 >
-                  Calendario
+                  Plan
                 </button>
               </div>
               <div className="w-full mt-10">
