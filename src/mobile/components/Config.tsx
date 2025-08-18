@@ -102,10 +102,10 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
 
   return (
     <div>
-      <div className="flex flex-col max-w-2xl gap-5 bg-white min-h-[100dvh] p-10 mx-auto ">
+      <div className="flex flex-col max-w-2xl gap-5 bg-orange-100 min-h-[100dvh] p-10 mx-auto text-yellow-800">
         <div className="flex justify-end w-full">
           <div
-            className="flex items-center justify-center w-10 h-10 text-xl font-bold text-white rounded-full cursor-pointer bg-black/10 hover:bg-red-300 "
+            className="flex items-center justify-center w-10 h-10 text-xl font-bold text-black rounded-full cursor-pointer backdrop-blur-md bg-white/60 hover:bg-white "
             onClick={() => setIsConfig(false)}
           >
             Ｘ
@@ -113,13 +113,13 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
         </div>
         <div>
           <p className="text-4xl font-semibold capitalize">{`${userData?.firstName} ${userData?.lastName}`}</p>
-          <p className="text-sm font-light text-neutral-400">
+          <p className="text-sm font-light text-neutral-500">
             {userData?.email}
           </p>
           <p className="text-sm font-light capitalize">{userData?.plan}</p>
           <div className="w-full mt-4">
             <p
-              className="inline px-4 py-2 text-sm text-white bg-red-400 rounded-full cursor-pointer"
+              className="inline px-4 py-2 text-sm text-black rounded-full cursor-pointer backdrop-blur-md bg-white/60 hover:bg-white"
               onClick={() =>
                 handleSubscription('/api/payments/cancel-at-period-end')
               }
@@ -145,12 +145,12 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
               className="mt-2 text-xs font-bold cursor-pointer "
               onClick={() => setEditStep(true)}
             >
-              Editar →
+              Editar
             </p>
           )}
         </div>
 
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-10 ">
           <div className="">
             <div className="flex flex-wrap justify-between ">
               <div className="w-[24%]">
@@ -168,7 +168,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                     <span className="text-xs">kg</span>
                   </div>
                 ) : (
-                  <p className="text-sm font-light text-neutral-400">
+                  <p className="text-sm font-light text-neutral-500">
                     {userData?.weight || '-'} kg
                   </p>
                 )}
@@ -188,7 +188,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                     <span className="text-xs">cm</span>
                   </div>
                 ) : (
-                  <p className="text-sm font-light text-neutral-400">
+                  <p className="text-sm font-light text-neutral-500">
                     {userData?.height || '-'} cm
                   </p>
                 )}
@@ -203,7 +203,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   <select
                     onChange={(e) => handleChange('gender', e.target.value)}
                     value={formData.goal}
-                    className="w-full text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
+                    className="w-full text-sm appearance-none cursor-pointer text-neutral-500 focus:outline-none"
                   >
                     <option value="" disabled>
                       Selecciona tu sexo
@@ -246,7 +246,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                     <span className="text-xs">años</span>
                   </div>
                 ) : (
-                  <p className="text-sm font-light text-neutral-400 ">
+                  <p className="text-sm font-light text-neutral-500 ">
                     {userData?.age || '-'} años
                   </p>
                 )}
@@ -266,7 +266,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                     handleChange('activityLevel', e.target.value)
                   }
                   value={formData.activityLevel}
-                  className="w-full px-1 py-2 text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
+                  className="w-full px-1 py-2 text-sm appearance-none cursor-pointer text-neutral-500 focus:outline-none"
                 >
                   <option value="" disabled>
                     Selecciona tu nivel de actividad
@@ -309,7 +309,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                 <select
                   onChange={(e) => handleChange('goal', e.target.value)}
                   value={formData.goal}
-                  className="w-full px-1 py-2 text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
+                  className="w-full px-1 py-2 text-sm appearance-none cursor-pointer text-neutral-500 focus:outline-none"
                 >
                   <option value="" disabled>
                     Selecciona tu objetivo
@@ -356,7 +356,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                 />
               </div>
             ) : (
-              <p className="text-sm font-light capitalize text-neutral-400">
+              <p className="text-sm font-light capitalize text-neutral-500">
                 {userData?.dislikedFoods?.join(', ') || '-'}
               </p>
             )}
@@ -374,7 +374,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                 />
               </div>
             ) : (
-              <p className="text-sm font-light capitalize text-neutral-400">
+              <p className="text-sm font-light capitalize text-neutral-500">
                 {userData?.likedFoods?.join(', ') || '-'}
               </p>
             )}

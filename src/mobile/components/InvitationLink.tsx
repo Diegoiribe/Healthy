@@ -24,8 +24,8 @@ export const InvitationLink = (props: { userData?: UserDataProps }) => {
 
   return (
     <div className="w-[325px]">
-      <div className="flex flex-col w-full gap-3 px-4 py-4 bg-red-400 rounded-3xl">
-        <p className="text-xl font-black text-white">Link de referido</p>
+      <div className="flex flex-col w-full gap-3 px-4 py-4 backdrop-blur-md bg-white/60 rounded-3xl">
+        <p className="text-xl font-black text-yellow-800 ">Link de referido</p>
         <div className="flex items-center justify-between px-4 py-2 bg-white rounded-lg hover:bg-white/90">
           <p className="text-sm font-bold text-neutral-600">
             {`/register?ref=${userData?.refCode}`}

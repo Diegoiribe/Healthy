@@ -9,6 +9,7 @@ import { Referrals } from '../components/Referrals';
 import { Loading } from '../components/Loading';
 import { ChoosePlan } from '../components/ChoosePlan';
 import icon from '../../assets/appleBlue.png';
+import imgUser from '../../assets/steveRed.jpg';
 
 // ===== Context local SOLO para este componente rojo =====
 type LocalBgAPI = { pushWhite: () => void; popWhite: () => void };
@@ -73,12 +74,21 @@ export const DashboardMobile = ({
   // 🔴 Un SOLO efecto para pintar fondo según isWhite (no según cada modal)
   useEffect(() => {
     const html = isWhite ? '#ffffff' : '#ffffff';
-    const body = isWhite ? '#ffffff' : '#dc2626';
+    const body = isWhite ? '#ffffff' : '#1f3f12';
     document.documentElement.style.setProperty('--page-bg-html', html);
     document.documentElement.style.setProperty('--page-bg-body', body);
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', body);
   }, [isWhite]);
+
+  // ===== Fondo tipo "hero" controlado localmente (sin userData) =====
+  // Cambia este flag a false para activar el hero con imagen de usuario.
+  const imgDefault = false;
+  const useHeroBg = imgDefault === false;
+  // Imagen de fondo: primero la "del usuario" importada, si no, el icono por defecto.
+  const bgImageUrl: string =
+    (imgUser as unknown as string) || (icon as unknown as string);
+  // ==================================================================
 
   const createPlan = async (u?: UserDataProps): Promise<void> => {
     const user = u ?? userData;
@@ -120,89 +130,144 @@ export const DashboardMobile = ({
       )}
       {isLoading && <Loading />}{' '}
       {!isList && !isConfig && !isReferrals && !isPayment && (
-        <div
-          className=" bg-red-600 w-full min-h-viewport
+        <section
+          className={`w-full min-h-viewport
       pt-[env(safe-area-inset-top)] 
       pb-[env(safe-area-inset-bottom)]
       pl-[env(safe-area-inset-left)] 
       pr-[env(safe-area-inset-right)]
-      text-white"
+      text-white bg-orange-100 ${
+        useHeroBg ? 'relative isolate overflow-hidden' : ''
+      }`}
         >
-          <div className="flex flex-col items-center max-w-2xl p-10 mx-auto ">
-            <div className="flex justify-end w-full">
+          {useHeroBg && (
+            <>
+              {/* FOTO del usuario ocupando solo el header */}
               <div
-                className="flex items-center justify-center w-10 h-10 text-lg font-bold text-white bg-red-400 rounded-full cursor-pointer hover:bg-red-700"
-                onClick={logOut}
+                className="absolute inset-x-0 top-0 h-[460px] -z-10 bg-top bg-cover rounded-b-[28px]"
+                style={{ backgroundImage: `url(${bgImageUrl})` }}
+              />
+              {/* Oscurecer la foto para legibilidad */}
+              <div className="absolute inset-x-0 top-0 h-[460px] -z-10 rounded-b-[28px] bg-black/15" />
+              {/* Degradado de la foto hacia el fondo actual de la página */}
+              <div
+                className="pointer-events-none absolute inset-x-0 top-0 h-[460px] -z-10 rounded-b-[28px]
+                              bg-[linear-gradient(to_bottom,rgba(0,0,0,0.05)_40%,#FFEDD5_100%)]"
+              />
+            </>
+          )}
+          {useHeroBg && (
+            <button
+              onClick={logOut}
+              className="absolute z-30 flex items-center justify-center w-10 h-10 text-lg font-bold text-black rounded-full top-10 right-10 backdrop-blur-md bg-white/60 hover:bg-white"
+              aria-label="Log out"
+              type="button"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-log-out-icon lucide-log-out"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="lucide lucide-log-out-icon lucide-log-out"
+                <path d="m16 17 5-5-5-5" />
+                <path d="M21 12H9" />
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              </svg>
+            </button>
+          )}
+          <div
+            className={`flex flex-col items-center max-w-2xl p-10 mx-auto ${
+              useHeroBg ? 'pt-[380px]' : ''
+            }`}
+          >
+            {!useHeroBg && (
+              <div className="flex justify-end w-full">
+                <div
+                  className="flex items-center justify-center w-10 h-10 text-lg font-bold text-black rounded-full cursor-pointer backdrop-blur-md bg-white/60 hover:bg-white"
+                  onClick={logOut}
                 >
-                  <path d="m16 17 5-5-5-5" />
-                  <path d="M21 12H9" />
-                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    className="lucide lucide-log-out-icon lucide-log-out"
+                  >
+                    <path d="m16 17 5-5-5-5" />
+                    <path d="M21 12H9" />
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  </svg>
+                </div>
               </div>
-            </div>
-            <div
-              className="w-24 h-24 mb-5 bg-white rounded-full"
-              style={{
-                backgroundImage: `url(${icon})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat'
-              }}
-            ></div>
+            )}
+            {!useHeroBg && (
+              <div
+                className="w-24 h-24 mb-5 bg-white rounded-full"
+                style={{
+                  backgroundImage: `url(${icon})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
+                }}
+              />
+            )}
             <div className="flex items-center gap-1 mb-5">
-              <p className="text-3xl font-black text-white ">
-                {userData?.firstName}
+              <p
+                className={`text-3xl font-black 
+                   text-yellow-800
+                `}
+              >
+                {userData?.firstName} Diego
               </p>
-              <p className="flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-blue-500 rounded-full">
+              <p className="flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white  bg-blue-400 rounded-full">
                 ✓
               </p>
             </div>
             <div className="flex items-center justify-center gap-2 pr-2 mb-7">
               <p
-                className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-500 rounded-full cursor-pointer hover:bg-red-400 "
+                className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-400 rounded-full cursor-pointer backdrop-blur-md hover:bg-white/60 "
                 onClick={() => exportPDF(weekMeals)}
               >
                 ↓
               </p>
               <p
-                className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer hover:bg-red-400"
+                className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer backdrop-blur-md hover:bg-white/60"
                 onClick={() => setIsConfig(true)}
               >
                 ⚙️
               </p>
               <p
-                className="flex items-center justify-center w-12 h-12 text-3xl rounded-full cursor-pointer hover:bg-red-400"
+                className="flex items-center justify-center w-12 h-12 text-3xl rounded-full cursor-pointer backdrop-blur-md hover:bg-white/60"
                 onClick={() => setIsList(true)}
               >
                 📋
               </p>
 
               <p
-                className="flex items-center justify-center w-12 h-12 p-2 text-3xl font-semibold text-blue-500 rounded-full cursor-pointer hover:bg-red-400"
+                className="flex items-center justify-center w-12 h-12 p-2 text-3xl font-semibold rounded-full cursor-pointer backdrop-blur-md hover:bg-white/60"
                 onClick={() => setIsReferrals(true)}
               >
                 🗂️
               </p>
             </div>
-            <div className="flex p-[2px] overflow-hidden rounded-full bg-red-400 ">
+            <div className="flex p-[2px] overflow-hidden rounded-full backdrop-blur-md bg-white/60 ">
               <button
                 onClick={() => setActive('links')}
                 className={`w-24 h-13 font-black transition-all duration-300 cursor-pointer ${
                   active === 'links'
-                    ? 'bg-black text-white rounded-full'
-                    : ' text-white'
+                    ? 'bg-black text-white  rounded-full'
+                    : ' text-yellow-800 '
                 }`}
               >
                 Links
@@ -212,8 +277,8 @@ export const DashboardMobile = ({
                 onClick={() => setActive('calendar')}
                 className={`w-28 h-13 font-black transition-all duration-300 cursor-pointer ${
                   active === 'calendar'
-                    ? 'bg-black text-white rounded-full'
-                    : ' text-white'
+                    ? 'bg-black text-white  rounded-full'
+                    : ' text-yellow-800 '
                 }`}
               >
                 Calendario
@@ -237,7 +302,7 @@ export const DashboardMobile = ({
               )}
             </div>
           </div>
-        </div>
+        </section>
       )}
     </LocalBgCtx.Provider>
   );

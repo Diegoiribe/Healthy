@@ -33,22 +33,24 @@ export const List = ({ weekMeals, setIsList }: ListProps) => {
 
   return (
     <div>
-      <div className="flex flex-col items-center min-h-[100dvh]  max-w-2xl p-10 mx-auto bg-white">
+      <div className="flex flex-col items-center min-h-[100dvh]  max-w-2xl p-10 mx-auto bg-orange-100">
         <div className="flex justify-end w-full">
           <div
-            className="flex items-center justify-center w-10 h-10 text-xl font-bold text-white rounded-full cursor-pointer bg-black/10 hover:bg-red-300"
+            className="flex items-center justify-center w-10 h-10 text-xl font-bold text-black rounded-full cursor-pointer backdrop-blur-md bg-white/60 hover:bg-white"
             onClick={() => setIsList(false)}
           >
             Ｘ
           </div>
         </div>
-        <p className="mt-5 text-3xl font-black">Lista de compras</p>
-        <div className="w-full mt-10 border border-neutral-300 rounded-3xl">
+        <p className="mt-5 text-3xl font-black text-yellow-800">
+          Lista de compras
+        </p>
+        <div className="w-full mt-10 border border-white/60 backdrop-blur-md rounded-3xl">
           {flatItems.map((item, index) => (
             <div
               key={index}
-              className={`flex items-center border-b last:border-0 last:rounded-b-3xl border-neutral-300 first:rounded-t-3xl justify-between w-full ${
-                index % 2 === 0 ? 'bg-white' : 'bg-neutral-100'
+              className={`flex items-center border-b last:border-0 last:rounded-b-3xl backdrop-blur-md bg-white/60 first:rounded-t-3xl justify-between w-full ${
+                index % 2 === 0 ? 'bg-orange-100' : 'bg-white'
               } p-5  `}
             >
               <p className="text-sm truncate">{item}</p>

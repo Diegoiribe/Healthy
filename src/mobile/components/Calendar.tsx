@@ -141,16 +141,16 @@ export const Calendar = ({
 
   return (
     <div className="w-[325px]">
-      <div className="flex flex-col w-full gap-3 p-3 bg-red-400 rounded-3xl">
+      <div className="flex flex-col w-full gap-3 p-3 backdrop-blur-md bg-white/60 rounded-3xl">
         <div className="flex items-center justify-between px-4 pt-2 ">
-          <p className="text-lg font-black text-white">
+          <p className="text-lg font-black text-yellow-800">
             {dia} <span className="">{numero}</span>
           </p>
           <div
             className="min-w-[30%] w-auto h-4"
             onClick={() => setOpenCalendar(!openCalendar)}
           ></div>
-          <div className="flex items-center justify-center gap-2 text-white">
+          <div className="flex items-center justify-center gap-2 text-yellow-800">
             <div
               className="text-lg font-bold cursor-pointer"
               onClick={() => setOffset((prev) => (prev - 1 + 7) % 7)}
@@ -221,14 +221,14 @@ export const Calendar = ({
       </div>
       <div className="flex items-center justify-center w-full gap-1 mt-10 rounded-3xl">
         <div
-          className="px-8 py-3 text-white bg-red-400 rounded-full shadow-xl cursor-pointer hover:bg-black hover:text-white "
+          className="px-8 py-3 text-yellow-800 rounded-full shadow-xl cursor-pointer backdrop-blur-md bg-white/60 hover:bg-black hover:text-white "
           onClick={() => setIsGeneratePlan(true)}
         >
           <p className="font-bold text-center ">Crear Plan</p>
         </div>
       </div>
 
-      {isGeneratePlan && (
+      {!isGeneratePlan && (
         <GeneratePlan
           userData={userData}
           setIsGeneratePlan={setIsGeneratePlan}
