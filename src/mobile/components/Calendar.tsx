@@ -1,31 +1,18 @@
 import type { WeekDay, WeekMeals } from '../../pages/Dashboard';
 import { useEffect, useState } from 'react';
-import { GeneratePlan } from './GeneratePlan';
-import type { UserDataProps } from '../../pages/Dashboard';
 
 type CalendarProps = {
   setOpenCalendar: (value: boolean) => void;
   openCalendar: boolean;
   weekMeals?: WeekMeals | null;
-  createPlan: () => Promise<void>;
-  userData?: UserDataProps;
-  setUserData: (data: UserDataProps) => void;
   setIsGeneratePlan: (value: boolean) => void;
-  isGeneratePlan: boolean;
-
-  isMobile: boolean;
 };
 
 export const Calendar = ({
   setOpenCalendar,
   openCalendar,
   weekMeals,
-  createPlan,
-  userData,
-  setUserData,
-  setIsGeneratePlan,
-  isGeneratePlan,
-  isMobile
+  setIsGeneratePlan
 }: CalendarProps) => {
   const meals = [
     { label: 'Desayuno', key: 'desayuno' },
@@ -227,17 +214,6 @@ export const Calendar = ({
           <p className="font-bold text-center ">Crear Plan</p>
         </div>
       </div>
-
-      {isGeneratePlan && (
-        <GeneratePlan
-          userData={userData}
-          setIsGeneratePlan={setIsGeneratePlan}
-          setUserData={setUserData}
-          createPlan={createPlan}
-          isMobile={isMobile}
-          weekMeals={weekMeals}
-        />
-      )}
     </div>
   );
 };

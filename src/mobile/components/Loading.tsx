@@ -75,8 +75,8 @@ export const Loading = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-0 left-0 z-100 flex items-center justify-center w-full h-[100svh] backdrop-blur bg-white">
-      <div className="max-w-4xl text-center rounded-2xl">
+    <div className="">
+      <div className="flex flex-col max-w-2xl gap-5 bg-white min-h-[100dvh] p-10 mx-auto">
         <AnimatePresence mode="wait">
           <motion.p
             key={phrases[index]} // ✅ clave única

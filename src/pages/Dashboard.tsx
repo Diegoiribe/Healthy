@@ -377,7 +377,6 @@ export const Dashboard = () => {
         setWeekMeal={setWeekMeal}
         userData={userData}
         setUserData={setUserData}
-        isMobile={isMobile}
       />
     </>
   ) : (

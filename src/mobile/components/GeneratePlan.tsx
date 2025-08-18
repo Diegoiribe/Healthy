@@ -15,7 +15,6 @@ interface CreatePlanProps {
   setUserData: (data: UserDataProps) => void;
   createPlan: (u?: UserDataProps) => Promise<void> | void;
   setIsGeneratePlan: (value: boolean) => void;
-  isMobile: boolean;
   weekMeals?: WeekMeals | null;
 }
 
@@ -24,8 +23,7 @@ export const GeneratePlan = ({
   setUserData,
   setIsGeneratePlan,
   createPlan,
-  weekMeals,
-  isMobile
+  weekMeals
 }: CreatePlanProps) => {
   const { pushWhite, popWhite } = useLocalBg();
   const [step, setStep] = useState<number>(1);
@@ -185,17 +183,13 @@ export const GeneratePlan = ({
   return (
     <div
       className={`
-      fixed inset-0 z-[9999] text-black min-h-[100svh]
-      ${isMobile ? 'bg-white' : 'bg-black/30 backdrop-blur-sm'}
-      overflow-y-auto overscroll-contain
+      
+      
     `}
     >
       <div
-        className={`${
-          isMobile
-            ? 'flex flex-col items-center max-w-2xl p-10 mx-auto justify-between min-h-[100svh]'
-            : 'shadow-2xl pb-15 max-w-4xl px-10 pt-10 bg-white  rounded-2xl'
-        }`}
+        className={`
+          flex flex-col max-w-2xl gap-5 bg-white min-h-[100dvh] p-10 mx-auto `}
       >
         <div className="flex flex-col justify-center w-full gap-2">
           <div

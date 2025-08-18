@@ -10,6 +10,7 @@ import { Loading } from '../components/Loading';
 import { ChoosePlan } from '../components/ChoosePlan';
 import icon from '../../assets/appleBlue.png';
 import imgUser from '../../assets/steveRed.jpg';
+import { GeneratePlan } from '../components/GeneratePlan';
 
 // ===== Context local SOLO para este componente rojo =====
 type LocalBgAPI = { pushWhite: () => void; popWhite: () => void };
@@ -27,7 +28,6 @@ type DashboardMobileProps = {
   setWeekMeal: (data: WeekMeals) => void;
   userData?: UserDataProps;
   setUserData: (data: UserDataProps) => void;
-  isMobile: boolean;
 };
 
 export const DashboardMobile = ({
@@ -35,8 +35,7 @@ export const DashboardMobile = ({
   weekMeals,
   setWeekMeal,
   userData,
-  setUserData,
-  isMobile
+  setUserData
 }: DashboardMobileProps) => {
   // Estados propios del dashboard
   const [isList, setIsList] = useState(false);
@@ -129,9 +128,22 @@ export const DashboardMobile = ({
         <Referrals setIsReferrals={setIsReferrals} />
       )}
       {isLoading && <Loading />}{' '}
-      {!isList && !isConfig && !isReferrals && !isPayment && (
-        <section
-          className={`w-full min-h-viewport
+      {isGeneratePlan && (
+        <GeneratePlan
+          userData={userData}
+          setIsGeneratePlan={setIsGeneratePlan}
+          setUserData={setUserData}
+          createPlan={createPlan}
+          weekMeals={weekMeals}
+        />
+      )}
+      {!isList &&
+        !isConfig &&
+        !isReferrals &&
+        !isPayment &&
+        !isGeneratePlan && (
+          <section
+            className={`w-full min-h-viewport
       pt-[env(safe-area-inset-top)] 
       pb-[env(safe-area-inset-bottom)]
       pl-[env(safe-area-inset-left)] 
@@ -139,171 +151,166 @@ export const DashboardMobile = ({
       text-white bg-orange-100 ${
         useHeroBg ? 'relative isolate overflow-hidden' : ''
       }`}
-        >
-          {useHeroBg && (
-            <>
-              {/* FOTO del usuario ocupando solo el header */}
-              <div
-                className="absolute inset-x-0 top-0 h-[460px] -z-10 bg-top bg-cover "
-                style={{ backgroundImage: `url(${bgImageUrl})` }}
-              />
-              {/* Oscurecer la foto para legibilidad */}
-              <div className="absolute inset-x-0 top-0 h-[460px] -z-10  bg-black/15" />
-              {/* Degradado de la foto hacia el fondo actual de la página */}
-              <div
-                className="pointer-events-none absolute inset-x-0 top-0 h-[460px] -z-10 
-                              bg-[linear-gradient(to_bottom,rgba(0,0,0,0.05)_40%,#FFEDD5_100%)]"
-              />
-            </>
-          )}
-          {useHeroBg && (
-            <button
-              onClick={logOut}
-              className="absolute z-30 flex items-center justify-center w-10 h-10 text-lg font-bold text-black rounded-full top-10 right-10 backdrop-blur-md bg-white/60 hover:bg-white"
-              aria-label="Log out"
-              type="button"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-log-out-icon lucide-log-out"
-              >
-                <path d="m16 17 5-5-5-5" />
-                <path d="M21 12H9" />
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-              </svg>
-            </button>
-          )}
-          <div
-            className={`flex flex-col items-center max-w-2xl p-10 mx-auto ${
-              useHeroBg ? 'pt-[380px]' : ''
-            }`}
           >
-            {!useHeroBg && (
-              <div className="flex justify-end w-full">
+            {useHeroBg && (
+              <>
+                {/* FOTO del usuario ocupando solo el header */}
                 <div
-                  className="flex items-center justify-center w-10 h-10 text-lg font-bold text-black rounded-full cursor-pointer backdrop-blur-md bg-white/60 hover:bg-white"
-                  onClick={logOut}
+                  className="absolute inset-x-0 top-0 h-[460px] -z-10 bg-top bg-cover "
+                  style={{ backgroundImage: `url(${bgImageUrl})` }}
+                />
+                {/* Oscurecer la foto para legibilidad */}
+                <div className="absolute inset-x-0 top-0 h-[460px] -z-10  bg-black/15" />
+                {/* Degradado de la foto hacia el fondo actual de la página */}
+                <div
+                  className="pointer-events-none absolute inset-x-0 top-0 h-[460px] -z-10 
+                              bg-[linear-gradient(to_bottom,rgba(0,0,0,0.05)_40%,#FFEDD5_100%)]"
+                />
+              </>
+            )}
+            {useHeroBg && (
+              <button
+                onClick={logOut}
+                className="absolute z-30 flex items-center justify-center w-10 h-10 text-lg font-bold text-black rounded-full top-10 right-10 backdrop-blur-md bg-white/60 hover:bg-white"
+                aria-label="Log out"
+                type="button"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-log-out-icon lucide-log-out"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    className="lucide lucide-log-out-icon lucide-log-out"
+                  <path d="m16 17 5-5-5-5" />
+                  <path d="M21 12H9" />
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                </svg>
+              </button>
+            )}
+            <div
+              className={`flex flex-col items-center max-w-2xl p-10 mx-auto ${
+                useHeroBg ? 'pt-[380px]' : ''
+              }`}
+            >
+              {!useHeroBg && (
+                <div className="flex justify-end w-full">
+                  <div
+                    className="flex items-center justify-center w-10 h-10 text-lg font-bold text-black rounded-full cursor-pointer backdrop-blur-md bg-white/60 hover:bg-white"
+                    onClick={logOut}
                   >
-                    <path d="m16 17 5-5-5-5" />
-                    <path d="M21 12H9" />
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      className="lucide lucide-log-out-icon lucide-log-out"
+                    >
+                      <path d="m16 17 5-5-5-5" />
+                      <path d="M21 12H9" />
+                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
-            )}
-            {!useHeroBg && (
-              <div
-                className="w-24 h-24 mb-5 bg-white rounded-full"
-                style={{
-                  backgroundImage: `url(${icon})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat'
-                }}
-              />
-            )}
-            <div className="flex items-center gap-1 mb-5">
-              <p
-                className={`text-3xl font-black 
-                   text-yellow-800
-                `}
-              >
-                {userData?.firstName}
-              </p>
-              <p className="flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white  bg-blue-400 rounded-full">
-                ✓
-              </p>
-            </div>
-            <div className="flex items-center justify-center gap-2 pr-2 mb-7">
-              <p
-                className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-400 rounded-full cursor-pointer hover:backdrop-blur-md hover:bg-white/60 "
-                onClick={() => exportPDF(weekMeals)}
-              >
-                ↓
-              </p>
-              <p
-                className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer hover:backdrop-blur-md hover:bg-white/60"
-                onClick={() => setIsConfig(true)}
-              >
-                ⚙️
-              </p>
-              <p
-                className="flex items-center justify-center w-12 h-12 text-3xl rounded-full cursor-pointer hover:backdrop-blur-md hover:bg-white/60"
-                onClick={() => setIsList(true)}
-              >
-                📋
-              </p>
-
-              <p
-                className="flex items-center justify-center w-12 h-12 p-2 text-3xl font-semibold rounded-full cursor-pointer hover:backdrop-blur-md hover:bg-white/60"
-                onClick={() => setIsReferrals(true)}
-              >
-                🗂️
-              </p>
-            </div>
-            <div className="flex p-[2px] overflow-hidden rounded-full backdrop-blur-md bg-white/60 ">
-              <button
-                onClick={() => setActive('links')}
-                className={`w-24 h-13 font-black transition-all duration-300 cursor-pointer ${
-                  active === 'links'
-                    ? 'bg-black text-white  rounded-full'
-                    : ' text-yellow-800 '
-                }`}
-              >
-                Links
-              </button>
-
-              <button
-                onClick={() => setActive('calendar')}
-                className={`w-28 h-13 font-black transition-all duration-300 cursor-pointer ${
-                  active === 'calendar'
-                    ? 'bg-black text-white  rounded-full'
-                    : ' text-yellow-800 '
-                }`}
-              >
-                Calendario
-              </button>
-            </div>
-            <div className="w-full mt-10">
-              {/* Links y Shop */}
-              {active === 'links' && <HomeMobile userData={userData} />}
-              {active === 'calendar' && (
-                <CalendarMobile
-                  openCalendar={openCalendar}
-                  setOpenCalendar={setOpenCalendar}
-                  weekMeals={weekMeals}
-                  createPlan={createPlan}
-                  userData={userData}
-                  setUserData={setUserData}
-                  setIsGeneratePlan={setIsGeneratePlan}
-                  isGeneratePlan={isGeneratePlan}
-                  isMobile={isMobile}
+              )}
+              {!useHeroBg && (
+                <div
+                  className="w-24 h-24 mb-5 bg-white rounded-full"
+                  style={{
+                    backgroundImage: `url(${icon})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
+                  }}
                 />
               )}
+              <div className="flex items-center gap-1 mb-5">
+                <p
+                  className={`text-3xl font-black 
+                   text-yellow-800
+                `}
+                >
+                  {userData?.firstName}
+                </p>
+                <p className="flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white  bg-blue-400 rounded-full">
+                  ✓
+                </p>
+              </div>
+              <div className="flex items-center justify-center gap-2 pr-2 mb-7">
+                <p
+                  className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-400 rounded-full cursor-pointer hover:backdrop-blur-md hover:bg-white/60 "
+                  onClick={() => exportPDF(weekMeals)}
+                >
+                  ↓
+                </p>
+                <p
+                  className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer hover:backdrop-blur-md hover:bg-white/60"
+                  onClick={() => setIsConfig(true)}
+                >
+                  ⚙️
+                </p>
+                <p
+                  className="flex items-center justify-center w-12 h-12 text-3xl rounded-full cursor-pointer hover:backdrop-blur-md hover:bg-white/60"
+                  onClick={() => setIsList(true)}
+                >
+                  📋
+                </p>
+
+                <p
+                  className="flex items-center justify-center w-12 h-12 p-2 text-3xl font-semibold rounded-full cursor-pointer hover:backdrop-blur-md hover:bg-white/60"
+                  onClick={() => setIsReferrals(true)}
+                >
+                  🗂️
+                </p>
+              </div>
+              <div className="flex p-[2px] overflow-hidden rounded-full backdrop-blur-md bg-white/60 ">
+                <button
+                  onClick={() => setActive('links')}
+                  className={`w-24 h-13 font-black transition-all duration-300 cursor-pointer ${
+                    active === 'links'
+                      ? 'bg-black text-white  rounded-full'
+                      : ' text-yellow-800 '
+                  }`}
+                >
+                  Links
+                </button>
+
+                <button
+                  onClick={() => setActive('calendar')}
+                  className={`w-28 h-13 font-black transition-all duration-300 cursor-pointer ${
+                    active === 'calendar'
+                      ? 'bg-black text-white  rounded-full'
+                      : ' text-yellow-800 '
+                  }`}
+                >
+                  Calendario
+                </button>
+              </div>
+              <div className="w-full mt-10">
+                {/* Links y Shop */}
+                {active === 'links' && <HomeMobile userData={userData} />}
+                {active === 'calendar' && (
+                  <CalendarMobile
+                    openCalendar={openCalendar}
+                    setOpenCalendar={setOpenCalendar}
+                    weekMeals={weekMeals}
+                    setIsGeneratePlan={setIsGeneratePlan}
+                  />
+                )}
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )}
     </LocalBgCtx.Provider>
   );
 };

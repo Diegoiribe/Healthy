@@ -119,7 +119,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
           <p className="text-sm font-light capitalize">{userData?.plan}</p>
           <div className="w-full mt-4">
             <p
-              className="inline px-4 py-2 text-sm text-white bg-red-400 rounded-full cursor-pointer"
+              className="inline px-4 py-2 text-sm text-white bg-red-500 rounded-full cursor-pointer"
               onClick={() =>
                 handleSubscription('/api/payments/cancel-at-period-end')
               }
