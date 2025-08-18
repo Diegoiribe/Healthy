@@ -9,7 +9,7 @@ import { Referrals } from '../components/Referrals';
 import { Loading } from '../components/Loading';
 import { ChoosePlan } from '../components/ChoosePlan';
 import icon from '../../assets/appleBlue.png';
-import imgUser from '../../assets/steveRed.jpg';
+import imgUser from '../../assets/pao.png';
 import { GeneratePlan } from '../components/GeneratePlan';
 
 // ===== Context local SOLO para este componente rojo =====

@@ -23,7 +23,7 @@ export const InvitationLink = (props: { userData?: UserDataProps }) => {
   };
 
   return (
-    <div className="w-[325px] mb-10">
+    <div className="w-[325px] mb-30">
       <div className="flex items-center justify-between w-full gap-3 px-4 py-4 backdrop-blur-md bg-white/60 rounded-3xl">
         <p className="text-xl font-black text-yellow-800 ">Link de referido</p>
 
