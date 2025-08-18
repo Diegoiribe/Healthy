@@ -42,15 +42,15 @@ export const Referrals = ({ setIsReferrals }: ReferralProps) => {
 
   return (
     <div>
-      <div className="flex flex-col max-w-2xl min-h-[100dvh] gap-5 p-10 mx-auto bg-orange-100">
+      <div className="flex flex-col max-w-2xl min-h-[100dvh] gap-5 p-10 mx-auto bg-white">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-2">
-            <p className="px-4 py-2 text-xs text-yellow-800 rounded-full cursor-pointer backdrop-blur-md bg-white/60 hover:bg-white ">
+            <p className="px-4 py-2 text-xs text-black rounded-full cursor-pointer bg-black/5 hover:bg-black hover:text-white">
               Agregar datos de facturacion
             </p>
           </div>
           <div
-            className="flex items-center justify-center w-10 h-10 text-xl font-light text-black rounded-full cursor-pointer backdrop-blur-md bg-white/60 hover:bg-white"
+            className="flex items-center justify-center w-10 h-10 text-xl font-light text-black rounded-full cursor-pointer backdrop-blur-md bg-black/5 hover:bg-black hover:text-white"
             onClick={() => setIsReferrals(false)}
           >
             Ｘ
@@ -60,10 +60,10 @@ export const Referrals = ({ setIsReferrals }: ReferralProps) => {
           <div className="inline-flex items-center justify-center w-full py-5 mb-4">
             <div className="w-full">
               <div className="w-full ">
-                <p className="text-2xl font-light text-yellow-800">Ganancias</p>
-                <p className="text-xs text-neutral-500">Del mes aproximado</p>
+                <p className="text-2xl font-light">Ganancias</p>
+                <p className="text-xs text-neutral-400">Del mes aproximado</p>
               </div>
-              <p className="w-full mt-4 text-6xl font-light text-yellow-800">
+              <p className="w-full mt-4 text-6xl font-light">
                 <span className="text-3xl font-light">$</span>
                 {formatter.format(earnings)}
               </p>
@@ -71,9 +71,9 @@ export const Referrals = ({ setIsReferrals }: ReferralProps) => {
           </div>
 
           {/* Tabla de referidos */}
-          <div className="w-full mt-10 border shadow-xl border-neutral-200 rounded-xl">
+          <div className="w-full mt-10 border shadow-xl border-neutral-300 rounded-xl">
             <div
-              className={`flex justify-between w-full backdrop-blur-md bg-white/60 hover:bg-white ${
+              className={`flex justify-between w-full bg-neutral-100 ${
                 !referrals || referrals.length === 0
                   ? 'rounded-xl'
                   : ' rounded-t-xl'
@@ -95,9 +95,7 @@ export const Referrals = ({ setIsReferrals }: ReferralProps) => {
               <div
                 key={j}
                 className={`flex w-full ${
-                  j % 2 === 0
-                    ? 'bg-orange-100'
-                    : 'backdrop-blur-md bg-white/60 hover:bg-white'
+                  j % 2 === 0 ? 'bg-white' : 'bg-neutral-100'
                 } last:rounded-b-xl`}
               >
                 <div className="w-1/3 p-2 text-xs truncate border-r text-neutral-700 border-neutral-200 last:rounded-bl-xl">

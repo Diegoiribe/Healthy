@@ -228,7 +228,7 @@ export const Calendar = ({
         </div>
       </div>
 
-      {isGeneratePlan && (
+      {!isGeneratePlan && (
         <GeneratePlan
           userData={userData}
           setIsGeneratePlan={setIsGeneratePlan}
