@@ -74,7 +74,7 @@ export const DashboardMobile = ({
   // 🔴 Un SOLO efecto para pintar fondo según isWhite (no según cada modal)
   useEffect(() => {
     const html = isWhite ? '#ffffff' : '#ffffff';
-    const body = isWhite ? '#ffffff' : '#1f3f12';
+    const body = isWhite ? '#ffffff' : '#ffedd5';
     document.documentElement.style.setProperty('--page-bg-html', html);
     document.documentElement.style.setProperty('--page-bg-body', body);
     const meta = document.querySelector('meta[name="theme-color"]');
@@ -228,7 +228,7 @@ export const DashboardMobile = ({
                    text-yellow-800
                 `}
               >
-                {userData?.firstName} Diego
+                {userData?.firstName}
               </p>
               <p className="flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white  bg-blue-400 rounded-full">
                 ✓
