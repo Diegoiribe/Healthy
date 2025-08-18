@@ -128,7 +128,7 @@ export const DashboardMobile = ({
         <Referrals setIsReferrals={setIsReferrals} />
       )}
       {isLoading && <Loading />}{' '}
-      {isGeneratePlan && (
+      {isGeneratePlan && !isLoading && (
         <GeneratePlan
           userData={userData}
           setIsGeneratePlan={setIsGeneratePlan}
@@ -141,7 +141,8 @@ export const DashboardMobile = ({
         !isConfig &&
         !isReferrals &&
         !isPayment &&
-        !isGeneratePlan && (
+        !isGeneratePlan &&
+        !isLoading && (
           <section
             className={`w-full min-h-viewport
       pt-[env(safe-area-inset-top)] 
