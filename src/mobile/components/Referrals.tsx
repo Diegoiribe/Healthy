@@ -42,7 +42,7 @@ export const Referrals = ({ setIsReferrals }: ReferralProps) => {
 
   return (
     <div>
-      <div className="flex flex-col max-w-2xl min-h-[100dvh] gap-5 p-10 mx-auto bg-white">
+      <div className="flex flex-col max-w-2xl min-h-[100dvh] gap-5 p-10 mx-auto bg-white text-black">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-2">
             <p className="px-4 py-2 text-xs text-black rounded-full cursor-pointer bg-black/5 hover:bg-black hover:text-white">

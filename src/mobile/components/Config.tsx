@@ -7,9 +7,17 @@ interface ConfigProps {
   setIsConfig: (value: boolean) => void;
   userData?: UserDataProps;
   setUserData: (data: UserDataProps) => void;
+  idx: number;
+  setIdx: (value: number) => void;
 }
 
-export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
+export const Config = ({
+  setIsConfig,
+  userData,
+  setUserData,
+  idx,
+  setIdx
+}: ConfigProps) => {
   const { pushWhite, popWhite } = useLocalBg();
   const [formData, setFormData] = useState({
     weight: '',
@@ -102,7 +110,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
 
   return (
     <div>
-      <div className="flex flex-col max-w-2xl gap-5 bg-white min-h-[100dvh] p-10 mx-auto ">
+      <div className="flex flex-col max-w-2xl gap-5 bg-white min-h-[100dvh] p-10 mx-auto text-black">
         <div className="flex justify-end w-full">
           <div
             className="flex items-center justify-center w-10 h-10 text-xl font-bold text-black rounded-full cursor-pointer backdrop-blur-md bg-black/5 hover:bg-black hover:text-white "
@@ -116,10 +124,12 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
           <p className="text-sm font-light text-neutral-400">
             {userData?.email}
           </p>
-          <p className="text-sm font-light capitalize">{userData?.plan}</p>
+          <p className="text-sm font-light capitalize truncate">
+            {userData?.plan}
+          </p>
           <div className="w-full mt-4">
             <p
-              className="inline px-4 py-2 text-sm text-white bg-red-500 rounded-full cursor-pointer"
+              className="inline px-4 py-2 text-sm text-[var(--fg)] bg-[var(--bg)] rounded-full font-bold cursor-pointer"
               onClick={() =>
                 handleSubscription('/api/payments/cancel-at-period-end')
               }
@@ -128,14 +138,73 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
             </p>
           </div>
         </div>
+        <div>
+          <p className="mt-5 mb-5 text-xl font-semibold">Elige un tema</p>
+          <div className="flex items-center justify-between ">
+            <button
+              onClick={() => setIdx(0)}
+              className={`flex border-2 rounded-full h-12 w-12  p-[2px] hover:border-neutral-300 ${
+                idx === 0 ? 'border-neutral-300' : 'border-neutral-100'
+              }`}
+            >
+              <div className="w-1/2 h-full bg-[#854d03] rounded-l-full"></div>
+              <div className="w-1/2 h-full bg-[#ffedd5]  rounded-r-full"></div>
+            </button>
+            <button
+              onClick={() => setIdx(1)}
+              className={`flex border-2 rounded-full h-12 w-12  p-[2px] hover:border-neutral-300 ${
+                idx === 1 ? 'border-neutral-300' : 'border-neutral-100'
+              }`}
+            >
+              <div className="w-1/2 h-full bg-[#f7fee7] rounded-l-full"></div>
+              <div className="w-1/2 h-full bg-[#3f6212]  rounded-r-full"></div>
+            </button>
+            <button
+              onClick={() => setIdx(2)}
+              className={`flex border-2 rounded-full h-12 w-12  p-[2px] hover:border-neutral-300 ${
+                idx === 2 ? 'border-neutral-300' : 'border-neutral-100'
+              }`}
+            >
+              <div className="w-1/2 h-full bg-[#000000] rounded-l-full"></div>
+              <div className="w-1/2 h-full bg-[#ffffff]  rounded-r-full"></div>
+            </button>
+            <button
+              onClick={() => setIdx(3)}
+              className={`flex border-2 rounded-full h-12 w-12  p-[2px] hover:border-neutral-300 ${
+                idx === 3 ? 'border-neutral-300' : 'border-neutral-100'
+              }`}
+            >
+              <div className="w-1/2 h-full bg-[#dbeafe] rounded-l-full"></div>
+              <div className="w-1/2 h-full bg-[#155e75]  rounded-r-full"></div>
+            </button>
+            <button
+              onClick={() => setIdx(4)}
+              className={`flex border-2 rounded-full h-12 w-12  p-[2px] hover:border-neutral-300 ${
+                idx === 4 ? 'border-neutral-300' : 'border-neutral-100'
+              }`}
+            >
+              <div className="w-1/2 h-full bg-[#ffffff] rounded-l-full"></div>
+              <div className="w-1/2 h-full bg-[#000000]  rounded-r-full"></div>
+            </button>
+            <button
+              onClick={() => setIdx(5)}
+              className={`flex border-2 rounded-full h-12 w-12  p-[2px] hover:border-neutral-300 ${
+                idx === 5 ? 'border-neutral-300' : 'border-neutral-100'
+              }`}
+            >
+              <div className="w-1/2 h-full bg-[#fecdd3] rounded-l-full"></div>
+              <div className="w-1/2 h-full bg-[#9f1239]  rounded-r-full"></div>
+            </button>
+          </div>
+        </div>
 
-        <div className="flex items-center justify-between">
+        <div className="items-center justify-between ">
           <p className="mt-5 text-xl font-semibold">Informacion</p>
           {editStep ? (
             <button
               type="button"
               onClick={handleSubmit}
-              className="relative z-10 inline-flex items-center justify-center py-2 text-xs font-bold text-green-500 rounded-full cursor-pointer pointer-events-auto select-none active:scale-95 touch-manipulation"
+              className="relative z-10 inline-flex items-center justify-center mt-2 py-1 px-3 text-xs font-bold text-[var(--fg)] rounded-full cursor-pointer pointer-events-auto select-none active:scale-95 bg-[var(--bg)] touch-manipulation"
               aria-busy={false}
             >
               Actualizar
@@ -153,10 +222,10 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
         <div className="flex flex-col gap-10 ">
           <div className="">
             <div className="flex flex-wrap justify-between ">
-              <div className="w-[24%]">
+              <div className="w-[22%]">
                 <p className="font-medium ">Peso</p>
                 {editStep ? (
-                  <div className="flex items-center w-full border-b">
+                  <div className="flex items-center w-full border-b border-neutral-100">
                     <input
                       value={formData.weight}
                       onChange={(e) => handleChange('weight', e.target.value)}
@@ -173,10 +242,10 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   </p>
                 )}
               </div>
-              <div className="w-[24%]">
+              <div className="w-[22%]">
                 <p className="font-medium ">Altura</p>
                 {editStep ? (
-                  <div className="flex items-center w-full border-b">
+                  <div className="flex items-center w-full border-b border-neutral-100">
                     <input
                       value={formData.height}
                       onChange={(e) => handleChange('height', e.target.value)}
@@ -193,48 +262,55 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   </p>
                 )}
               </div>
-              <div className="w-[24%]">
-                <p className="font-medium ">Sexo</p>
+              <div className="w-[22%]">
+                <p className="font-medium truncate">Sexo</p>
                 <div
                   className={`flex ${
-                    editStep ? 'border-b border-black' : ''
+                    editStep ? 'border-b border-neutral-100 py-1 ' : ''
                   } items-center w-full `}
                 >
-                  <select
-                    onChange={(e) => handleChange('gender', e.target.value)}
-                    value={formData.goal}
-                    className="w-full text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
-                  >
-                    <option value="" disabled>
-                      Selecciona tu sexo
-                    </option>
-                    <option value="M">Masculino</option>
-                    <option value="F">Femenino</option>
-                  </select>
-                  {editStep && (
-                    <div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        className="lucide lucide-chevron-down-icon lucide-chevron-down"
+                  {editStep ? (
+                    <>
+                      <select
+                        onChange={(e) => handleChange('gender', e.target.value)}
+                        value={formData.gender}
+                        className="w-full text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
                       >
-                        <path d="m6 9 6 6 6-6" />
-                      </svg>
-                    </div>
+                        <option value="" disabled>
+                          Genero
+                        </option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                      </select>
+
+                      <div>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          className="lucide lucide-chevron-down-icon lucide-chevron-down"
+                        >
+                          <path d="m6 9 6 6 6-6" />
+                        </svg>
+                      </div>
+                    </>
+                  ) : (
+                    <p className="text-xs text-neutral-400">
+                      {userData?.gender || '-'}
+                    </p>
                   )}
                 </div>
               </div>
-              <div className="w-[24%]">
+              <div className="w-[22%]">
                 <p className="font-medium ">Edad</p>
                 {editStep ? (
-                  <div className="flex items-center w-full border-b">
+                  <div className="flex items-center w-full border-b border-neutral-100">
                     <input
                       value={formData.age}
                       onChange={(e) => handleChange('age', e.target.value)}
@@ -258,42 +334,49 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
               <p className="font-medium ">Nivel de actividad</p>
               <div
                 className={`flex ${
-                  editStep ? 'border-b border-black' : ''
+                  editStep ? 'border-b border-neutral-100' : ''
                 } items-center w-full `}
               >
-                <select
-                  onChange={(e) =>
-                    handleChange('activityLevel', e.target.value)
-                  }
-                  value={formData.activityLevel}
-                  className="w-full px-1 py-2 text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
-                >
-                  <option value="" disabled>
-                    Selecciona tu nivel de actividad
-                  </option>
-                  <option value="Nada">Nada</option>
-                  <option value="Ligero">Ligero</option>
-                  <option value="Moderado">Moderado</option>
-                  <option value="Activo">Activo</option>
-                  <option value="Intenso">Intenso</option>
-                </select>
-                {editStep && (
-                  <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      className="lucide lucide-chevron-down-icon lucide-chevron-down"
+                {editStep ? (
+                  <>
+                    <select
+                      onChange={(e) =>
+                        handleChange('activityLevel', e.target.value)
+                      }
+                      value={formData.activityLevel}
+                      className="w-full px-1 py-2 text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
                     >
-                      <path d="m6 9 6 6 6-6" />
-                    </svg>
-                  </div>
+                      <option value="" disabled>
+                        Selecciona tu nivel de actividad
+                      </option>
+                      <option value="Nada">Nada</option>
+                      <option value="Ligero">Ligero</option>
+                      <option value="Moderado">Moderado</option>
+                      <option value="Activo">Activo</option>
+                      <option value="Intenso">Intenso</option>
+                    </select>
+
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        className="lucide lucide-chevron-down-icon lucide-chevron-down"
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </div>
+                  </>
+                ) : (
+                  <p className="text-xs text-neutral-400">
+                    {userData?.activityLevel || '-'}
+                  </p>
                 )}
               </div>
             </div>
@@ -303,39 +386,45 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
               <p className="font-medium ">Objetivo</p>
               <div
                 className={`flex ${
-                  editStep ? 'border-b border-black' : ''
+                  editStep ? 'border-b border-neutral-100' : ''
                 } items-center w-full `}
               >
-                <select
-                  onChange={(e) => handleChange('goal', e.target.value)}
-                  value={formData.goal}
-                  className="w-full px-1 py-2 text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
-                >
-                  <option value="" disabled>
-                    Selecciona tu objetivo
-                  </option>
-                  <option value="Bajar peso">Bajar peso</option>
-                  <option value="Mantener tu masa">Mantener tu masa</option>
-                  <option value="Ganar musculo">Ganar músculo</option>
-                </select>
-
-                {editStep && (
-                  <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      className="lucide lucide-chevron-down-icon lucide-chevron-down"
+                {editStep ? (
+                  <>
+                    <select
+                      onChange={(e) => handleChange('goal', e.target.value)}
+                      value={formData.goal}
+                      className="w-full px-1 py-2 text-sm appearance-none cursor-pointer text-neutral-400 focus:outline-none"
                     >
-                      <path d="m6 9 6 6 6-6" />
-                    </svg>
-                  </div>
+                      <option value="" disabled>
+                        Selecciona tu objetivo
+                      </option>
+                      <option value="Bajar peso">Bajar peso</option>
+                      <option value="Mantener tu masa">Mantener tu masa</option>
+                      <option value="Ganar musculo">Ganar músculo</option>
+                    </select>
+
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        className="lucide lucide-chevron-down-icon lucide-chevron-down"
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </div>
+                  </>
+                ) : (
+                  <p className="text-xs text-neutral-400">
+                    {userData?.goal || '-'}
+                  </p>
                 )}
               </div>
             </div>
@@ -352,7 +441,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   }
                   placeholder="Pollo, Camarones, Aguacate"
                   type="text"
-                  className="w-full px-1 py-2 text-xs border-b focus:outline-none"
+                  className="w-full px-1 py-2 text-xs border-b border-neutral-100 focus:outline-none"
                 />
               </div>
             ) : (
@@ -370,7 +459,7 @@ export const Config = ({ setIsConfig, userData, setUserData }: ConfigProps) => {
                   onChange={(e) => handleChange('likedFoods', e.target.value)}
                   placeholder="Pollo, Camarones, Aguacate"
                   type="text"
-                  className="w-full px-1 py-2 text-xs border-b focus:outline-none"
+                  className="w-full px-1 py-2 text-xs border-b border-neutral-100 focus:outline-none"
                 />
               </div>
             ) : (

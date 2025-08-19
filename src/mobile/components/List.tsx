@@ -33,7 +33,7 @@ export const List = ({ weekMeals, setIsList }: ListProps) => {
 
   return (
     <div>
-      <div className="flex flex-col items-center min-h-[100dvh]  max-w-2xl p-10 mx-auto ">
+      <div className="flex flex-col items-center min-h-[100dvh]  max-w-2xl p-10 mx-auto bg-white">
         <div className="flex justify-end w-full">
           <div
             className="flex items-center justify-center w-10 h-10 text-xl font-bold text-black rounded-full cursor-pointer backdrop-blur-md bg-black/5 hover:bg-black hover:text-white"
@@ -42,7 +42,7 @@ export const List = ({ weekMeals, setIsList }: ListProps) => {
             Ｘ
           </div>
         </div>
-        <p className="mt-5 text-3xl font-black">Lista de compras</p>
+        <p className="mt-5 text-3xl font-black text-black">Lista de compras</p>
         <div className="w-full mt-10 border border-neutral-300 rounded-3xl">
           {flatItems.map((item, index) => (
             <div

@@ -1,5 +1,4 @@
 import type { UserDataProps } from '../../pages/Dashboard';
-import { Goal } from './Goal';
 import { InvitationLink } from './InvitationLink';
 
 export const HomeMobile = (props: { userData?: UserDataProps }) => {
