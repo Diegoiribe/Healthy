@@ -34,7 +34,7 @@ export const List = ({ weekMeals, setIsList }: ListProps) => {
 
   return (
     <div>
-      <div className="flex flex-col items-center min-h-[100dvh]  max-w-2xl p-10 mx-auto bg-white">
+      <div className="flex flex-col items-center min-h-[100dvh]  max-w-2xl p-10 mx-auto bg-white text-black">
         <div className="flex justify-end w-full">
           <div
             className="flex items-center justify-center w-10 h-10 text-xl font-bold text-black rounded-full cursor-pointer backdrop-blur-md bg-black/5 hover:bg-black hover:text-white"

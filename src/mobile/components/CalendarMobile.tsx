@@ -17,7 +17,7 @@ export const CalendarMobile = ({
 }: CalendarMobileProps) => {
   useEffect(() => {
     if (!weekMeals) {
-      setIsGeneratePlan(false);
+      setIsGeneratePlan(true);
     } else {
       setIsGeneratePlan(false);
     }

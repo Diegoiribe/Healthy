@@ -27,6 +27,7 @@ export const LogIn = () => {
       }
     } catch (error) {
       console.error('Error al generar plan:', error);
+      alert('Error al iniciar sesión. Por favor, verifica tus credenciales.');
     }
     console.log('Form data:', formData);
   };

@@ -2,6 +2,7 @@ import type { UserDataProps } from '../../pages/Dashboard';
 import { useState, useEffect } from 'react';
 import { patch, get, post } from '../../api/http';
 import { useLocalBg } from '../template/DashboardMobile';
+import imgUser from '../../assets/steveSuit.jpg';
 
 interface ConfigProps {
   setIsConfig: (value: boolean) => void;
@@ -139,8 +140,40 @@ export const Config = ({
             </p>
           </div>
         </div>
+
         <div>
-          <p className="mt-5 mb-5 text-xl font-semibold">Elige un tema</p>
+          <div className="flex items-center gap-3 mt-5 mb-5">
+            <div className="flex items-center justify-center w-6 h-6 bg-[var(--bg)] rounded-full cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="text-[var(--fg)] lucide lucide-upload-icon lucide-upload"
+              >
+                <path d="M12 3v12" />
+                <path d="m17 8-5-5-5 5" />
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              </svg>
+            </div>
+            <p className="text-xl font-semibold ">Foto de perfil</p>
+          </div>
+
+          <div className="flex items-end gap-3 ">
+            <div
+              className="flex border-2 rounded-full h-28 w-28  p-[2px] hover:border-neutral-300 bg-cover  border-neutral-100"
+              style={{ backgroundImage: `url(${imgUser})` }}
+            ></div>
+          </div>
+        </div>
+
+        <div>
+          <p className="mt-5 mb-5 text-xl font-semibold">Temas</p>
           <div className="flex items-center justify-between ">
             <button
               onClick={() => setIdx(0)}
