@@ -37,6 +37,7 @@ export const Referrals = ({ setIsReferrals }: ReferralProps) => {
 
   useEffect(() => {
     pushWhite();
+    window.scrollTo(0, 0);
     return () => popWhite();
   }, [pushWhite, popWhite]);
 

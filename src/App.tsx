@@ -6,7 +6,7 @@ import {
   Navigate,
   useLocation
 } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Dashboard } from './pages/Dashboard';
 import { Landing } from './pages/Landing';
 import { LogIn } from './pages/LogIn';
@@ -24,11 +24,60 @@ function ScrollToTop() {
 }
 
 function App() {
-  const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      return <Navigate to="/login" replace />;
+  function decodeExp(token: string): number | null {
+    try {
+      const payload = JSON.parse(
+        atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))
+      );
+      return typeof payload?.exp === 'number' ? payload.exp * 1000 : null; // ms
+    } catch {
+      return null;
     }
+  }
+
+  const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+    const loc = useLocation();
+
+    const isTokenOk = () => {
+      const t = localStorage.getItem('token');
+      if (!t) return false;
+      const expMs = decodeExp(t);
+      if (expMs == null) return false; // si no hay exp, trátalo como inválido
+      return Date.now() < expMs; // válido si no ha expirado
+    };
+
+    const [ok, setOk] = useState<boolean>(isTokenOk);
+
+    useEffect(() => {
+      const check = () => setOk(isTokenOk());
+
+      // chequea al montar, al cambiar de ruta, y periódicamente
+      check();
+      const id = setInterval(check, 30_000); // cada 30s
+
+      // si cambian el token en otra pestaña o la pestaña gana foco
+      const onStorage = (e: StorageEvent) => {
+        if (e.key === 'token') check();
+      };
+      const onFocus = () => check();
+      const onVisible = () => {
+        if (document.visibilityState === 'visible') check();
+      };
+
+      window.addEventListener('storage', onStorage);
+      window.addEventListener('focus', onFocus);
+      document.addEventListener('visibilitychange', onVisible);
+
+      return () => {
+        clearInterval(id);
+        window.removeEventListener('storage', onStorage);
+        window.removeEventListener('focus', onFocus);
+        document.removeEventListener('visibilitychange', onVisible);
+      };
+      // también revalida al cambiar de pathname
+    }, [loc.pathname]);
+
+    if (!ok) return <Navigate to="/login" replace />;
     return <>{children}</>;
   };
 
@@ -37,7 +86,14 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/login" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/terminos-y-servicios" element={<TServicios />} />

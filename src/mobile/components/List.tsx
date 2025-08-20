@@ -27,6 +27,7 @@ export const List = ({ weekMeals, setIsList }: ListProps) => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     pushWhite(); // pide blanco al abrirse
     return () => popWhite(); // vuelve a soltar al cerrarse
   }, [pushWhite, popWhite]);

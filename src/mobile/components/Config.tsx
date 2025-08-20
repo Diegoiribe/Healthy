@@ -105,6 +105,7 @@ export const Config = ({
 
   useEffect(() => {
     pushWhite();
+    window.scrollTo(0, 0);
     return () => popWhite();
   }, [pushWhite, popWhite]);
 

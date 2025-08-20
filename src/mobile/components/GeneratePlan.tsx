@@ -177,6 +177,7 @@ export const GeneratePlan = ({
 
   useEffect(() => {
     pushWhite();
+    window.scrollTo(0, 0);
     return () => popWhite();
   }, [pushWhite, popWhite]);
 
@@ -189,7 +190,7 @@ export const GeneratePlan = ({
     >
       <div
         className={`
-          flex flex-col max-w-2xl gap-5 bg-white min-h-[100dvh] p-10 mx-auto `}
+          flex flex-col max-w-2xl gap-5 bg-white text-black min-h-[100dvh] p-10 mx-auto `}
       >
         <div className="flex flex-col justify-center w-full gap-2">
           <div
