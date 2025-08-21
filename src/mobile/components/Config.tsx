@@ -185,7 +185,7 @@ export const Config = ({
 
           <div className="flex items-center justify-center w-full gap-3">
             <div
-              className="relative mt-5 h-72 w-72 rounded-full border-2 border-neutral-100 p-[2px] hover:border-neutral-300 overflow-hidden bg-cover bg-top"
+              className="relative mt-5 h-68 w-68 rounded-full border-2 border-neutral-100 p-[2px] hover:border-neutral-300 overflow-hidden bg-cover bg-top"
               style={{ backgroundImage: `url(${imgUser})` }}
             >
               {/* Degradado negro -> transparente ocupando la mitad inferior */}
