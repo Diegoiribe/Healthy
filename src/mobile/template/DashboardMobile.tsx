@@ -54,7 +54,8 @@ export const DashboardMobile = ({
   const [openCalendar, setOpenCalendar] = useState(false);
   const [isPayment, setIsPayment] = useState<boolean>(false);
   const [isReferrals, setIsReferrals] = useState(false);
-  const [idx, setIdx] = useState<number>(userData?.style ?? 0);
+  const [idx, setIdx] = useState<number>(userData?.style ?? 0); // índice de paleta de colores
+  console.log(idx);
 
   const palettes: Palette[] = [
     {
