@@ -110,6 +110,26 @@ export const Config = ({
     return () => popWhite();
   }, [pushWhite, popWhite]);
 
+  // PATCH solo del campo "style"
+  const updateStyle = async (styleIdx: number) => {
+    if (!userData) return; // si aún no cargó, sal
+
+    // Optimistic UI
+    setIdx(styleIdx);
+    setUserData({ ...userData, style: styleIdx }); // <-- objeto, no función
+
+    try {
+      const updated = await patch('/user/profile', { style: styleIdx });
+      // si tu API devuelve el user actualizado, sincroniza
+      if (updated) setUserData(updated as UserDataProps);
+    } catch (e) {
+      console.error(e);
+      // rollback opcional
+      setIdx(userData.style ?? 0);
+      setUserData(userData);
+    }
+  };
+
   return (
     <div>
       <div className="flex flex-col max-w-2xl gap-5 bg-white min-h-[100dvh] p-10 mx-auto text-black">
@@ -176,7 +196,7 @@ export const Config = ({
           <p className="mt-5 mb-5 text-xl font-semibold">Temas</p>
           <div className="flex items-center justify-between ">
             <button
-              onClick={() => setIdx(0)}
+              onClick={() => updateStyle(0)}
               className={`flex border-2 rounded-full h-12 w-12  p-[2px] hover:border-neutral-300 ${
                 idx === 0 ? 'border-neutral-300' : 'border-neutral-100'
               }`}
@@ -185,7 +205,7 @@ export const Config = ({
               <div className="w-1/2 h-full bg-[#ffedd5]  rounded-r-full"></div>
             </button>
             <button
-              onClick={() => setIdx(1)}
+              onClick={() => updateStyle(1)}
               className={`flex border-2 rounded-full h-12 w-12  p-[2px] hover:border-neutral-300 ${
                 idx === 1 ? 'border-neutral-300' : 'border-neutral-100'
               }`}
@@ -194,7 +214,7 @@ export const Config = ({
               <div className="w-1/2 h-full bg-[#3f6212]  rounded-r-full"></div>
             </button>
             <button
-              onClick={() => setIdx(2)}
+              onClick={() => updateStyle(2)}
               className={`flex border-2 rounded-full h-12 w-12  p-[2px] hover:border-neutral-300 ${
                 idx === 2 ? 'border-neutral-300' : 'border-neutral-100'
               }`}
@@ -203,7 +223,7 @@ export const Config = ({
               <div className="w-1/2 h-full bg-[#ffffff]  rounded-r-full"></div>
             </button>
             <button
-              onClick={() => setIdx(3)}
+              onClick={() => updateStyle(3)}
               className={`flex border-2 rounded-full h-12 w-12  p-[2px] hover:border-neutral-300 ${
                 idx === 3 ? 'border-neutral-300' : 'border-neutral-100'
               }`}
@@ -212,7 +232,7 @@ export const Config = ({
               <div className="w-1/2 h-full bg-[#155e75]  rounded-r-full"></div>
             </button>
             <button
-              onClick={() => setIdx(4)}
+              onClick={() => updateStyle(4)}
               className={`flex border-2 rounded-full h-12 w-12  p-[2px] hover:border-neutral-300 ${
                 idx === 4 ? 'border-neutral-300' : 'border-neutral-100'
               }`}
@@ -221,7 +241,7 @@ export const Config = ({
               <div className="w-1/2 h-full bg-[#000000]  rounded-r-full"></div>
             </button>
             <button
-              onClick={() => setIdx(5)}
+              onClick={() => updateStyle(5)}
               className={`flex border-2 rounded-full h-12 w-12  p-[2px] hover:border-neutral-300 ${
                 idx === 5 ? 'border-neutral-300' : 'border-neutral-100'
               }`}

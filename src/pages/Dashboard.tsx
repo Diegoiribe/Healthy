@@ -81,6 +81,7 @@ export interface UserDataProps {
   weight?: number;
   dietType?: string;
   refCode?: string;
+  style?: number;
 }
 
 export const Dashboard = () => {
