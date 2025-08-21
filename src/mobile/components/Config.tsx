@@ -126,14 +126,15 @@ export const Config = ({
     setUserData({ ...userData, style: styleIdx });
 
     try {
-      const res = (await patch('/user/style', { style: styleIdx })) as
-        | Partial<StyleResponse>
-        | undefined;
+      const res = (await patch('/user/style', {
+        style: styleIdx
+      })) as Partial<StyleResponse>;
 
       // Si vino { style }, sincroniza con lo que diga el server
       if (res && typeof res.style === 'number') {
         setUserData({ ...prevUser, style: res.style });
         setIdx(res.style);
+        console.log(res);
       }
       // Si no regresó nada útil, ya quedamos con el optimistic update
     } catch (e) {
