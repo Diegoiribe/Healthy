@@ -115,6 +115,7 @@ export const Config = ({
   }, [pushWhite, popWhite]);
 
   const updateStyle = async (styleIdx: number) => {
+    console.log('Updating style to:', styleIdx);
     if (!userData) return;
 
     // Guarda el estado anterior para rollback
@@ -136,6 +137,7 @@ export const Config = ({
         setIdx(res.style);
         console.log(res);
       }
+      console.log(res);
       // Si no regresó nada útil, ya quedamos con el optimistic update
     } catch (e) {
       console.error('Error updating style:', e);
