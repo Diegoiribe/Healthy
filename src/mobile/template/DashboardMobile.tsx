@@ -56,7 +56,7 @@ export const DashboardMobile = ({
   const [isReferrals, setIsReferrals] = useState(false);
   const [idx, setIdx] = useState<number>(userData?.style ?? 0); // índice de paleta de colores
   console.log(idx);
-
+  console.log(userData?.style);
   const palettes: Palette[] = [
     {
       '--bg': '#ffedd5',
