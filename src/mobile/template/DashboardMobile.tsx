@@ -57,6 +57,13 @@ export const DashboardMobile = ({
   const [idx, setIdx] = useState<number>(userData?.style ?? 0); // índice de paleta de colores
   console.log(idx);
   console.log(userData?.style);
+
+  useEffect(() => {
+    if (userData?.style !== undefined) {
+      setIdx(userData.style);
+    }
+  }, [userData]);
+
   const palettes: Palette[] = [
     {
       '--bg': '#ffedd5',
