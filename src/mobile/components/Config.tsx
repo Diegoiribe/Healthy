@@ -12,6 +12,10 @@ interface ConfigProps {
   setIdx: (value: number) => void;
 }
 
+interface StyleResponse {
+  style: number;
+}
+
 export const Config = ({
   setIsConfig,
   userData,
@@ -110,23 +114,33 @@ export const Config = ({
     return () => popWhite();
   }, [pushWhite, popWhite]);
 
-  // PATCH solo del campo "style"
   const updateStyle = async (styleIdx: number) => {
-    if (!userData) return; // si aún no cargó, sal
+    if (!userData) return;
+
+    // Guarda el estado anterior para rollback
+    const prevUser = userData;
+    const prevIdx = idx;
 
     // Optimistic UI
     setIdx(styleIdx);
-    setUserData({ ...userData, style: styleIdx }); // <-- objeto, no función
+    setUserData({ ...userData, style: styleIdx });
 
     try {
-      const updated = await patch('/user/profile', { style: styleIdx });
-      // si tu API devuelve el user actualizado, sincroniza
-      if (updated) setUserData(updated as UserDataProps);
+      const res = (await patch('/user/style', { style: styleIdx })) as
+        | Partial<StyleResponse>
+        | undefined;
+
+      // Si vino { style }, sincroniza con lo que diga el server
+      if (res && typeof res.style === 'number') {
+        setUserData({ ...prevUser, style: res.style });
+        setIdx(res.style);
+      }
+      // Si no regresó nada útil, ya quedamos con el optimistic update
     } catch (e) {
-      console.error(e);
-      // rollback opcional
-      setIdx(userData.style ?? 0);
-      setUserData(userData);
+      console.error('Error updating style:', e);
+      // Rollback
+      setUserData(prevUser);
+      setIdx(prevIdx);
     }
   };
 
