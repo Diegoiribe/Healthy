@@ -1,4 +1,11 @@
-import { useState, useEffect, createContext, useContext, useMemo } from 'react';
+import {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  createContext,
+  useContext,
+  useMemo
+} from 'react';
 import { HomeMobile } from '../components/HomeMobile';
 import { CalendarMobile } from '../components/CalendarMobile';
 import type { WeekMeals, UserDataProps } from '../../pages/Dashboard';
@@ -54,15 +61,29 @@ export const DashboardMobile = ({
   const [openCalendar, setOpenCalendar] = useState(false);
   const [isPayment, setIsPayment] = useState<boolean>(false);
   const [isReferrals, setIsReferrals] = useState(false);
-  const [idx, setIdx] = useState<number>(userData?.style ?? 0); // índice de paleta de colores
-  console.log(idx);
-  console.log(userData?.style);
+  // Índice de paleta; lo resolvemos antes del primer paint para evitar "flash"
+  const [idx, setIdx] = useState<number | null>(null);
+  const [ready, setReady] = useState(false);
+
+  useLayoutEffect(() => {
+    let initial = userData?.style;
+
+    if (initial === undefined) {
+      const saved = localStorage.getItem('styleIdx');
+      if (saved !== null && !Number.isNaN(Number(saved))) {
+        initial = Number(saved);
+      }
+    }
+
+    setIdx(initial ?? 0);
+    setReady(true);
+  }, [userData?.style]);
 
   useEffect(() => {
-    if (userData?.style !== undefined) {
-      setIdx(userData.style);
+    if (idx !== null) {
+      localStorage.setItem('styleIdx', String(idx));
     }
-  }, [userData]);
+  }, [idx]);
 
   const palettes: Palette[] = [
     {
@@ -103,7 +124,7 @@ export const DashboardMobile = ({
     }
   ];
 
-  const palette = palettes[idx];
+  const palette = palettes[idx ?? 0];
 
   // ===== Contador de “peticiones de blanco” desde cualquier hijo =====
   const [whiteRefs, setWhiteRefs] = useState(0);
@@ -130,9 +151,9 @@ export const DashboardMobile = ({
 
   // 🔴 Un SOLO efecto para pintar fondo según isWhite (no según cada modal)
   useEffect(() => {
-    const html = isWhite ? '#ffffff' : '#ffffff';
-    const palette = palettes[idx] ?? palettes[0];
-    const body = isWhite ? '#ffffff' : palette['--bg'];
+    const html = '#ffffff';
+    const pal = palettes[idx ?? 0] ?? palettes[0];
+    const body = isWhite ? '#ffffff' : pal['--bg'];
     document.documentElement.style.setProperty('--page-bg-html', html);
     document.documentElement.style.setProperty('--page-bg-body', body);
     const meta = document.querySelector('meta[name="theme-color"]');
@@ -169,6 +190,11 @@ export const DashboardMobile = ({
       setIsLoading(false);
     }
   };
+
+  if (!ready || idx === null) {
+    // Evita el "flash" inicial: no renderizamos hasta tener estilo resuelto
+    return null;
+  }
 
   return (
     <div
