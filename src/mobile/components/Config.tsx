@@ -180,32 +180,44 @@ export const Config = ({
 
         <div>
           <div className="flex items-center gap-3 mt-5 mb-5">
-            <div className="flex items-center justify-center w-6 h-6 bg-[var(--bg)] rounded-full cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                className="text-[var(--fg)] lucide lucide-upload-icon lucide-upload"
-              >
-                <path d="M12 3v12" />
-                <path d="m17 8-5-5-5 5" />
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              </svg>
-            </div>
             <p className="text-xl font-semibold ">Foto de perfil</p>
           </div>
 
-          <div className="flex items-end gap-3 ">
+          <div className="flex items-center justify-center w-full gap-3">
             <div
-              className="flex border-2 rounded-full h-28 w-28  p-[2px] hover:border-neutral-300 bg-cover  border-neutral-100"
+              className="relative mt-5 h-72 w-72 rounded-full border-2 border-neutral-100 p-[2px] hover:border-neutral-300 overflow-hidden bg-cover bg-top"
               style={{ backgroundImage: `url(${imgUser})` }}
-            ></div>
+            >
+              {/* Degradado negro -> transparente ocupando la mitad inferior */}
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div>
+              {/* CTA Cambiar imagen */}
+              <button
+                type="button"
+                className="absolute inset-x-0 bottom-0 mb-10 mx-auto flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black rounded-full bg-white/60  backdrop-blur-sm w-max cursor-pointer hover:bg-white/90 appearance-none"
+                onClick={() => {
+                  // TODO: abrir file picker aquí si deseas implementar subida
+                  console.log('Cambiar imagen click');
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-upload"
+                >
+                  <path d="M12 3v12" />
+                  <path d="m17 8-5-5-5 5" />
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                </svg>
+                Cambiar imagen
+              </button>
+            </div>
           </div>
         </div>
 
