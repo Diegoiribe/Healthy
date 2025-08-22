@@ -104,6 +104,28 @@ export const GeneratePlan = ({
     }
   ]);
 
+  // --- Swipe support for diet pagination (touch) ---
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.changedTouches[0]?.clientX ?? null);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const dx = (e.changedTouches[0]?.clientX ?? touchStartX) - touchStartX;
+    const threshold = 40; // px to qualify as a swipe
+    if (dx < -threshold) {
+      // swipe left -> next page
+      setDietPage((p) => Math.min(p + 1, 1));
+    } else if (dx > threshold) {
+      // swipe right -> prev page
+      setDietPage((p) => Math.max(p - 1, 0));
+    }
+    setTouchStartX(null);
+  };
+  // --- end swipe support ---
+
   const visibleDiets = dietType.slice(dietPage * 6, dietPage * 6 + 6);
 
   const handleSelect = (item: string) => {
@@ -190,7 +212,7 @@ export const GeneratePlan = ({
     >
       <div
         className={`
-          flex flex-col max-w-2xl gap-5 bg-white text-black min-h-[100dvh] p-10 mx-auto `}
+          flex flex-col justify-between max-w-2xl gap-5 bg-white text-black min-h-[100dvh] p-10 mx-auto `}
       >
         <div className="flex flex-col justify-center w-full gap-2">
           <div
@@ -213,7 +235,7 @@ export const GeneratePlan = ({
                 : 'Mantén tus datos actualizados'}
             </p>
           </div>
-          <p className="text-xs font-medium text-neutral-400 ">
+          <p className="text-xs font-medium text-neutral-500 ">
             {step === 1
               ? 'Con tantos estilos de alimentación disponibles, elegir el adecuado depende de tus objetivos personales, condiciones de salud y estilo de vida. Ya sea que busques perder peso, ganar músculo, comer de forma más consciente o manejar una condición médica, cada dieta ofrece un enfoque único.'
               : 'Mantener tu información al día nos ayuda a ofrecerte recomendaciones precisas y una mejor experiencia. Ya sea tu peso, objetivos, preferencias o detalles de salud, actualizar tus datos asegura que tu plan se mantenga adaptado a tus necesidades. Pequeños cambios pueden marcar una gran diferencia.'}
@@ -221,7 +243,11 @@ export const GeneratePlan = ({
         </div>
         <div className="flex flex-wrap items-center justify-center w-full gap-5 mt-5">
           {step === 1 && (
-            <>
+            <div
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              className="w-full"
+            >
               <div className="flex flex-wrap items-center justify-between w-full mt-5 gap-y-5">
                 {visibleDiets.map((item, index) => (
                   <div
@@ -235,7 +261,7 @@ export const GeneratePlan = ({
                     onClick={() => handleSelect(item.value)}
                   >
                     <p className="text-sm font-semibold">{item.label}</p>
-                    <p className="text-xs text-neutral-400">
+                    <p className="text-xs text-neutral-500">
                       {item.description}
                     </p>
                   </div>
@@ -254,8 +280,8 @@ export const GeneratePlan = ({
         }`}
                   ></div>
                 ))}
-              </div>{' '}
-            </>
+              </div>
+            </div>
           )}
 
           {step === 2 && (
@@ -267,7 +293,7 @@ export const GeneratePlan = ({
                     <input
                       onChange={(e) => handleChange('weight', e.target.value)}
                       placeholder="90"
-                      type="text"
+                      type="number"
                       className="w-full px-1 py-2 text-xs focus:outline-none"
                       value={formData.weight}
                     />
@@ -280,7 +306,7 @@ export const GeneratePlan = ({
                     <input
                       onChange={(e) => handleChange('height', e.target.value)}
                       placeholder="180"
-                      type="text"
+                      type="number"
                       className="w-full px-1 py-2 text-xs focus:outline-none"
                       value={formData.height}
                     />

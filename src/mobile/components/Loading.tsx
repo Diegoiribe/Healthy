@@ -80,7 +80,7 @@ export const Loading = () => {
         <AnimatePresence mode="wait">
           <motion.p
             key={phrases[index]} // ✅ clave única
-            className="text-xl font-semibold text-black"
+            className="text-xl font-semibold text-center text-black"
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
