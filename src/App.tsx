@@ -14,13 +14,6 @@ import { Success } from './pages/Success';
 import { LoginTwo } from './pages/LoginTwo';
 import { RegisterTwo } from './pages/RegisterTwo';
 import { DashboardTwo } from './pages/DashboardTwo';
-import { Ajustar } from './components/Ajustar';
-import { ConfigUser } from './components/ConfigUser';
-import { ConfigUserTwo } from './components/ConfigUserTwo';
-import { List } from './components/List';
-import { ListTwo } from './components/ListTwo';
-import { CrearPlanTwo } from './components/CrearPlanTwo';
-import { Loading } from './components/Loading';
 import { LoadingTwo } from './components/LoadingTwo';
 
 function ScrollToTop() {
@@ -101,13 +94,6 @@ function App() {
         <Route path="/privacidad" element={<Privacidad />} />
         <Route path="/success" element={<Success />} />
         <Route path="*" element={<LandingTwo />} />
-        <Route path="/dev" element={<Ajustar />} />
-        <Route path="/list" element={<List />} />
-        <Route path="/config" element={<ConfigUser />} />
-        <Route path="/dev-config" element={<ConfigUserTwo />} />
-        <Route path="/dev-list" element={<ListTwo />} />
-        <Route path="/dev-create" element={<CrearPlanTwo />} />
-        <Route path="/loading" element={<Loading isMobile={false} />} />
         <Route path="/dev-loading" element={<LoadingTwo />} />
       </Routes>
     </Router>
