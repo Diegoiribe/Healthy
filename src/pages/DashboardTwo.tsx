@@ -360,6 +360,7 @@ export const DashboardTwo = () => {
       )}
       {isCreate && !isList && !isConfig && !isAjustar && (
         <CrearPlanTwo
+          createPlan={createPlan}
           setIsCreate={setIsCreate}
           userData={userData}
           setUserData={setUserData}
