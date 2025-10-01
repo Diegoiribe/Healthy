@@ -44,3 +44,6 @@
 *:active::-webkit-scrollbar-track {
   opacity: 1;
 }
+select option {
+  font-size: 1rem; /* tamaño normal para el desplegable */
+}

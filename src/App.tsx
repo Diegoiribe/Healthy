@@ -7,13 +7,21 @@ import {
   useLocation
 } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Dashboard } from './pages/Dashboard';
-import { Landing } from './pages/Landing';
-import { LogIn } from './pages/LogIn';
-import { Register } from './pages/Register';
+import { LandingTwo } from './pages/LandingTwo';
 import TServicios from './pages/TServicios';
 import { Privacidad } from './pages/Privacidad';
 import { Success } from './pages/Success';
+import { LoginTwo } from './pages/LoginTwo';
+import { RegisterTwo } from './pages/RegisterTwo';
+import { DashboardTwo } from './pages/DashboardTwo';
+import { Ajustar } from './components/Ajustar';
+import { ConfigUser } from './components/ConfigUser';
+import { ConfigUserTwo } from './components/ConfigUserTwo';
+import { List } from './components/List';
+import { ListTwo } from './components/ListTwo';
+import { CrearPlanTwo } from './components/CrearPlanTwo';
+import { Loading } from './components/Loading';
+import { LoadingTwo } from './components/LoadingTwo';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -85,14 +93,22 @@ function App() {
     <Router>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<LandingTwo />} />
+        <Route path="/dashboard" element={<DashboardTwo />} />
+        <Route path="/login" element={<LoginTwo />} />
+        <Route path="/register" element={<RegisterTwo />} />
         <Route path="/terminos-y-servicios" element={<TServicios />} />
         <Route path="/privacidad" element={<Privacidad />} />
         <Route path="/success" element={<Success />} />
-        <Route path="*" element={<Landing />} />
+        <Route path="*" element={<LandingTwo />} />
+        <Route path="/dev" element={<Ajustar />} />
+        <Route path="/list" element={<List />} />
+        <Route path="/config" element={<ConfigUser />} />
+        <Route path="/dev-config" element={<ConfigUserTwo />} />
+        <Route path="/dev-list" element={<ListTwo />} />
+        <Route path="/dev-create" element={<CrearPlanTwo />} />
+        <Route path="/loading" element={<Loading isMobile={false} />} />
+        <Route path="/dev-loading" element={<LoadingTwo />} />
       </Routes>
     </Router>
   );
