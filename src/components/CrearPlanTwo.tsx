@@ -1,20 +1,22 @@
 import { X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import type { UserDataProps, WeekMeals } from '../pages/Dashboard';
+import type { UserDataProps } from '../pages/Dashboard';
 import { patch, get } from '../api/http';
 
 interface CrearPlanTwoProps {
   setIsCreate: (value: boolean) => void;
   userData?: UserDataProps;
   setUserData: (data: UserDataProps) => void;
+  createPlan: (u?: UserDataProps) => Promise<void> | void;
 }
 
 export const CrearPlanTwo = ({
   setIsCreate,
   userData,
-  setUserData
+  setUserData,
+  createPlan
 }: CrearPlanTwoProps) => {
-  const [diet, setDiet] = useState<DietKey>('');
+  const [diet, setDiet] = useState<DietKey>('altaproteina');
   const [formData, setFormData] = useState({
     weight: '',
     height: '',
@@ -26,8 +28,8 @@ export const CrearPlanTwo = ({
   };
 
   type DietKey =
-    | ''
-    | 'baja'
+    | 'altaproteina'
+    | 'bajacarbohidratos'
     | 'diabetica'
     | 'equilibrada'
     | 'hipercalorica'
@@ -45,13 +47,13 @@ export const CrearPlanTwo = ({
   }
 
   const dietInfo: Record<DietKey, DietInfo> = {
-    '': {
+    altaproteina: {
       label: 'Alta proteína',
       description: `Se enfoca en alimentos ricos en proteínas para favorecer la construcción y mantenimiento de masa muscular. También ayuda a controlar el apetito. 
       Ejemplos de comidas: pechuga de pollo a la plancha con verduras, salmón con ensalada de espinacas y aguacate, omelette de claras con champiñones, batido de proteína con leche de almendra. 
       Promedio de calorías: 450–650 kcal por comida.`
     },
-    baja: {
+    bajacarbohidratos: {
       label: 'Baja en carbohidratos',
       description: `Limita la ingesta de carbohidratos como pan, pasta, arroz o azúcares. Se centra en proteínas y grasas saludables para mantener energía estable. 
       Ejemplos de comidas: carne asada con ensalada de hojas verdes, huevos revueltos con aguacate, pescado al horno con brócoli y aceite de oliva. 
@@ -194,7 +196,7 @@ export const CrearPlanTwo = ({
                   onChange={(e) => setDiet(e.target.value as DietKey)}
                   className="absolute inset-0 w-full opacity-0"
                 >
-                  <option value="" disabled>
+                  <option value="altaproteina" disabled>
                     Alta proteina
                   </option>
                   <option value="baja">Baja en carbohidratos</option>
@@ -230,16 +232,16 @@ export const CrearPlanTwo = ({
             <div className="flex items-center gap-10">
               <div className="relative w-1/3 mb-5">
                 <input
-                  value={formData.goal}
-                  onChange={(e) => handleChange('peso', e.target.value)}
-                  type="text"
-                  name="name"
-                  id="name"
+                  value={formData.weight}
+                  onChange={(e) => handleChange('weight', e.target.value)}
+                  type="number"
+                  name="weight"
+                  id="weight"
                   required
                   className="w-full px-4 py-3 border rounded-full outline-none border-black/30 peer focus:border-blue-500"
                 />
                 <label
-                  htmlFor="name"
+                  htmlFor="weight"
                   className="absolute px-1 transition-all duration-200 -translate-y-1/2 bg-white text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-blue-500"
                 >
                   Peso
@@ -249,44 +251,66 @@ export const CrearPlanTwo = ({
               <div className="relative w-1/3 mb-5">
                 <input
                   value={formData.height}
-                  onChange={(e) => handleChange('peso', e.target.value)}
-                  type="text"
-                  name="name"
-                  id="name"
+                  onChange={(e) => handleChange('height', e.target.value)}
+                  type="number"
+                  name="height"
+                  id="height"
                   required
                   className="w-full px-4 py-3 border rounded-full outline-none border-black/30 peer focus:border-blue-500"
                 />
                 <label
-                  htmlFor="name"
+                  htmlFor="height"
                   className="absolute px-1 transition-all duration-200 -translate-y-1/2 bg-white text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-blue-500"
                 >
                   Estatura
                 </label>
               </div>
               <div className="relative w-1/3 mb-5">
-                <input
-                  value={formData.weight}
-                  onChange={(e) => handleChange('peso', e.target.value)}
-                  type="text"
-                  name="name"
-                  id="name"
+                <select
+                  name="goal"
+                  id="goal"
                   required
-                  className="w-full px-4 py-3 bg-white border rounded-full outline-none border-black/30 peer focus:border-blue-500"
-                />
+                  onChange={(e) => handleChange('goal', e.target.value)}
+                  defaultValue=""
+                  className="w-full px-4 py-3 pr-10 bg-white border rounded-full outline-none appearance-none peer border-black/30 focus:border-blue-500"
+                >
+                  <option value="" disabled>
+                    {' '}
+                  </option>
+                  <option value="Bajar peso">Bajar de peso</option>
+                  <option value="Mantener tu masa">Mantener tu masa</option>
+                  <option value="Ganar músculo">Ganar músculo</option>
+                </select>
+
                 <label
-                  htmlFor="name"
-                  className="absolute px-1 transition-all duration-200 -translate-y-1/2 bg-white text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-blue-500"
+                  htmlFor="goal"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white px-1
+               text-black/40 transition-all duration-200
+               peer-focus:-top-[1px] peer-focus:text-xs peer-focus:text-blue-500
+               peer-valid:-top-[1px] peer-valid:text-xs"
                 >
                   Objetivo
                 </label>
+
+                {/* Flecha del select */}
+                <svg
+                  className="absolute w-4 h-4 -translate-y-1/2 pointer-events-none right-3 top-1/2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M5.5 7.5l4.5 5 4.5-5" />
+                </svg>
               </div>
             </div>
             <div className="flex justify-end w-full">
               <button
                 type="button"
                 className="w-full py-3 font-medium text-orange-400 bg-orange-100 rounded-full cursor-pointer "
-                onClick={() => {
-                  handleSubmit();
+                onClick={async () => {
+                  const updated = await handleSubmit(); // devuelve UserDataProps | null
+                  if (updated) {
+                    await createPlan(updated); // si tienes el user actualizado, lo pasas
+                  }
                 }}
               >
                 Crear dieta

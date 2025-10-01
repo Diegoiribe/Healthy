@@ -453,7 +453,7 @@ export const DashboardTwo = () => {
                     className=" px-3 py-[5px] h-8 text-sm   transition-all duration-300 text-white bg-black font-medium cursor-pointer rounded-xl flex items-center gap-2"
                     onClick={() => {
                       setIsList(false);
-                      createPlan();
+                      setIsCreate(true);
                       setIsConfig(false);
                       setIsAjustar(false);
                     }}
