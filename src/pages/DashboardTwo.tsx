@@ -220,7 +220,7 @@ export const DashboardTwo = () => {
   ];
 
   const Skeleton: React.FC<{ className?: string }> = ({ className = '' }) => (
-    <div className={`bg-neutral-200/40 animate-pulse rounded ${className}`} />
+    <div className={`bg-neutral-200/20 animate-pulse rounded ${className}`} />
   );
 
   const exportPDF = (
@@ -528,6 +528,9 @@ export const DashboardTwo = () => {
                   <div
                     className=" px-2 py-[5px] h-8
                transition-all duration-300 text-black bg-black/5  cursor-pointer rounded-xl flex items-center "
+                    onClick={() => {
+                      if (weekMealsReady) createPlan();
+                    }}
                   >
                     <Repeat size={14} strokeWidth={3} />
                   </div>
@@ -535,7 +538,7 @@ export const DashboardTwo = () => {
               </div>
 
               {/* Calendario */}
-              {!weekMealsReady ? (
+              {!userReady ? (
                 <div className="flex items-center justify-between w-full">
                   <div className="flex w-full gap-3 p-20 pt-10">
                     <Skeleton className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
