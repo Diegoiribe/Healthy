@@ -211,7 +211,7 @@ export const DashboardTwo = () => {
     'domingo'
   ];
 
-  const meals = [
+  const meals: { label: string; key: keyof MealEntry }[] = [
     { label: 'Desayuno', key: 'desayuno' },
     { label: 'Merienda', key: 'snackManana' },
     { label: 'Comida', key: 'almuerzo' },
@@ -356,14 +356,6 @@ export const DashboardTwo = () => {
     };
   };
 
-  const meals: { label: string; key: keyof MealEntry }[] = [
-    { label: 'Desayuno', key: 'desayuno' },
-    { label: 'Snack', key: 'snackManana' },
-    { label: 'Comida', key: 'almuerzo' },
-    { label: 'Snack', key: 'snackTarde' },
-    { label: 'Cena', key: 'cena' }
-  ];
-
   const entry = weekMeals?.plan?.[selectedDay];
 
   return (
@@ -491,26 +483,32 @@ export const DashboardTwo = () => {
 
               {/* Calendario */}
               <div className="flex gap-3 p-20 pt-5">
-                {meals.map((meal) => (
-                  <div
-                    key={meal.key}
-                    className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl border-neutral-100"
-                  >
-                    <div>
-                      <p className="inline font-semibold">{meal.label}</p>
-                      <p className="pt-2 text-sm text-neutral-400">
-                        {entry[meal.key] || '—'}
-                      </p>
-                    </div>
-                    <div className="flex items-end justify-end">
-                      <div className="flex items-center justify-center px-3 py-2 text-4xl text-black cursor-pointer bg-black/5 rounded-xl">
-                        <p className="text-[10px] font-semibold">
-                          {entry?.totalCalorico} kcal
+                {entry ? (
+                  meals.map((meal) => (
+                    <div
+                      key={meal.key}
+                      className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl border-neutral-100"
+                    >
+                      <div>
+                        <p className="inline font-semibold">{meal.label}</p>
+                        <p className="pt-2 text-sm text-neutral-400">
+                          {entry[meal.key] || '—'}
                         </p>
                       </div>
+                      <div className="flex items-end justify-end">
+                        <div className="flex items-center justify-center px-3 py-2 text-4xl text-black cursor-pointer bg-black/5 rounded-xl">
+                          <p className="text-[10px] font-semibold">
+                            {entry.totalCalorico} kcal
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p className="text-neutral-400">
+                    No hay comidas para este día
+                  </p>
+                )}
               </div>
             </div>
             {/* <div className="flex w-full gap-2 px-20">
