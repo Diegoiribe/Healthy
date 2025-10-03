@@ -1,4 +1,4 @@
-import { X } from 'lucide-react';
+import { X, Pencil } from 'lucide-react';
 import { useState } from 'react';
 
 interface ConfigUserTwoProps {
@@ -40,11 +40,11 @@ export const ConfigUserTwo = ({ setIsConfig }: ConfigUserTwoProps) => {
             <div className="">
               <p className="mb-5 text-6xl">Diego Iribe Carrazco</p>
               <div className="flex items-center gap-2">
-                <div className=" inline-flex px-3 py-[5px] h-8 text-sm   transition-all duration-300 text-white bg-black font-medium cursor-pointer rounded-xl items-center gap-2">
+                <div className=" inline-flex px-3 py-[5px] h-8 text-sm   transition-all duration-300 text-white bg-black font-medium cursor-pointer rounded-2xl items-center gap-2">
                   <p>Cancelar Suscripcion</p>
                 </div>
-                <div className=" inline-flex px-3 py-[5px] h-8 text-sm   transition-all duration-300 text-blue-400 bg-blue-100 font-medium cursor-pointer rounded-xl items-center gap-2">
-                  <p>Editar Datos</p>
+                <div className=" inline-flex px-2 py-[5px] h-8 text-sm   transition-all duration-300 text-orange-400 bg-orange-100 font-medium cursor-pointer rounded-2xl items-center gap-2">
+                  <Pencil size={18} />
                 </div>
               </div>
             </div>
@@ -56,54 +56,51 @@ export const ConfigUserTwo = ({ setIsConfig }: ConfigUserTwoProps) => {
           <div className="flex items-center justify-between">
             <div className="w-3/4 space-y-3">
               <div>
-                <p className="text-lg font-light text-blue-400 ">Objetivo</p>
-                <p className="text-lg font-light text-neutral-400">
+                <p className="text-lg font-light text-neutral-400 ">Objetivo</p>
+                <p className="text-lg font-light text-black">
                   Perder peso, ganar masa muscular
                 </p>
               </div>
               <div>
-                <p className="text-lg font-light text-blue-400 ">
+                <p className="text-lg font-light text-neutral-400 ">
                   Nivel de actividad
                 </p>
-                <p className="text-lg font-light text-neutral-400">Moderado</p>
+                <p className="text-lg font-light ">Moderado</p>
               </div>
 
               <div>
-                <p className="text-lg font-light text-blue-400 ">
+                <p className="text-lg font-light text-neutral-400 ">
                   Alimentos no deseados
                 </p>
-                <p className="text-lg font-light text-neutral-400">
+                <p className="text-lg font-light ">
                   Alimentos fritos, comida rápida
                 </p>
               </div>
               <div>
-                <p className="text-lg font-light text-blue-400 ">
+                <p className="text-lg font-light text-neutral-400 ">
                   Alimentos deseados
                 </p>
-                <p className="text-lg font-light text-neutral-400">
+                <p className="text-lg font-light ">
                   Alimentos fritos, comida rápida
                 </p>
               </div>
             </div>
             <div className="w-1/4 space-y-3">
               <div>
-                <p className="text-lg font-light text-blue-400">Peso</p>
-                <p className="text-lg font-light text-neutral-400">86 kg</p>
+                <p className="text-lg font-light text-neutral-400">Peso</p>
+                <p className="text-lg font-light ">86 kg</p>
               </div>
               <div>
-                <p className="text-lg font-light text-blue-400 ">Altura</p>
-                <p className="text-lg font-light text-neutral-400">189 cm</p>
+                <p className="text-lg font-light text-neutral-400 ">Altura</p>
+                <p className="text-lg font-light ">189 cm</p>
               </div>
               <div>
-                <p className="text-lg font-light text-blue-400 ">Sexo</p>
-                <p className="text-lg font-light text-neutral-400">
-                  {' '}
-                  Masculino
-                </p>
+                <p className="text-lg font-light text-neutral-400 ">Sexo</p>
+                <p className="text-lg font-light "> Masculino</p>
               </div>
               <div>
-                <p className="text-lg font-light text-blue-400 ">Edad</p>
-                <p className="text-lg font-light text-neutral-400">22 años</p>
+                <p className="text-lg font-light text-neutral-400 ">Edad</p>
+                <p className="text-lg font-light ">22 años</p>
               </div>
             </div>
           </div>

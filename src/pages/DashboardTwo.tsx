@@ -462,9 +462,10 @@ export const DashboardTwo = () => {
                     onChange={(e) => setSelectedDay(e.target.value as WeekDay)}
                     className="absolute inset-0 w-full opacity-0"
                   >
-                    <option value="Lunes" disabled>
+                    <option value="" disabled>
                       Lunes
                     </option>
+                    <option value="Lunes">Lunes</option>
                     <option value="martes">Martes</option>
                     <option value="miercoles">Miercoles</option>
                     <option value="jueves">Jueves</option>
