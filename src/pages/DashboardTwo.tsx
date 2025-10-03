@@ -220,7 +220,7 @@ export const DashboardTwo = () => {
   ];
 
   const Skeleton: React.FC<{ className?: string }> = ({ className = '' }) => (
-    <div className={`bg-neutral-200/80 animate-pulse rounded ${className}`} />
+    <div className={`bg-neutral-200/40 animate-pulse rounded ${className}`} />
   );
 
   const exportPDF = (
@@ -397,50 +397,64 @@ export const DashboardTwo = () => {
           </div>
           <div className="w-full max-w-6xl mt-10">
             <div className="flex items-center justify-between px-20 transition-opacity duration-300 opacity-100 mb-15">
-              <p className="text-6xl font-semibold">
-                <span
-                  className="
+              {!userReady ? (
+                <div className="flex items-center justify-between w-full">
+                  <Skeleton className="h-14 w-72" />
+                  <div className="flex items-center gap-4 pr-2">
+                    <Skeleton className="w-12 h-12 rounded-full" />
+                    <Skeleton className="w-12 h-12 rounded-full" />
+                    <Skeleton className="w-12 h-12 rounded-full" />
+                    <Skeleton className="w-12 h-12 rounded-full" />
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <p className="text-6xl font-semibold">
+                    <span
+                      className="
     relative inline-block isolate
     before:content-[''] before:absolute
     before:-inset-x-2 before:-bottom-[0.01em]
     before:h-[.4em] before:bg-orange-100
     before:z-0
   "
-                >
-                  <span className="relative z-10">Hola,</span>
-                </span>{' '}
-                {userData?.firstName ?? 'Usuario'}
-              </p>
-              <div className="flex items-center justify-center gap-4 pr-2">
-                <p
-                  className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-400 rounded-full cursor-pointer hover:bg-black/5"
-                  onClick={() => exportPDF(weekMeals)}
-                >
-                  ↓
-                </p>
-                <p
-                  className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer hover:bg-black/5"
-                  onClick={() => {
-                    setIsList(false);
-                    setIsCreate(false);
-                    setIsConfig(true);
-                    setIsAjustar(false);
-                  }}
-                >
-                  ⚙️
-                </p>
-                <p
-                  className="flex items-center justify-center w-12 h-12 text-2xl rounded-full cursor-pointer hover:bg-black/5"
-                  onClick={() => {
-                    setIsList(true);
-                    setIsCreate(false);
-                    setIsConfig(false);
-                    setIsAjustar(false);
-                  }}
-                >
-                  📋
-                </p>
-              </div>
+                    >
+                      <span className="relative z-10">Hola,</span>
+                    </span>{' '}
+                    {userData?.firstName ?? 'Usuario'}
+                  </p>
+                  <div className="flex items-center justify-center gap-4 pr-2">
+                    <p
+                      className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-400 rounded-full cursor-pointer hover:bg-black/5"
+                      onClick={() => exportPDF(weekMeals)}
+                    >
+                      ↓
+                    </p>
+                    <p
+                      className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer hover:bg-black/5"
+                      onClick={() => {
+                        setIsList(false);
+                        setIsCreate(false);
+                        setIsConfig(true);
+                        setIsAjustar(false);
+                      }}
+                    >
+                      ⚙️
+                    </p>
+                    <p
+                      className="flex items-center justify-center w-12 h-12 text-2xl rounded-full cursor-pointer hover:bg-black/5"
+                      onClick={() => {
+                        setIsList(true);
+                        setIsCreate(false);
+                        setIsConfig(false);
+                        setIsAjustar(false);
+                      }}
+                    >
+                      📋
+                    </p>
+                  </div>{' '}
+                </>
+              )}
             </div>
             <div>
               <div className="flex items-center justify-between mt-25">
@@ -521,34 +535,46 @@ export const DashboardTwo = () => {
               </div>
 
               {/* Calendario */}
-              <div className="flex gap-3 p-20 pt-10">
-                {entry ? (
-                  meals.map((meal) => (
-                    <div
-                      key={meal.key}
-                      className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl border-neutral-100"
-                    >
-                      <div>
-                        <p className="inline font-semibold">{meal.label}</p>
-                        <p className="pt-2 text-sm text-neutral-400">
-                          {entry[meal.key] || '—'}
-                        </p>
-                      </div>
-                      <div className="flex items-end justify-end">
-                        <div className="flex items-center justify-center px-3 py-2 text-4xl text-black cursor-pointer bg-black/5 rounded-xl">
-                          <p className="text-[10px] font-semibold">
-                            {entry.totalCalorico} kcal
+              {weekMealsReady ? (
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex w-full gap-3 p-20 pt-10">
+                    <Skeleton className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
+                    <Skeleton className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
+                    <Skeleton className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
+                    <Skeleton className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
+                    <Skeleton className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
+                  </div>
+                </div>
+              ) : (
+                <div className="flex gap-3 p-20 pt-10">
+                  {entry ? (
+                    meals.map((meal) => (
+                      <div
+                        key={meal.key}
+                        className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl border-neutral-100"
+                      >
+                        <div>
+                          <p className="inline font-semibold">{meal.label}</p>
+                          <p className="pt-2 text-sm text-neutral-400">
+                            {entry[meal.key] || '—'}
                           </p>
                         </div>
+                        <div className="flex items-end justify-end">
+                          <div className="flex items-center justify-center px-3 py-2 text-4xl text-black cursor-pointer bg-black/5 rounded-xl">
+                            <p className="text-[10px] font-semibold">
+                              {entry.totalCalorico} kcal
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-neutral-400">
-                    No hay comidas para este día
-                  </p>
-                )}
-              </div>
+                    ))
+                  ) : (
+                    <p className="text-neutral-400">
+                      No hay comidas para este día
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
             {/* <div className="flex w-full gap-2 px-20">
           <div className=" px-3 py-[5px] text-sm  text-black transition-all duration-300 border border-neutral-300 cursor-pointer rounded-lg flex items-center gap-2">
