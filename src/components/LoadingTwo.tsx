@@ -68,8 +68,8 @@ export const LoadingTwo = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-0 left-0 z-100 items-center justify-center h-[100vh] w-full p-20 bg-black/5 backdrop-blur-3xl shadow-lg">
-      <div className="flex items-center justify-center w-full h-full p-8 text-center bg-white rounded-4xl">
+    <div className="fixed bottom-0 left-0 z-100 items-center justify-center h-[100vh]  w-full p-20 bg-black/5 backdrop-blur-3xl shadow-lg">
+      <div className="flex items-center justify-center w-full h-full max-w-6xl p-8 text-center bg-white rounded-4xl">
         <AnimatePresence mode="wait">
           <motion.p
             key={phrases[index]}

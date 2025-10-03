@@ -381,8 +381,8 @@ export const DashboardTwo = () => {
         <Ajustar setIsAjustar={setIsAjustar} />
       )}
       {!isList && !isCreate && !isConfig && !isAjustar && !isLoading && (
-        <div className="flex flex-col w-full min-h-screen p-8 gap-30">
-          <div className="flex items-center justify-between w-full px-20">
+        <div className="flex flex-col items-center w-full min-h-screen p-8 gap-30">
+          <div className="flex items-center justify-between w-full max-w-5xl px-20">
             <div className="flex items-center cursor-pointer">
               <img src={logo} alt="" className="object-contain w-10 h-10" />
               <p className="text-2xl font-semibold ">Plan4Me</p>
@@ -395,7 +395,7 @@ export const DashboardTwo = () => {
               Salir
             </button>
           </div>
-          <div className="mt-10">
+          <div className="w-full max-w-5xl mt-10">
             <div className="flex items-center justify-between px-20 transition-opacity duration-300 opacity-100 mb-15">
               <p className="text-6xl font-semibold">
                 <span

@@ -21,8 +21,8 @@ export const ConfigUserTwo = ({ setIsConfig }: ConfigUserTwoProps) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
   return (
-    <div className="w-full min-h-screen px-20 py-20 shadow-lg bg-black/5 backdrop-blur-3xl ">
-      <div className="flex flex-col justify-between h-[79.5dvh] p-8 bg-white rounded-4xl">
+    <div className="flex items-center justify-center w-full min-h-screen px-20 py-20 shadow-lg bg-black/5 backdrop-blur-3xl">
+      <div className="flex flex-col justify-between h-[79.5dvh] p-8 bg-white rounded-4xl w-full max-w-6xl">
         <div className="flex items-center justify-between w-full bg-white ">
           <div className="flex items-center gap-2 cursor-pointer">
             <p className="text-2xl font-semibold ">Configuracion</p>
@@ -35,7 +35,7 @@ export const ConfigUserTwo = ({ setIsConfig }: ConfigUserTwoProps) => {
             <X color="#ffffff" size={18} strokeWidth={3} />
           </button>
         </div>
-        <div className="flex flex-col justify-between bg-white  h-[60dvh]">
+        <div className="flex flex-col gap-5 bg-white  h-[60dvh]">
           <div>
             <div className="">
               <p className="mb-5 text-6xl">Diego Iribe Carrazco</p>
