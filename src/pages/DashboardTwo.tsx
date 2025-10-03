@@ -90,6 +90,11 @@ export const DashboardTwo = () => {
   const [userReady, setUserReady] = useState<boolean>(false);
   const [weekMealsReady, setWeekMealsReady] = useState<boolean>(false);
 
+  const logOut = () => {
+    localStorage.removeItem('token'); // o sessionStorage
+    window.location.replace('/login'); // reemplaza historial
+  };
+
   const isUserDataIncomplete = (userData?: UserDataProps): boolean => {
     if (!userData) return true;
 
@@ -380,7 +385,10 @@ export const DashboardTwo = () => {
               <p className="text-2xl font-semibold ">Plan4Me</p>
             </div>
 
-            <button className="px-5 py-2 text-xs font-bold transition-all duration-300 cursor-pointer text-neutral-400 hover:text-red-500 hover:bg-red-100 bg-black/5 rounded-xl">
+            <button
+              className="px-5 py-2 text-xs font-bold transition-all duration-300 cursor-pointer text-neutral-400 hover:text-red-500 hover:bg-red-100 bg-black/5 rounded-xl"
+              onClick={logOut}
+            >
               Salir
             </button>
           </div>
@@ -398,7 +406,7 @@ export const DashboardTwo = () => {
                 >
                   <span className="relative z-10">Hola,</span>
                 </span>{' '}
-                Diego
+                {userData?.firstName ?? 'Usuario'}
               </p>
               <div className="flex items-center justify-center gap-4 pr-2">
                 <p
@@ -469,38 +477,52 @@ export const DashboardTwo = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Calendario */}
               <div className="flex gap-3 p-20 pt-5">
-                <div className="flex flex-col justify-between w-1/5 gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl border-neutral-100">
-                  <div>
-                    <p className="inline font-semibold transition-all duration-300 rounded-lg">
-                      Desayuno
-                    </p>
-                    <p className="pt-2 text-sm text-neutral-400">
-                      2 huevos cocidos con 1 tortilla y salsa de jitomate
-                    </p>
-                  </div>
-                  <div className="flex items-end justify-end">
-                    <div className="flex items-center justify-center px-3 py-2 text-4xl text-black cursor-pointer bg-black/5 rounded-xl">
-                      <p className="text-[10px] font-semibold">150 kcal</p>
+                {orderedDays.map((day) => {
+                  const entry = weekMeals?.plan?.[day];
+                  if (!entry) return null;
+
+                  const meals = [
+                    { label: 'Desayuno', key: 'desayuno' },
+                    { label: 'Snack', key: 'snackManana' },
+                    { label: 'Comida', key: 'almuerzo' },
+                    { label: 'Snack', key: 'snackTarde' },
+                    { label: 'Cena', key: 'cena' }
+                  ];
+
+                  return (
+                    <div key={day} className="flex flex-col gap-5">
+                      <h2 className="text-lg font-bold capitalize">{day}</h2>
+                      <div className="flex flex-col gap-5">
+                        {meals.map((meal) => (
+                          <div
+                            key={meal.key}
+                            className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl border-neutral-100"
+                          >
+                            <div>
+                              <p className="inline font-semibold">
+                                {meal.label}
+                              </p>
+                              <p className="pt-2 text-sm text-neutral-400">
+                                {entry[meal.key as keyof MealEntry] || '—'}
+                              </p>
+                            </div>
+                            <div className="flex items-end justify-end">
+                              <div className="flex items-center justify-center px-3 py-2 text-4xl text-black cursor-pointer bg-black/5 rounded-xl">
+                                <p className="text-[10px] font-semibold">
+                                  {entry.totalCalorico} kcal
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="flex flex-col justify-between w-1/5 gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl border-neutral-100">
-                  <div>
-                    <p className="inline font-semibold transition-all duration-300 rounded-lg">
-                      Snack
-                    </p>
-                    <p className="pt-2 text-sm text-neutral-400">
-                      Licuado de 1 taza de leche descremada, 1/2 plátano y
-                      espinacas
-                    </p>
-                  </div>
-                  <div className="flex items-end justify-end">
-                    <div className="flex items-center justify-center px-3 py-2 text-4xl text-black cursor-pointer bg-black/5 rounded-xl">
-                      <p className="text-[10px] font-semibold">150 kcal</p>
-                    </div>
-                  </div>
-                </div>
+                  );
+                })}
+
                 <div className="flex flex-col justify-between w-1/5 gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl border-neutral-100">
                   <div>
                     <p className="inline font-semibold transition-all duration-300 rounded-lg">
