@@ -382,7 +382,7 @@ export const DashboardTwo = () => {
       )}
       {!isList && !isCreate && !isConfig && !isAjustar && !isLoading && (
         <div className="flex flex-col items-center w-full min-h-screen p-8 gap-30">
-          <div className="flex items-center justify-between w-full max-w-5xl px-20">
+          <div className="flex items-center justify-between w-full max-w-6xl px-20">
             <div className="flex items-center cursor-pointer">
               <img src={logo} alt="" className="object-contain w-10 h-10" />
               <p className="text-2xl font-semibold ">Plan4Me</p>
@@ -395,7 +395,7 @@ export const DashboardTwo = () => {
               Salir
             </button>
           </div>
-          <div className="w-full max-w-5xl mt-10">
+          <div className="w-full max-w-6xl mt-10">
             <div className="flex items-center justify-between px-20 transition-opacity duration-300 opacity-100 mb-15">
               <p className="text-6xl font-semibold">
                 <span
@@ -446,12 +446,12 @@ export const DashboardTwo = () => {
               <div className="flex items-center justify-between">
                 <div className="relative ">
                   {/* Texto grande visible */}
-                  <p className="pl-20 text-2xl font-semibold capitalize">
+                  <p className="pl-20 text-2xl font-semibold capitalize pointer-events-none w-44">
                     {orderedDays.find((d) => d === selectedDay)}
                   </p>
 
                   {/* Select real, sin estilos de fuente, invisible pero clickeable */}
-                  <label htmlFor="diet" className="sr-only">
+                  <label htmlFor="day" className="sr-only">
                     Tipo de dieta
                   </label>
                   <select
@@ -462,10 +462,9 @@ export const DashboardTwo = () => {
                     onChange={(e) => setSelectedDay(e.target.value as WeekDay)}
                     className="absolute inset-0 w-full opacity-0"
                   >
-                    <option value="" disabled>
+                    <option value="Lunes" selected>
                       Lunes
                     </option>
-                    <option value="Lunes">Lunes</option>
                     <option value="martes">Martes</option>
                     <option value="miercoles">Miercoles</option>
                     <option value="jueves">Jueves</option>
@@ -476,7 +475,7 @@ export const DashboardTwo = () => {
 
                   {/* Flechita propia (opcional) */}
                   <svg
-                    className="absolute w-4 h-4 -translate-y-1/2 pointer-events-none -right-6 top-9/16"
+                    className="absolute w-4 h-4 -translate-y-1/2 pointer-events-none -right-0 top-9/16"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
