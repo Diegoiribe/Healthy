@@ -146,7 +146,7 @@ export const DashboardTwo = () => {
     }
 
     if (isUserDataIncomplete(user)) {
-      setIsCreate(true);
+      setIsGenerate(true);
       console.error('Please complete your profile before generating a plan.');
       return;
     }
@@ -162,16 +162,19 @@ export const DashboardTwo = () => {
 
     try {
       const data = { dietType: user.dietType };
-      const res = await post('/user/plan/generate', data);
+      await post('/user/plan/generate', data);
 
+      // 👉 Después de crear, traemos el plan actualizado
+      const planRes = await get('/user/plan');
       const fixedRes = {
-        plan: res.plan ?? res.Plan ?? {},
-        shoppingList: res.shoppingList ?? res.listaDeCompras ?? {}
+        plan: planRes.plan ?? planRes.Plan ?? {},
+        shoppingList: planRes.shoppingList ?? planRes.listaDeCompras ?? {}
       };
 
       setWeekMeal(fixedRes);
+      setWeekMealsReady(true); // 👈 aseguras que la UI se refresque
     } catch (error) {
-      alert('Se a producido un error');
+      alert('Se ha producido un error');
       console.error('Error generating plan:', error);
     } finally {
       setIsLoading(false);
