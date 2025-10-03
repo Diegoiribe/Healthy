@@ -87,6 +87,7 @@ export const DashboardTwo = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserDataProps>();
   const [weekMeals, setWeekMeal] = useState<WeekMeals | null>(null);
+  const [selectedDay, setSelectedDay] = useState<WeekDay>('lunes');
   const [userReady, setUserReady] = useState<boolean>(false);
   const [weekMealsReady, setWeekMealsReady] = useState<boolean>(false);
 
@@ -355,6 +356,16 @@ export const DashboardTwo = () => {
     };
   };
 
+  const meals: { label: string; key: keyof MealEntry }[] = [
+    { label: 'Desayuno', key: 'desayuno' },
+    { label: 'Snack', key: 'snackManana' },
+    { label: 'Comida', key: 'almuerzo' },
+    { label: 'Snack', key: 'snackTarde' },
+    { label: 'Cena', key: 'cena' }
+  ];
+
+  const entry = weekMeals?.plan?.[selectedDay];
+
   return (
     <>
       {isLoading && !isList && !isCreate && !isConfig && !isAjustar && (
@@ -480,97 +491,26 @@ export const DashboardTwo = () => {
 
               {/* Calendario */}
               <div className="flex gap-3 p-20 pt-5">
-                {orderedDays.map((day) => {
-                  const entry = weekMeals?.plan?.[day];
-                  if (!entry) return null;
-
-                  const meals = [
-                    { label: 'Desayuno', key: 'desayuno' },
-                    { label: 'Snack', key: 'snackManana' },
-                    { label: 'Comida', key: 'almuerzo' },
-                    { label: 'Snack', key: 'snackTarde' },
-                    { label: 'Cena', key: 'cena' }
-                  ];
-
-                  return (
-                    <div key={day} className="flex flex-col gap-5">
-                      <h2 className="text-lg font-bold capitalize">{day}</h2>
-                      <div className="flex flex-col gap-5">
-                        {meals.map((meal) => (
-                          <div
-                            key={meal.key}
-                            className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl border-neutral-100"
-                          >
-                            <div>
-                              <p className="inline font-semibold">
-                                {meal.label}
-                              </p>
-                              <p className="pt-2 text-sm text-neutral-400">
-                                {entry[meal.key as keyof MealEntry] || '—'}
-                              </p>
-                            </div>
-                            <div className="flex items-end justify-end">
-                              <div className="flex items-center justify-center px-3 py-2 text-4xl text-black cursor-pointer bg-black/5 rounded-xl">
-                                <p className="text-[10px] font-semibold">
-                                  {entry.totalCalorico} kcal
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
+                {meals.map((meal) => (
+                  <div
+                    key={meal.key}
+                    className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl border-neutral-100"
+                  >
+                    <div>
+                      <p className="inline font-semibold">{meal.label}</p>
+                      <p className="pt-2 text-sm text-neutral-400">
+                        {entry[meal.key] || '—'}
+                      </p>
+                    </div>
+                    <div className="flex items-end justify-end">
+                      <div className="flex items-center justify-center px-3 py-2 text-4xl text-black cursor-pointer bg-black/5 rounded-xl">
+                        <p className="text-[10px] font-semibold">
+                          {entry?.totalCalorico} kcal
+                        </p>
                       </div>
                     </div>
-                  );
-                })}
-
-                <div className="flex flex-col justify-between w-1/5 gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl border-neutral-100">
-                  <div>
-                    <p className="inline font-semibold transition-all duration-300 rounded-lg">
-                      Comida
-                    </p>
-                    <p className="pt-2 text-sm text-neutral-400">
-                      Pechuga de pollo a la plancha (150g) con ensalada de
-                      nopales y 1/2 taza de frijoles
-                    </p>
                   </div>
-                  <div className="flex items-end justify-end">
-                    <div className="flex items-center justify-center px-3 py-2 text-4xl text-black cursor-pointer bg-black/5 rounded-xl">
-                      <p className="text-[10px] font-semibold">150 kcal</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-col justify-between w-1/5 gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl border-neutral-100">
-                  <div>
-                    <p className="inline font-semibold transition-all duration-300 rounded-lg">
-                      Snack
-                    </p>
-                    <p className="pt-2 text-sm text-neutral-400">
-                      Ensalada de pollo (150g de pechuga asada) con lechuga,
-                      jitomate, pepino y 1/2 aguacate
-                    </p>
-                  </div>
-                  <div className="flex items-end justify-end">
-                    <div className="flex items-center justify-center px-3 py-2 text-4xl text-black cursor-pointer bg-black/5 rounded-xl">
-                      <p className="text-[10px] font-semibold">150 kcal</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-col justify-between w-1/5 gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl border-neutral-100">
-                  <div>
-                    <p className="inline font-semibold transition-all duration-300 rounded-lg">
-                      Cena
-                    </p>
-                    <p className="pt-2 text-sm text-neutral-400">
-                      Sopa de verduras (calabaza, zanahoria, chayote) con 100g
-                      de pollo desmenuzado
-                    </p>
-                  </div>
-                  <div className="flex items-end justify-end">
-                    <div className="flex items-center justify-center px-3 py-2 text-4xl text-black cursor-pointer bg-black/5 rounded-xl">
-                      <p className="text-[10px] font-semibold">150 kcal</p>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
             {/* <div className="flex w-full gap-2 px-20">
