@@ -535,7 +535,7 @@ export const DashboardTwo = () => {
               </div>
 
               {/* Calendario */}
-              {weekMealsReady ? (
+              {!weekMealsReady ? (
                 <div className="flex items-center justify-between w-full">
                   <div className="flex w-full gap-3 p-20 pt-10">
                     <Skeleton className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
