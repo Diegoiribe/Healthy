@@ -199,7 +199,9 @@ export const CrearPlanTwo = ({
                   <option value="altaproteina" disabled>
                     Alta proteina
                   </option>
-                  <option value="baja">Baja en carbohidratos</option>
+                  <option value="bajacarbohidratos">
+                    Baja en carbohidratos
+                  </option>
                   <option value="diabetica">Diabetica</option>
                   <option value="equilibrada">Equilibrada</option>
                   <option value="hipercalorica">Hipercalorica</option>

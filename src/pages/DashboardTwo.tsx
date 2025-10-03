@@ -443,7 +443,46 @@ export const DashboardTwo = () => {
               </div>
             </div>
             <div>
-              <p className="px-20 text-2xl font-semibold">Lunes </p>
+              <div className="flex items-center justify-between">
+                <div className="relative ">
+                  {/* Texto grande visible */}
+                  <p className="pl-20 text-2xl font-semibold capitalize">
+                    {orderedDays.find((d) => d === selectedDay)}
+                  </p>
+
+                  {/* Select real, sin estilos de fuente, invisible pero clickeable */}
+                  <label htmlFor="diet" className="sr-only">
+                    Tipo de dieta
+                  </label>
+                  <select
+                    id="day"
+                    name="day"
+                    required
+                    value={selectedDay}
+                    onChange={(e) => setSelectedDay(e.target.value as WeekDay)}
+                    className="absolute inset-0 w-full opacity-0"
+                  >
+                    <option value="Lunes" disabled>
+                      Lunes
+                    </option>
+                    <option value="martes">Martes</option>
+                    <option value="miercoles">Miercoles</option>
+                    <option value="jueves">Jueves</option>
+                    <option value="viernes">Viernes</option>
+                    <option value="sabado">Sabado</option>
+                    <option value="domingo">Domingo</option>
+                  </select>
+
+                  {/* Flechita propia (opcional) */}
+                  <svg
+                    className="absolute w-4 h-4 -translate-y-1/2 pointer-events-none -right-6 top-9/16"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path d="M5 7l5 5 5-5" />
+                  </svg>
+                </div>
+              </div>
               <div className="flex justify-between px-20 mt-3">
                 <div className=" px-3 py-[5px] h-8 text-sm  text-neutral-400 transition-all duration-300 bg-neutral-100  cursor-pointer rounded-xl font-medium flex items-center gap-2">
                   <div className="w-[6px]  h-[6px] bg-neutral-400 rounded-full"></div>
