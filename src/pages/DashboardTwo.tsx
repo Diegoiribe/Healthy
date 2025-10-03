@@ -146,7 +146,7 @@ export const DashboardTwo = () => {
     }
 
     if (isUserDataIncomplete(user)) {
-      setIsGenerate(true);
+      setIsCreate(true);
       console.error('Please complete your profile before generating a plan.');
       return;
     }
