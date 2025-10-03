@@ -3,6 +3,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { post } from '../api/http';
+import logo from '../assets/Logo.webp';
 
 export const RegisterTwo = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -91,7 +92,8 @@ export const RegisterTwo = () => {
 
   return (
     <div className="min-h-screen p-8">
-      <Link to={'/'} className="text-2xl font-semibold ">
+      <Link to={'/'} className="flex items-center text-2xl font-semibold ">
+        <img src={logo} alt="" className="object-contain w-10 h-10" />
         Plan4Me
       </Link>
       {step === 1 && (

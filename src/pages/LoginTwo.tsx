@@ -2,6 +2,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { login } from '../api/auth';
 import { Link, useNavigate } from 'react-router-dom';
+import logo from '../assets/Logo.webp';
 
 export const LoginTwo = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +37,8 @@ export const LoginTwo = () => {
 
   return (
     <div className="w-full min-h-screen p-8 ">
-      <Link to={'/'} className="text-2xl font-semibold ">
+      <Link to={'/'} className="flex items-center text-2xl font-semibold ">
+        <img src={logo} alt="" className="object-contain w-10 h-10" />
         Plan4Me
       </Link>
 

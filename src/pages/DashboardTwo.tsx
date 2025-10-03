@@ -443,7 +443,7 @@ export const DashboardTwo = () => {
               </div>
             </div>
             <div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between mt-25">
                 <div className="relative ">
                   {/* Texto grande visible */}
                   <p className="pl-20 text-2xl font-semibold capitalize pointer-events-none w-44">
@@ -484,7 +484,7 @@ export const DashboardTwo = () => {
                 </div>
               </div>
               <div className="flex justify-between px-20 mt-3">
-                <div className=" px-3 py-[5px] h-8 text-sm  text-neutral-400 transition-all duration-300 bg-neutral-100  cursor-pointer rounded-xl font-medium flex items-center gap-2">
+                <div className=" px-3 py-[5px] h-8 text-sm  text-neutral-400 transition-all duration-300 bg-neutral-100   rounded-xl font-medium flex items-center gap-2">
                   <div className="w-[6px]  h-[6px] bg-neutral-400 rounded-full"></div>
                   <p>{matchText(userData?.dietType ?? '')}</p>
                 </div>
@@ -521,7 +521,7 @@ export const DashboardTwo = () => {
               </div>
 
               {/* Calendario */}
-              <div className="flex gap-3 p-20 pt-5">
+              <div className="flex gap-3 p-20 pt-10">
                 {entry ? (
                   meals.map((meal) => (
                     <div
