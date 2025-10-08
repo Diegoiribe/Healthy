@@ -402,7 +402,7 @@ export const DashboardTwo = () => {
         <Ajustar setIsAjustar={setIsAjustar} />
       )}
       {!isList && !isCreate && !isConfig && !isAjustar && !isLoading && (
-        <div className="flex flex-col items-center w-full min-h-screen p-8 gap-30">
+        <div className="flex flex-col items-center w-full min-h-screen p-8 gap-15 sm:gap-30">
           <div className="flex items-center justify-between w-full max-w-6xl sm:px-20">
             <div className="flex items-center cursor-pointer">
               <img src={logo} alt="" className="object-contain w-10 h-10" />
@@ -478,7 +478,7 @@ export const DashboardTwo = () => {
               )}
             </div>
             <div>
-              <div className="flex items-center justify-between mt-25">
+              <div className="flex items-center justify-between sm:mt-25 mt-15">
                 <div className="relative w-full sm:w-auto sm:mx-0">
                   {/* Texto grande visible */}
                   <p className="w-full pb-2 text-2xl font-semibold capitalize border-b pointer-events-none border-neutral-300 sm:pb-0 sm:pl-20 sm:border-0 sm:w-52">
@@ -570,7 +570,7 @@ export const DashboardTwo = () => {
                   </div>
                 </div>
               ) : (
-                <div className="flex w-full gap-3 pt-10 overflow-x-auto sm:p-20 sm:overflow-visible scroll-smooth">
+                <div className="flex w-full gap-3 p-5 pt-5 overflow-x-auto sm:pt-10 sm:p-20 sm:overflow-visible scroll-smooth">
                   {entry ? (
                     meals.map((meal) => (
                       <div
