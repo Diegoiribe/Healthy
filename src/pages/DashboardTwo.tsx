@@ -403,7 +403,7 @@ export const DashboardTwo = () => {
       )}
       {!isList && !isCreate && !isConfig && !isAjustar && !isLoading && (
         <div className="flex flex-col items-center w-full min-h-screen p-8 gap-30">
-          <div className="flex items-center justify-between w-full max-w-6xl px-20">
+          <div className="flex items-center justify-between w-full max-w-6xl sm:px-20">
             <div className="flex items-center cursor-pointer">
               <img src={logo} alt="" className="object-contain w-10 h-10" />
               <p className="text-2xl font-semibold ">Plan4Me</p>
@@ -417,7 +417,7 @@ export const DashboardTwo = () => {
             </button>
           </div>
           <div className="w-full max-w-6xl mt-10">
-            <div className="flex flex-col items-center justify-between px-20 transition-opacity duration-300 opacity-100 sm:flex-row mb-15">
+            <div className="flex flex-col justify-between transition-opacity duration-300 opacity-100 sm:items-center sm:px-20 sm:flex-row mb-15">
               {!userReady ? (
                 <div className="flex flex-row items-center justify-between w-full sm:flex-row">
                   <Skeleton className="h-14 w-72" />
@@ -479,7 +479,7 @@ export const DashboardTwo = () => {
             </div>
             <div>
               <div className="flex items-center justify-between mt-25">
-                <div className="relative w-full mx-20 sm:w-auto sm:mx-0">
+                <div className="relative w-full sm:w-auto sm:mx-0">
                   {/* Texto grande visible */}
                   <p className="w-full pb-2 text-2xl font-semibold capitalize border-b pointer-events-none border-neutral-300 sm:pb-0 sm:pl-20 sm:border-0 sm:w-52">
                     {orderedDays.find((d) => d === selectedDay)}
@@ -518,7 +518,7 @@ export const DashboardTwo = () => {
                   </svg>
                 </div>
               </div>
-              <div className="flex gap-1 px-20 mt-3 sm:gap-0 sm:justify-between">
+              <div className="flex justify-between gap-1 mt-3 sm:px-20 sm:gap-0">
                 <div className=" px-3 py-[5px] h-8 text-sm  text-neutral-400 transition-all duration-300 bg-neutral-100   rounded-xl font-medium flex items-center gap-2">
                   <div className="w-[6px]  h-[6px] bg-neutral-400 rounded-full"></div>
                   <p>{matchText(userData?.dietType ?? '')}</p>
@@ -570,7 +570,7 @@ export const DashboardTwo = () => {
                   </div>
                 </div>
               ) : (
-                <div className="flex gap-3 p-20 pt-10">
+                <div className="flex gap-3 pt-10 sm:p-20">
                   {entry ? (
                     meals.map((meal) => (
                       <div
@@ -600,7 +600,7 @@ export const DashboardTwo = () => {
                 </div>
               )}
             </div>
-            {/* <div className="flex w-full gap-2 px-20">
+            {/* <div className="flex w-full gap-2 sm:px-20">
           <div className=" px-3 py-[5px] text-sm  text-black transition-all duration-300 border border-neutral-300 cursor-pointer rounded-lg flex items-center gap-2">
             <div className="w-[6px] h-[6px] bg-black rounded-full"></div>
             <p>Hipocalorica</p>

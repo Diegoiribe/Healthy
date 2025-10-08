@@ -30,7 +30,7 @@ export const ListTwo = ({ setIsList }: ListTwoProps) => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full min-h-screen px-10 py-10 shadow-lg sm:px-20 sm:py-20 bg-black/5 backdrop-blur-3xl">
+    <div className="flex items-center justify-center w-full min-h-screen px-8 py-8 shadow-lg sm:px-20 sm:py-20 bg-black/5 backdrop-blur-3xl">
       <div className="flex flex-col justify-between h-[89.5dvh] p-8 bg-white rounded-4xl max-w-6xl w-full">
         <div className="flex items-center justify-between w-full bg-white ">
           <div className="flex items-center gap-2 cursor-pointer">
