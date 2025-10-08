@@ -37,10 +37,8 @@ export type MealEntry = {
   totalCalorico: number;
 };
 
-// Plan de toda la semana
-export type Plan = {
-  [day in WeekDay]: MealEntry;
-};
+// Plan de toda la semana (ahora permite claves dinámicas)
+export type Plan = Record<string, MealEntry>;
 
 // Categorías del shopping list
 export type ShoppingList = {
@@ -126,10 +124,15 @@ export const DashboardTwo = () => {
     get('/user/plan')
       .then((res) => {
         const fixedRes = {
-          plan: res.plan ?? res.Plan ?? {},
+          plan: Object.entries(res.plan ?? res.Plan ?? {}).reduce<
+            Record<string, MealEntry>
+          >((acc, [day, entry]) => {
+            acc[normalize(day)] = entry as MealEntry;
+            return acc;
+          }, {}),
           shoppingList: res.shoppingList ?? res.listaDeCompras ?? {}
         };
-        setWeekMeal(fixedRes);
+        setWeekMeal(fixedRes as WeekMeals);
         console.log('Week meals fetched:', res);
       })
       .catch((error) => console.error('Error fetching week meals:', error))
@@ -167,11 +170,16 @@ export const DashboardTwo = () => {
       // 👉 Después de crear, traemos el plan actualizado
       const planRes = await get('/user/plan');
       const fixedRes = {
-        plan: planRes.plan ?? planRes.Plan ?? {},
+        plan: Object.entries(planRes.plan ?? planRes.Plan ?? {}).reduce<
+          Record<string, MealEntry>
+        >((acc, [day, entry]) => {
+          acc[normalize(day)] = entry as MealEntry;
+          return acc;
+        }, {}),
         shoppingList: planRes.shoppingList ?? planRes.listaDeCompras ?? {}
       };
 
-      setWeekMeal(fixedRes);
+      setWeekMeal(fixedRes as WeekMeals);
       setWeekMealsReady(true); // 👈 aseguras que la UI se refresque
     } catch (error) {
       alert('Se ha producido un error');
@@ -359,7 +367,13 @@ export const DashboardTwo = () => {
     };
   };
 
-  const entry = weekMeals?.plan?.[selectedDay];
+  const entry = weekMeals?.plan
+    ? weekMeals.plan[
+        Object.keys(weekMeals.plan).find(
+          (d) => normalize(d) === normalize(selectedDay)
+        ) as WeekDay
+      ]
+    : undefined;
 
   return (
     <>
@@ -479,7 +493,7 @@ export const DashboardTwo = () => {
                     onChange={(e) => setSelectedDay(e.target.value as WeekDay)}
                     className="absolute inset-0 w-full opacity-0"
                   >
-                    <option value="Lunes" selected>
+                    <option value="lunes" selected>
                       Lunes
                     </option>
                     <option value="martes">Martes</option>
