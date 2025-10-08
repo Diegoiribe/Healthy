@@ -419,7 +419,7 @@ export const DashboardTwo = () => {
           <div className="w-full max-w-6xl mt-10">
             <div className="flex flex-col justify-between transition-opacity duration-300 opacity-100 sm:items-center sm:px-20 sm:flex-row mb-15">
               {!userReady ? (
-                <div className="flex flex-row items-center justify-between w-full sm:flex-row">
+                <div className="flex flex-col items-center justify-between w-full sm:flex-row">
                   <Skeleton className="h-14 w-72" />
                   <div className="flex items-center gap-4 pr-2">
                     <Skeleton className="w-12 h-12 rounded-full" />
@@ -430,7 +430,7 @@ export const DashboardTwo = () => {
                 </div>
               ) : (
                 <>
-                  <p className="text-6xl font-semibold">
+                  <p className="text-6xl font-semibold pr-60 sm:pr-0">
                     <span
                       className="
     relative inline-block isolate
@@ -570,12 +570,12 @@ export const DashboardTwo = () => {
                   </div>
                 </div>
               ) : (
-                <div className="flex w-full gap-3 pt-10 sm:p-20 sm:w-auto">
+                <div className="flex w-full gap-3 pt-10 sm:p-20 ">
                   {entry ? (
                     meals.map((meal) => (
                       <div
                         key={meal.key}
-                        className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg rounded-2xl sm:w-auto border-neutral-100"
+                        className="flex flex-col justify-between gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg w-54 rounded-2xl sm:w-auto border-neutral-100"
                       >
                         <div>
                           <p className="inline font-semibold">{meal.label}</p>
