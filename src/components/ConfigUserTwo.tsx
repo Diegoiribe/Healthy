@@ -93,7 +93,7 @@ export const ConfigUserTwo = ({
 
   return (
     <div className="flex items-center justify-center w-full min-h-screen px-8 py-8 bg-white shadow-lg sm:px-20 sm:py-20 backdrop-blur-3xl">
-      <div className="flex flex-col justify-between min-h-screen sm:h-[79.5dvh] p-8 bg-black/5 rounded-4xl w-full max-w-6xl">
+      <div className="flex flex-col justify-between min-h-screen sm:h-[79.5dvh] p-8 bg-neutral-100 rounded-4xl w-full max-w-6xl">
         <div className="flex items-center justify-between w-full ">
           <div className="flex items-center gap-2 cursor-pointer">
             <p className="text-2xl font-semibold ">Configuracion</p>
@@ -170,7 +170,7 @@ export const ConfigUserTwo = ({
                     className="absolute left-4 top-1/2 -translate-y-1/2  px-1
                text-black/40 transition-all duration-200
                peer-focus:-top-[1px] peer-focus:text-sm peer-focus:text-orange-300
-               peer-valid:-top-[1px] peer-valid:text-sm"
+               peer-valid:-top-[1px] bg-neutral-100 peer-valid:text-sm"
                   >
                     Objetivo
                   </label>
@@ -209,7 +209,7 @@ export const ConfigUserTwo = ({
                     className="absolute left-4 top-1/2 -translate-y-1/2  px-1
                text-black/40 transition-all duration-200
                peer-focus:-top-[1px] peer-focus:text-sm peer-focus:text-orange-300
-               peer-valid:-top-[1px] peer-valid:text-sm"
+               peer-valid:-top-[1px] peer-valid:text-sm bg-neutral-100"
                   >
                     Nivel de actividad
                   </label>
@@ -236,7 +236,7 @@ export const ConfigUserTwo = ({
                   />
                   <label
                     htmlFor="alimentosNoDeseados"
-                    className="absolute px-1 transition-all duration-200 -translate-y-1/2  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
+                    className="absolute px-1 transition-all duration-200 -translate-y-1/2 bg-neutral-100  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
                   >
                     Alimentos no deseados
                   </label>
@@ -253,7 +253,7 @@ export const ConfigUserTwo = ({
                   />
                   <label
                     htmlFor="alimentosDeseados"
-                    className="absolute px-1 transition-all duration-200 -translate-y-1/2  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
+                    className="absolute px-1 transition-all duration-200 -translate-y-1/2 bg-neutral-100  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
                   >
                     Alimentos deseados
                   </label>
@@ -272,7 +272,7 @@ export const ConfigUserTwo = ({
                   />
                   <label
                     htmlFor="peso"
-                    className="absolute px-1 transition-all duration-200 -translate-y-1/2  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
+                    className="absolute px-1 transition-all duration-200 -translate-y-1/2  bg-neutral-100 text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
                   >
                     Peso
                   </label>
@@ -289,7 +289,7 @@ export const ConfigUserTwo = ({
                   />
                   <label
                     htmlFor="estatura"
-                    className="absolute px-1 transition-all duration-200 -translate-y-1/2  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
+                    className="absolute px-1 transition-all duration-200 -translate-y-1/2 bg-neutral-100  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
                   >
                     Estatura
                   </label>
@@ -313,7 +313,7 @@ export const ConfigUserTwo = ({
 
                   <label
                     htmlFor="sexo"
-                    className="absolute left-4 top-1/2 -translate-y-1/2  px-1
+                    className="absolute left-4 bg-neutral-100 top-1/2 -translate-y-1/2  px-1
                text-black/40 transition-all duration-200
                peer-focus:-top-[1px] peer-focus:text-sm peer-focus:text-orange-300
                peer-valid:-top-[1px] peer-valid:text-sm"
@@ -342,7 +342,7 @@ export const ConfigUserTwo = ({
                   />
                   <label
                     htmlFor="edad"
-                    className="absolute px-1 transition-all duration-200 -translate-y-1/2  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
+                    className="absolute px-1 bg-neutral-100 transition-all duration-200 -translate-y-1/2  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
                   >
                     Edad
                   </label>
