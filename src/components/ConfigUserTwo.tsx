@@ -93,7 +93,7 @@ export const ConfigUserTwo = ({
 
   return (
     <div className="flex items-center justify-center w-full min-h-screen px-8 py-8 bg-white shadow-lg sm:px-20 sm:py-20 backdrop-blur-3xl">
-      <div className="flex flex-col justify-between h-[91.5dvh] sm:h-[79.5dvh] p-8 bg-black/5 rounded-4xl w-full max-w-6xl">
+      <div className="flex flex-col justify-between min-h-screen sm:h-[79.5dvh] p-8 bg-black/5 rounded-4xl w-full max-w-6xl">
         <div className="flex items-center justify-between w-full ">
           <div className="flex items-center gap-2 cursor-pointer">
             <p className="text-2xl font-semibold ">Configuracion</p>
@@ -106,7 +106,7 @@ export const ConfigUserTwo = ({
             <X color="#ffffff" size={18} strokeWidth={3} />
           </button>
         </div>
-        <div className="flex flex-col gap-5  min-h-[67dvh] sm:min-h-[60dvh]">
+        <div className="flex flex-col gap-5  mt-20 sm:mt-0  sm:min-h-[60dvh]">
           <div>
             <div className="">
               <p className="mb-5 text-6xl">Diego Iribe Carrazco</p>
@@ -145,8 +145,8 @@ export const ConfigUserTwo = ({
             </p>
           </div>
           {isEdit ? (
-            <div className="flex items-center justify-between gap-5 sm:gap-0">
-              <div className="w-2/4 space-y-3 sm:w-3/4">
+            <div className="flex flex-col justify-between sm:items-center sm:flex-row sm:gap-0">
+              <div className="w-full space-y-3 sm:w-3/4">
                 <div className="relative mb-5 sm:w-82">
                   <select
                     name="objetivo"
@@ -155,7 +155,7 @@ export const ConfigUserTwo = ({
                     id="objetivo"
                     required
                     defaultValue=""
-                    className="w-full px-4 py-3 pr-10 bg-white border rounded-full outline-none appearance-none peer border-black/30 focus:border-orange-200"
+                    className="w-full px-4 py-3 pr-10 border rounded-full outline-none appearance-none peer border-black/30 focus:border-orange-200"
                   >
                     <option value="" disabled>
                       {' '}
@@ -167,7 +167,7 @@ export const ConfigUserTwo = ({
 
                   <label
                     htmlFor="objetivo"
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white px-1
+                    className="absolute left-4 top-1/2 -translate-y-1/2  px-1
                text-black/40 transition-all duration-200
                peer-focus:-top-[1px] peer-focus:text-sm peer-focus:text-orange-300
                peer-valid:-top-[1px] peer-valid:text-sm"
@@ -192,7 +192,7 @@ export const ConfigUserTwo = ({
                     id="nivelActividad"
                     required
                     defaultValue=""
-                    className="w-full px-4 py-3 pr-10 bg-white border rounded-full outline-none appearance-none peer border-black/30 focus:border-orange-200"
+                    className="w-full px-4 py-3 pr-10 border rounded-full outline-none appearance-none peer border-black/30 focus:border-orange-200"
                   >
                     <option value="" disabled>
                       {''}
@@ -206,7 +206,7 @@ export const ConfigUserTwo = ({
 
                   <label
                     htmlFor="nivelActividad"
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white px-1
+                    className="absolute left-4 top-1/2 -translate-y-1/2  px-1
                text-black/40 transition-all duration-200
                peer-focus:-top-[1px] peer-focus:text-sm peer-focus:text-orange-300
                peer-valid:-top-[1px] peer-valid:text-sm"
@@ -236,7 +236,7 @@ export const ConfigUserTwo = ({
                   />
                   <label
                     htmlFor="alimentosNoDeseados"
-                    className="absolute px-1 transition-all duration-200 -translate-y-1/2 bg-white text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
+                    className="absolute px-1 transition-all duration-200 -translate-y-1/2  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
                   >
                     Alimentos no deseados
                   </label>
@@ -253,13 +253,13 @@ export const ConfigUserTwo = ({
                   />
                   <label
                     htmlFor="alimentosDeseados"
-                    className="absolute px-1 transition-all duration-200 -translate-y-1/2 bg-white text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
+                    className="absolute px-1 transition-all duration-200 -translate-y-1/2  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
                   >
                     Alimentos deseados
                   </label>
                 </div>
               </div>
-              <div className="w-2/4 space-y-3 sm:w-1/3">
+              <div className="w-full space-y-3 sm:w-1/3">
                 <div className="relative mb-5 sm:w-82">
                   <input
                     value={formData.peso}
@@ -272,7 +272,7 @@ export const ConfigUserTwo = ({
                   />
                   <label
                     htmlFor="peso"
-                    className="absolute px-1 transition-all duration-200 -translate-y-1/2 bg-white text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
+                    className="absolute px-1 transition-all duration-200 -translate-y-1/2  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
                   >
                     Peso
                   </label>
@@ -289,7 +289,7 @@ export const ConfigUserTwo = ({
                   />
                   <label
                     htmlFor="estatura"
-                    className="absolute px-1 transition-all duration-200 -translate-y-1/2 bg-white text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
+                    className="absolute px-1 transition-all duration-200 -translate-y-1/2  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
                   >
                     Estatura
                   </label>
@@ -302,7 +302,7 @@ export const ConfigUserTwo = ({
                     id="sexo"
                     required
                     defaultValue=""
-                    className="w-full px-4 py-3 pr-10 bg-white border rounded-full outline-none appearance-none peer border-black/30 focus:border-orange-200"
+                    className="w-full px-4 py-3 pr-10 border rounded-full outline-none appearance-none peer border-black/30 focus:border-orange-200"
                   >
                     <option value="" disabled>
                       {' '}
@@ -313,7 +313,7 @@ export const ConfigUserTwo = ({
 
                   <label
                     htmlFor="sexo"
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white px-1
+                    className="absolute left-4 top-1/2 -translate-y-1/2  px-1
                text-black/40 transition-all duration-200
                peer-focus:-top-[1px] peer-focus:text-sm peer-focus:text-orange-300
                peer-valid:-top-[1px] peer-valid:text-sm"
@@ -342,7 +342,7 @@ export const ConfigUserTwo = ({
                   />
                   <label
                     htmlFor="edad"
-                    className="absolute px-1 transition-all duration-200 -translate-y-1/2 bg-white text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
+                    className="absolute px-1 transition-all duration-200 -translate-y-1/2  text-black/40 left-4 top-1/2 peer-focus:-top-[1px] peer-focus:text-sm peer-valid:-top-[1px] peer-valid:text-sm peer-focus:text-orange-300 "
                   >
                     Edad
                   </label>
@@ -350,8 +350,8 @@ export const ConfigUserTwo = ({
               </div>
             </div>
           ) : (
-            <div className="flex items-center justify-between">
-              <div className="w-3/4 space-y-3">
+            <div className="flex flex-col justify-between sm:items-center sm:flex-row">
+              <div className="w-full space-y-3 sm:w-3/4">
                 <div>
                   <p className="text-lg font-light text-neutral-400 ">
                     Objetivo
@@ -387,7 +387,7 @@ export const ConfigUserTwo = ({
                   </p>
                 </div>
               </div>
-              <div className="w-1/4 space-y-3">
+              <div className="w-full space-y-3 sm:w-1/4">
                 <div>
                   <p className="text-lg font-light text-neutral-400">Peso</p>
                   <p className="text-lg font-light ">
