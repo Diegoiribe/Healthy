@@ -575,7 +575,7 @@ export const DashboardTwo = () => {
                     meals.map((meal) => (
                       <div
                         key={meal.key}
-                        className="flex flex-col justify-between gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg min-w-[260px] rounded-2xl sm:w-auto border-neutral-100"
+                        className="flex flex-col justify-between gap-5 p-5 pb-3 pr-3 bg-white border shadow-lg min-w-[260px] rounded-2xl sm:min-w-1/5 sm:max-w-1/5 border-neutral-100"
                       >
                         <div>
                           <p className="inline font-semibold">{meal.label}</p>
