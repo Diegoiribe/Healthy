@@ -392,7 +392,11 @@ export const DashboardTwo = () => {
         />
       )}
       {isConfig && !isCreate && !isList && !isAjustar && (
-        <ConfigUserTwo setIsConfig={setIsConfig} />
+        <ConfigUserTwo
+          setIsConfig={setIsConfig}
+          userData={userData}
+          setUserData={setUserData}
+        />
       )}
       {isAjustar && !isCreate && !isList && !isConfig && (
         <Ajustar setIsAjustar={setIsAjustar} />
@@ -477,7 +481,7 @@ export const DashboardTwo = () => {
               <div className="flex items-center justify-between mt-25">
                 <div className="relative ">
                   {/* Texto grande visible */}
-                  <p className="pl-20 text-2xl font-semibold capitalize pointer-events-none w-44">
+                  <p className="w-48 pl-20 text-2xl font-semibold capitalize pointer-events-none">
                     {orderedDays.find((d) => d === selectedDay)}
                   </p>
 
