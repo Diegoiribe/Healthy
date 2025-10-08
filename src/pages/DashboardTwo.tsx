@@ -417,9 +417,9 @@ export const DashboardTwo = () => {
             </button>
           </div>
           <div className="w-full max-w-6xl mt-10">
-            <div className="flex items-center justify-between px-20 transition-opacity duration-300 opacity-100 mb-15">
+            <div className="flex flex-col items-center justify-between px-20 transition-opacity duration-300 opacity-100 sm:flex-row mb-15">
               {!userReady ? (
-                <div className="flex items-center justify-between w-full">
+                <div className="flex flex-row items-center justify-between w-full sm:flex-row">
                   <Skeleton className="h-14 w-72" />
                   <div className="flex items-center gap-4 pr-2">
                     <Skeleton className="w-12 h-12 rounded-full" />
@@ -444,15 +444,15 @@ export const DashboardTwo = () => {
                     </span>{' '}
                     {userData?.firstName ?? 'Usuario'}
                   </p>
-                  <div className="flex items-center justify-center gap-4 pr-2">
+                  <div className="flex w-full gap-4 pr-2 mt-5 sm:items-center sm:justify-center sm:w-auto">
                     <p
-                      className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-400 rounded-full cursor-pointer hover:bg-black/5"
+                      className="flex items-center justify-center w-12 h-12 p-2 text-4xl font-semibold text-blue-400 rounded-full cursor-pointer bg-black/5 sm:bg-white hover:bg-black/5"
                       onClick={() => exportPDF(weekMeals)}
                     >
                       ↓
                     </p>
                     <p
-                      className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer hover:bg-black/5"
+                      className="flex items-center justify-center w-12 h-12 p-2 text-3xl rounded-full cursor-pointer hover:bg-black/5 bg-black/5 sm:bg-white"
                       onClick={() => {
                         setIsList(false);
                         setIsCreate(false);
@@ -463,7 +463,7 @@ export const DashboardTwo = () => {
                       ⚙️
                     </p>
                     <p
-                      className="flex items-center justify-center w-12 h-12 text-2xl rounded-full cursor-pointer hover:bg-black/5"
+                      className="flex items-center justify-center w-12 h-12 text-2xl rounded-full cursor-pointer hover:bg-black/5 bg-black/5 sm:bg-white"
                       onClick={() => {
                         setIsList(true);
                         setIsCreate(false);
@@ -479,9 +479,9 @@ export const DashboardTwo = () => {
             </div>
             <div>
               <div className="flex items-center justify-between mt-25">
-                <div className="relative ">
+                <div className="relative w-full mx-20 sm:w-auto sm:mx-0">
                   {/* Texto grande visible */}
-                  <p className="w-48 pl-20 text-2xl font-semibold capitalize pointer-events-none">
+                  <p className="w-full pb-2 text-2xl font-semibold capitalize border-b pointer-events-none border-neutral-300 sm:pb-0 sm:pl-20 sm:border-0 sm:w-52">
                     {orderedDays.find((d) => d === selectedDay)}
                   </p>
 
@@ -518,7 +518,7 @@ export const DashboardTwo = () => {
                   </svg>
                 </div>
               </div>
-              <div className="flex justify-between px-20 mt-3">
+              <div className="flex gap-1 px-20 mt-3 sm:gap-0 sm:justify-between">
                 <div className=" px-3 py-[5px] h-8 text-sm  text-neutral-400 transition-all duration-300 bg-neutral-100   rounded-xl font-medium flex items-center gap-2">
                   <div className="w-[6px]  h-[6px] bg-neutral-400 rounded-full"></div>
                   <p>{matchText(userData?.dietType ?? '')}</p>

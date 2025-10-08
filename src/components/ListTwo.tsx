@@ -30,8 +30,8 @@ export const ListTwo = ({ setIsList }: ListTwoProps) => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full min-h-screen px-20 py-20 shadow-lg bg-black/5 backdrop-blur-3xl">
-      <div className="flex flex-col justify-between h-[79.5dvh] p-8 bg-white rounded-4xl max-w-6xl w-full">
+    <div className="flex items-center justify-center w-full min-h-screen px-10 py-10 shadow-lg sm:px-20 sm:py-20 bg-black/5 backdrop-blur-3xl">
+      <div className="flex flex-col justify-between h-[89.5dvh] p-8 bg-white rounded-4xl max-w-6xl w-full">
         <div className="flex items-center justify-between w-full bg-white ">
           <div className="flex items-center gap-2 cursor-pointer">
             <p className="text-2xl font-semibold ">Lista de compras</p>
@@ -44,7 +44,7 @@ export const ListTwo = ({ setIsList }: ListTwoProps) => {
             <X color="#ffffff" size={18} strokeWidth={3} />
           </button>
         </div>
-        <div className="flex flex-col justify-between bg-white  h-[60dvh]">
+        <div className="flex flex-col justify-between bg-white  min-h-[67dvh] sm:min-h-[60dvh]">
           <div>
             <div className="flex items-center justify-between mb-10">
               <div className="relative ">

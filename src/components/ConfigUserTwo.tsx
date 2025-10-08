@@ -92,8 +92,8 @@ export const ConfigUserTwo = ({
   };
 
   return (
-    <div className="flex items-center justify-center w-full min-h-screen px-20 py-20 shadow-lg bg-black/5 backdrop-blur-3xl">
-      <div className="flex flex-col justify-between h-[79.5dvh] p-8 bg-white rounded-4xl w-full max-w-6xl">
+    <div className="flex items-center justify-center w-full min-h-screen px-10 py-10 shadow-lg sm:px-20 sm:py-20 bg-black/5 backdrop-blur-3xl">
+      <div className="flex flex-col justify-between h-[89.5dvh] sm:h-[79.5dvh] p-8 bg-white rounded-4xl w-full max-w-6xl">
         <div className="flex items-center justify-between w-full bg-white ">
           <div className="flex items-center gap-2 cursor-pointer">
             <p className="text-2xl font-semibold ">Configuracion</p>
@@ -106,7 +106,7 @@ export const ConfigUserTwo = ({
             <X color="#ffffff" size={18} strokeWidth={3} />
           </button>
         </div>
-        <div className="flex flex-col gap-5 bg-white  h-[60dvh]">
+        <div className="flex flex-col gap-5 bg-white min-h-[67dvh] sm:min-h-[60dvh]">
           <div>
             <div className="">
               <p className="mb-5 text-6xl">Diego Iribe Carrazco</p>
@@ -145,9 +145,9 @@ export const ConfigUserTwo = ({
             </p>
           </div>
           {isEdit ? (
-            <div className="flex items-center justify-between">
-              <div className="w-3/4 space-y-3">
-                <div className="relative mb-5 w-82">
+            <div className="flex items-center justify-between gap-5 sm:gap-0">
+              <div className="w-2/4 space-y-3 sm:w-3/4">
+                <div className="relative mb-5 sm:w-82">
                   <select
                     name="objetivo"
                     value={formData.objetivo}
@@ -184,7 +184,7 @@ export const ConfigUserTwo = ({
                     <path d="M5.5 7.5l4.5 5 4.5-5" />
                   </svg>
                 </div>
-                <div className="relative mb-5 w-82">
+                <div className="relative mb-5 sm:w-82">
                   <select
                     name="nivelActividad"
                     value={formData.nivelActividad}
@@ -224,7 +224,7 @@ export const ConfigUserTwo = ({
                   </svg>
                 </div>
 
-                <div className="relative mb-5 w-82">
+                <div className="relative mb-5 sm:w-82">
                   <input
                     value={formData.alimentosNoDeseados}
                     onChange={handleChange}
@@ -241,7 +241,7 @@ export const ConfigUserTwo = ({
                     Alimentos no deseados
                   </label>
                 </div>
-                <div className="relative mb-5 w-82">
+                <div className="relative mb-5 sm:w-82">
                   <input
                     value={formData.alimentosDeseados}
                     onChange={handleChange}
@@ -259,8 +259,8 @@ export const ConfigUserTwo = ({
                   </label>
                 </div>
               </div>
-              <div className="w-1/3 space-y-3">
-                <div className="relative mb-5 w-82">
+              <div className="w-2/4 space-y-3 sm:w-1/3">
+                <div className="relative mb-5 sm:w-82">
                   <input
                     value={formData.peso}
                     onChange={handleChange}
@@ -277,7 +277,7 @@ export const ConfigUserTwo = ({
                     Peso
                   </label>
                 </div>
-                <div className="relative mb-5 w-82">
+                <div className="relative mb-5 sm:w-82">
                   <input
                     value={formData.estatura}
                     onChange={handleChange}
@@ -294,7 +294,7 @@ export const ConfigUserTwo = ({
                     Estatura
                   </label>
                 </div>
-                <div className="relative mb-5 w-82">
+                <div className="relative mb-5 sm:w-82">
                   <select
                     name="sexo"
                     value={formData.sexo}
@@ -330,7 +330,7 @@ export const ConfigUserTwo = ({
                     <path d="M5.5 7.5l4.5 5 4.5-5" />
                   </svg>
                 </div>
-                <div className="relative mb-5 w-82">
+                <div className="relative mb-5 sm:w-82">
                   <input
                     value={formData.edad}
                     onChange={handleChange}
