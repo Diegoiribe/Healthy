@@ -570,7 +570,7 @@ export const DashboardTwo = () => {
                   </div>
                 </div>
               ) : (
-                <div className="flex gap-3 pt-10 sm:p-20">
+                <div className="flex w-full gap-3 pt-10 sm:p-20 sm:w-auto">
                   {entry ? (
                     meals.map((meal) => (
                       <div
