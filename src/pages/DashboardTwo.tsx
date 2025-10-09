@@ -421,7 +421,7 @@ export const DashboardTwo = () => {
               {!userReady ? (
                 <div className="flex flex-col items-center justify-between w-full sm:flex-row">
                   <Skeleton className="h-14 w-72" />
-                  <div className="flex items-center gap-4 pr-2">
+                  <div className="flex items-center gap-4 pr-2 mt-10 sm:mt-0">
                     <Skeleton className="w-12 h-12 rounded-full" />
                     <Skeleton className="w-12 h-12 rounded-full" />
                     <Skeleton className="w-12 h-12 rounded-full" />
@@ -562,11 +562,11 @@ export const DashboardTwo = () => {
               {!userReady ? (
                 <div className="flex items-center justify-between w-full">
                   <div className="flex w-full gap-3 p-20 pt-10">
-                    <Skeleton className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
-                    <Skeleton className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
-                    <Skeleton className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
-                    <Skeleton className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
-                    <Skeleton className="flex flex-col justify-between w-full gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
+                    <Skeleton className="flex flex-col justify-between sm:w-1/5 w-[260px] gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
+                    <Skeleton className="flex flex-col justify-between sm:w-1/5 w-[260px] gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
+                    <Skeleton className="flex flex-col justify-between sm:w-1/5 w-[260px] gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
+                    <Skeleton className="flex flex-col justify-between sm:w-1/5 w-[260px] gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
+                    <Skeleton className="flex flex-col justify-between sm:w-1/5 w-[260px] gap-5 p-5 pb-3 pr-3 h-50 rounded-2xl " />
                   </div>
                 </div>
               ) : (
